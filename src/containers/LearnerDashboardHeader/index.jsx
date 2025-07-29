@@ -30,6 +30,7 @@ export const LearnerDashboardHeader = () => {
     <>
       <ConfirmEmailBanner />
       <Header
+        className="learner-variant-header"
         mainMenuItems={learnerHomeHeaderMenu.mainMenu}
         secondaryMenuItems={learnerHomeHeaderMenu.secondaryMenu}
         userMenuItems={learnerHomeHeaderMenu.userMenu}
