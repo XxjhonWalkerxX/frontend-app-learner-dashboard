@@ -11,7 +11,7 @@ import { baseAppUrl } from 'data/services/lms/urls';
 import { findCoursesWidgetClicked } from './track';
 import messages from './messages';
 import './index.scss';
-
+/*
 export const arrowIcon = (<Icon className="mx-1" src={ArrowForward} />);
 
 export const LookingForChallengeWidget = () => {
@@ -47,3 +47,4 @@ export const LookingForChallengeWidget = () => {
 LookingForChallengeWidget.propTypes = {};
 
 export default LookingForChallengeWidget;
+*/
