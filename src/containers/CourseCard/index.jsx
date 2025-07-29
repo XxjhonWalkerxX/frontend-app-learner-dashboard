@@ -16,26 +16,24 @@ import './CourseCard.scss';
 export const CourseCard = ({
   cardId,
 }) => {
-  const orientation = 'vertical';
+  // Forzar orientación vertical tipo tarjeta: imagen arriba, contenido abajo
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
-      <Card orientation={orientation}>
+      <Card orientation="vertical">
         <div className="d-flex flex-column w-100">
-          <div>
-            <CourseCardImage cardId={cardId} orientation="vertical" />
-            <Card.Body>
-              <Card.Header
-                title={<CourseCardTitle cardId={cardId} />}
-                actions={<CourseCardMenu cardId={cardId} />}
-              />
-              <Card.Section className="pt-0">
-                <CourseCardDetails cardId={cardId} />
-              </Card.Section>
-              <Card.Footer orientation={orientation}>
-                <CourseCardActions cardId={cardId} />
-              </Card.Footer>
-            </Card.Body>
-          </div>
+          <CourseCardImage cardId={cardId} orientation="vertical" />
+          <Card.Body>
+            <Card.Header
+              title={<CourseCardTitle cardId={cardId} />}
+              actions={<CourseCardMenu cardId={cardId} />}
+            />
+            <Card.Section className="pt-0">
+              <CourseCardDetails cardId={cardId} />
+            </Card.Section>
+            <Card.Footer orientation="vertical">
+              <CourseCardActions cardId={cardId} />
+            </Card.Footer>
+          </Card.Body>
           <CourseCardBanners cardId={cardId} />
         </div>
       </Card>
