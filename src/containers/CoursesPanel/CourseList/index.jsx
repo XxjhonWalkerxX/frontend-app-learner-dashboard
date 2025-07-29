@@ -21,7 +21,7 @@ export const CourseList = ({ courseListData }) => {
           <ActiveCourseFilters {...filterOptions} />
         </div>
       )}
-      <div className="d-flex flex-column flex-grow-1">
+      <div className="d-flex flex-row flex-nowrap overflow-auto" style={{gap: "1rem"}}>
         {visibleList.map(({ cardId }) => (
           <CourseCard key={cardId} cardId={cardId} />
         ))}
