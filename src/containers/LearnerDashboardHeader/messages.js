@@ -58,7 +58,7 @@ const messages = defineMessages({
   },
   discoverNew: {
     id: 'learnerVariantDashboard.discoverNew',
-    defaultMessage: 'Hola',
+    defaultMessage: 'Discover New',
     description: 'Header link for switching to discover page.',
   },
   logoAltText: {
