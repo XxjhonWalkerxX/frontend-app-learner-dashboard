@@ -32,23 +32,20 @@
   }
 }
 
-
-.logo {
-  height: 60px !important;
+.logo,
+.logo img {
+  height: 80px !important;
   width: auto !important;
-  max-width: 120px;
+  max-width: 180px !important;
 }
-
-
 .site-header-desktop {
   background-color: #5a122c !important;
-  min-height: 72px !important;
+  min-height: 60px !important;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
 }
-
 
 .nav-link,
 .nav-link:visited,
@@ -56,7 +53,6 @@
 .nav-link.active {
   color: #fff !important;
 }
-
 
 .site-header-mobile {
   background-color: #5a122c !important;
@@ -66,13 +62,4 @@
   padding-bottom: 0.5rem;
   display: flex;
   align-items: center;
-}
-
-@media (max-width: 768px) {
-  .site-header-desktop {
-    display: none !important;
-  }
-  .site-header-mobile {
-    display: flex !important;
-  }
 }
