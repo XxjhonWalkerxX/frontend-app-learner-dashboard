@@ -1,5 +1,5 @@
 .dropdown-menu-collapse {
-  width: 50vw;
+  width: 100vw;
   position: absolute;
   left: 0;
 }
@@ -35,4 +35,8 @@
 .logo {
   // copy from legacy dashboard
   height: 40px;
+}
+
+.container-fluid.null {
+  background-color: #5a122c !important;
 }
