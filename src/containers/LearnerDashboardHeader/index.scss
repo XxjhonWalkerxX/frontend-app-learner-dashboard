@@ -23,7 +23,7 @@
     justify-content: flex-start !important;
 
     border-radius: 0 !important;
-    border-top: 1px solid #ce1d1d !important;
+    border-top: 1px solid #ffff !important;
 
     &::after {
       content: '\00BB';
@@ -41,7 +41,11 @@
   background-color: #5a122c !important;
 }
 
-.nav-main-nav{
+
+.nav-link,
+.nav-link:visited,
+.nav-link:active,
+.nav-link.active {
   color: #fff !important;
 }
 
