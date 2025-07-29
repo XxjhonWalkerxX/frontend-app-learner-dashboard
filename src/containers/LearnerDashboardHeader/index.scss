@@ -34,13 +34,12 @@
 
 .logo,
 .logo img {
-  height: 80px !important;
+  height: 50px !important;
   width: auto !important;
-  max-width: 180px !important;
 }
 .site-header-desktop {
   background-color: #5a122c !important;
-  min-height: 60px !important;
+  height: 90px !important;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: flex;
@@ -57,9 +56,17 @@
 .site-header-mobile {
   background-color: #5a122c !important;
   color: #fff !important;
-  min-height: 64px !important;
+  min-height: 40px !important;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburger-menu {
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   align-items: center;
 }
