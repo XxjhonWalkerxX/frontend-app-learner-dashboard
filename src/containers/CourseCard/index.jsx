@@ -16,14 +16,13 @@ import './CourseCard.scss';
 export const CourseCard = ({
   cardId,
 }) => {
-  const isCollapsed = useIsCollapsed();
-  const orientation = isCollapsed ? 'vertical' : 'horizontal';
+  const orientation = 'vertical';
   return (
     <div className="mb-4.5 course-card" id={cardId} data-testid="CourseCard">
       <Card orientation={orientation}>
         <div className="d-flex flex-column w-100">
-          <div {...(!isCollapsed && { className: 'd-flex' })}>
-            <CourseCardImage cardId={cardId} orientation="horizontal" />
+          <div>
+            <CourseCardImage cardId={cardId} orientation="vertical" />
             <Card.Body>
               <Card.Header
                 title={<CourseCardTitle cardId={cardId} />}
