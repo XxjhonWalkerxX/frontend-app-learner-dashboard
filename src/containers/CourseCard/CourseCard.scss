@@ -2,8 +2,8 @@
 
 .course-card {
   /* Control de ancho responsive */
-  width: 100%;
-  max-width: 360px;
+  width: 360px;
+  flex-shrink: 0;
   margin: 0 auto 2rem;
 
   .card {
