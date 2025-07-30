@@ -1,12 +1,42 @@
 <!doctype html>
-<html lang="en-us" dir="ltr">
+<html lang="es">
   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Mi página</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
-    <link href="https://framework-gb.cdn.gob.mx/assets/styles/main.css" rel="stylesheet">
+    <div id="root"><!-- tu app aquí --></div>
+
+    <!-- aquí va nuestro componente aislado: -->
+    <gob-footer></gob-footer>
+
+    <script>
+      class GobFooter extends HTMLElement {
+        constructor() {
+          super();
+          // 1) creamos shadow root
+          this._shadow = this.attachShadow({ mode: 'open' });
+        }
+        connectedCallback() {
+          // 2) inyectamos el CSS de gob.mx SOLO dentro del shadow
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://framework-gb.cdn.gob.mx/assets/styles/main.css';
+          this._shadow.appendChild(link);
+
+          // 3) creamos el contenedor donde gobmx.js pintará el footer
+          const cont = document.createElement('div');
+          cont.className = 'footer'; 
+          this._shadow.appendChild(cont);
+
+          // 4) cargamos el script de gob.mx dentro del shadow
+          const s = document.createElement('script');
+          s.src = 'https://framework-gb.cdn.gob.mx/gobmx.js';
+          this._shadow.appendChild(s);
+        }
+      }
+      customElements.define('gob-footer', GobFooter);
+    </script>
   </body>
 </html>
