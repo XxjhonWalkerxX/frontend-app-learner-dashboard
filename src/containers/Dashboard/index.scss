@@ -1,5 +1,6 @@
 @import "@openedx/paragon/scss/core/core";
 
+// Ajustes generales
 .course-list-column {
   padding: 0 map-get($spacers, 4);
 }
@@ -10,20 +11,18 @@
 
 @include media-breakpoint-down(lg) {
   .sidebar-column {
-    // grid are inheriting dir="ltr" from the body, so we need to override it
-    [dir=ltr] & {
-      padding: 0 map-get($spacers, 3);
-    }
-    [dir=rtl] & {
-      padding: 0 map-get($spacers, 3);
-    }
+    [dir=ltr] & { padding: 0 map-get($spacers, 3); }
+    [dir=rtl] & { padding: 0 map-get($spacers, 3); }
   }
 }
 
+// Banner con blur sólo en pseudo-elemento
 .dashboard-banner-bg {
   position: relative;
   width: 100%;
-  height: 450px;
+  aspect-ratio: 16/5;      // mantiene proporción
+  min-height: 200px;
+  max-height: 450px;
   overflow: hidden;
   display: flex;
   align-items: flex-start;
@@ -31,12 +30,12 @@
   &::before {
     content: "";
     position: absolute;
-    inset: 0;                // top:0; left:0; right:0; bottom:0;
+    inset: 0;
     background-image: var(--banner-bg-url);
     background-size: cover;
     background-position: center;
     filter: blur(1.5rem);
-    transform: scale(1.05);  // para evitar bordes feos al desenfocar
+    transform: scale(1.05);
     z-index: 1;
   }
 
@@ -50,23 +49,22 @@
   }
 }
 
+// Avatar y caja de usuario
 .user-avatar {
   display: block;
   width: 48px;
   height: 48px;
   margin-bottom: 0.5rem;
-  border-radius: 50%;        
-  object-fit: cover;         
+  border-radius: 50%;
+  object-fit: cover;
   background-color: #f0f0f0;
 }
 
-
-
 .user-info-content {
-  background: rgba(255,255,255,0.85);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 1rem;
   padding: 1rem 2rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   min-width: 220px;
 }
 
@@ -81,8 +79,70 @@
   color: #555;
 }
 
+// Logo del dashboard
+.dashboard-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 200px;        
+  width: 30%;              
+  z-index: 2;              
+  pointer-events: none;
+}
+
+// Contenedor principal
 .dashboard-content-container {
   margin-top: 0;
   position: relative;
   z-index: 1;
+}
+
+// Puntos de quiebre para tablets y móviles
+@include media-breakpoint-down(md) {
+  .dashboard-banner-bg {
+    aspect-ratio: auto;
+    height: 300px;
+  }
+  .user-info-banner {
+    padding: 1rem;
+    justify-content: center;
+  }
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.25rem;
+  }
+  .user-info-content {
+    padding: 0.75rem 1rem;
+    min-width: auto;
+    width: 70%;
+  }
+  .user-name {
+    font-size: 1rem;
+  }
+  .user-email {
+    font-size: 0.875rem;
+  }
+  .dashboard-logo {
+    width: 40%;            // más grande proporcionalmente en pantallas medianas
+    max-width: 150px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .dashboard-banner-bg {
+    height: 250px;
+  }
+  .user-info-content {
+    width: 90%;
+    padding: 0.5rem 0.75rem;
+  }
+  .course-list-column {
+    padding: 0 map-get($spacers, 2);
+  }
+  .dashboard-logo {
+    width: 50%;
+    max-width: 120px;
+  }
 }

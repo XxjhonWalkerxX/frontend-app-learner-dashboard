@@ -9,6 +9,9 @@ import { AppContext } from '@edx/frontend-platform/react';
 
 export const columnConfig = {
   courseList: {
+    xs: { span: 12, offset: 0 },
+    sm: { span: 12, offset: 0 },
+    md: { span: 12, offset: 0 },
     lg: { span: 12, offset: 0 },
     xl: { span: 12, offset: 0 },
   },
@@ -22,6 +25,11 @@ export const DashboardLayout = ({ children }) => {
         className="dashboard-banner-bg"
         style={{ "--banner-bg-url": `url(${bannerClassroom})` }}
       >
+      <img
+        src={EMIlogo}
+        alt="EMI Logo"
+        className="dashboard-logo"
+      />
         {authenticatedUser && (
           <div className="user-info-banner">
             <div className="user-info-content">
