@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Col } from '@openedx/paragon';
 import { AppContext } from '@edx/frontend-platform/react';
@@ -20,6 +20,14 @@ export const columnConfig = {
 
 export const DashboardLayout = ({ children }) => {
   const { authenticatedUser } = useContext(AppContext) || {};
+  const [activeTab, setActiveTab] = useState('my-courses');
+
+  const tabs = [
+    { id: 'my-courses', label: 'My Courses' },
+    { id: 'downloads', label: 'Downloads' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'certificates', label: 'Certificates' },
+  ];
 
   return (
     <div>
@@ -49,9 +57,31 @@ export const DashboardLayout = ({ children }) => {
       </div>
 
       <Container fluid size="xl" className="dashboard-content-container">
-        <Col {...columnConfig.courseList} className="course-list-column">
-          {children}
-        </Col>
+        {/* TABS DE NAVEGACIÓN */}
+        <nav className="dashboard-tabs">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              className={`dashboard-tab ${
+                activeTab === tab.id ? 'active' : ''
+              }`}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* CONTENIDO SEGÚN TAB ACTIVA */}
+        {activeTab === 'my-courses' ? (
+          <Col {...columnConfig.courseList} className="course-list-column">
+            {children}
+          </Col>
+        ) : (
+          <div className="dashboard-placeholder">
+            <p>Esta sección («{tabs.find(t => t.id === activeTab).label}») estará disponible pronto.</p>
+          </div>
+        )}
       </Container>
     </div>
   );

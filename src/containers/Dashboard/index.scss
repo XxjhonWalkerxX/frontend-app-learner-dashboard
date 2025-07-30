@@ -129,6 +129,50 @@
 .course-list-column {
   padding: 0 map-get($spacers, 4);
 }
+// -----------------------------------
+// NAV DE TABS
+// -----------------------------------
+.dashboard-tabs {
+  display: flex;
+  gap: map-get($spacers, 4);
+  margin: 2rem 0 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dashboard-tab {
+  background: transparent;
+  border: 2px solid #B17A2A;  // dorado EMI
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #B17A2A;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover {
+    background: rgba(177, 122, 42, 0.1);
+  }
+
+  &.active {
+    background: #B17A2A;
+    color: #fff;
+  }
+}
+
+// -----------------------------------
+// PLACEHOLDER
+// -----------------------------------
+.dashboard-placeholder {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+}
+
 
 // -----------------------------------
 // Responsive tweaks
