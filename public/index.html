@@ -1,42 +1,25 @@
 <!doctype html>
-<html lang="es">
+<html lang="en-us" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Mi página</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <div id="root"><!-- tu app aquí --></div>
-
-    <!-- aquí va nuestro componente aislado: -->
-    <gob-footer></gob-footer>
-
-    <script>
-      class GobFooter extends HTMLElement {
-        constructor() {
-          super();
-          // 1) creamos shadow root
-          this._shadow = this.attachShadow({ mode: 'open' });
-        }
-        connectedCallback() {
-          // 2) inyectamos el CSS de gob.mx SOLO dentro del shadow
-          const link = document.createElement('link');
-          link.rel = 'stylesheet';
-          link.href = 'https://framework-gb.cdn.gob.mx/assets/styles/main.css';
-          this._shadow.appendChild(link);
-
-          // 3) creamos el contenedor donde gobmx.js pintará el footer
-          const cont = document.createElement('div');
-          cont.className = 'footer'; 
-          this._shadow.appendChild(cont);
-
-          // 4) cargamos el script de gob.mx dentro del shadow
-          const s = document.createElement('script');
-          s.src = 'https://framework-gb.cdn.gob.mx/gobmx.js';
-          this._shadow.appendChild(s);
-        }
-      }
-      customElements.define('gob-footer', GobFooter);
-    </script>
+    <iframe
+      srcdoc='
+        <!DOCTYPE html>
+        <html lang="es">
+          <head>
+            <link href="https://framework-gb.cdn.gob.mx/assets/styles/main.css" rel="stylesheet">
+          </head>
+          <body>
+            <div id="gobmx-content"></div>
+            <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+          </body>
+        </html>
+      '
+      style="width:100%;height:500px;border:none;"
+    ></iframe>
+    <div id="root"></div>
   </body>
 </html>
