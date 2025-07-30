@@ -1,100 +1,107 @@
 @import "@openedx/paragon/scss/core/core";
 
 .course-card {
-  /* Manejamos aquí ancho responsive */
+  /* Control de ancho responsive */
   width: 100%;
   max-width: 360px;
   margin: 0 auto 2rem;
 
   .card {
-    /* Hacemos que la tarjeta estire para igualar alturas si el padre es flex/ grid */
+    /* Hacemos que la tarjeta ocupe todo el alto disponible */
     display: flex;
     flex-direction: column;
     height: 100%;
     background: #f9f7f4;
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
     border: 1px solid #e0e0e0;
     overflow: hidden;
-  }
 
-  /* 1) Imagen siempre 180px */
-  .pgn__card-wrapper-image-cap.vertical {
-    flex: 0 0 auto;
-    height: 180px;
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  /* 2–3–4) Body como grid de 3 filas */
-  .pgn__card-body {
-    display: grid;
-    grid-template-rows: 
-      auto     /* header, altura mínima según contenido + min-height */
-      1fr      /* sección, crece para rellenar */
-      auto;    /* footer */
-    padding: 1.5rem 1.2rem;
-    flex: 1 1 auto;
-    min-height: 0; /* importante para que 1fr funcione dentro de flex */
-  }
-
-  /* Header: fuerza altura mínima para que todos queden igual */
-  .pgn__card-header-content {
-    margin-bottom: 0.5rem;
-  }
-  .pgn__card-header-title-md {
-    min-height: 3rem;
-    display: flex;
-    align-items: flex-end;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Sección de detalles: que pueda hacer overflow interno si es muy largo */
-  .pgn__card-section {
-    overflow: hidden;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Footer siempre abajo */
-  .pgn__card-footer {
-    margin-top: auto;
-    flex-wrap: nowrap;
-    &.vertical {
+    /* Contenedor principal: imagen, body y banners */
+    > .d-flex {
+      display: flex;
       flex-direction: column;
-      align-items: flex-start;
-    }
-    .pgn__action-row {
-      margin-top: 1rem;
-      white-space: nowrap;
-    }
-  }
+      flex: 1 1 auto;      /* ocupa todo el espacio interior */
+      min-height: 0;       /* para que el body pueda encogerse */
 
-  /* Banners al final */
-  .course-card-banners {
-    margin-top: 0.5rem;
-    > .alert {
-      border-radius: 0 0 12px 12px;
-      background: #f3f1ed;
-      padding: 0.75rem 1.2rem;
-      box-shadow: none;
-    }
-  }
+      /* 1) Imagen con altura fija */
+      .pgn__card-wrapper-image-cap.vertical {
+        flex: 0 0 180px;
+        height: 180px;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
 
-  /* Ribbons, badges, etc */
-  .course-card-verify-ribbon-container {
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    text-align: center;
-    > img {
-      width: 40px;
-      position: absolute;
-      top: 0;
-      right: 0;
+      /* 2) Body: flex columna para empujar el footer */
+      .pgn__card-body {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        padding: 1.5rem 1.2rem;
+
+        /* Header */
+        .pgn__card-header-content {
+          margin-bottom: 0.5rem;
+        }
+        .pgn__card-header-title-md {
+          min-height: 3rem;
+          display: flex;
+          align-items: flex-end;
+          margin-bottom: 0.5rem;
+        }
+
+        /* Sección de detalles: ocupa todo el espacio medio */
+        .pgn__card-section {
+          flex: 1 1 auto;
+          overflow: hidden;
+          margin-bottom: 0.5rem;
+        }
+
+        /* Footer (botones): siempre justo encima de los banners */
+        .pgn__card-footer.vertical {
+          flex: 0 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          .pgn__action-row {
+            margin-top: 1rem;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      /* 3) Banners (grade required) pegados al final */
+      .course-card-banners {
+        flex: 0 0 auto;
+        margin-top: auto;   /* aquí está el truco: empuja todo hacia arriba */
+        > .alert {
+          border-radius: 0 0 12px 12px;
+          background: #f3f1ed;
+          padding: 0.75rem 1.2rem;
+          box-shadow: none;
+        }
+      }
+
+      /* Ribbons absolutos, si los tienes */
+      .course-card-verify-ribbon-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+
+        > img {
+          width: 40px;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
     }
   }
 }
