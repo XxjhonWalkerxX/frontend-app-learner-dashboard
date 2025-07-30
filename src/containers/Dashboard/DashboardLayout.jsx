@@ -19,9 +19,7 @@ export const DashboardLayout = ({ children }) => {
     <div>
       <div
         className="dashboard-banner-bg"
-        style={{
-          '--dashboard-banner-image': `url(${bannerClassroom})`
-        }}
+        style={{ "--banner-bg-url": `url(${bannerClassroom})` }}
       >
         {authenticatedUser && (
           <div className="user-info-banner">
