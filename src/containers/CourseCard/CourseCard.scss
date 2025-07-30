@@ -34,8 +34,29 @@
       flex: 1 1 auto;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      justify-content: space-between;
       height: 100%;
+      min-height: 0;
+    }
+    .pgn__card-header-content {
+      margin-bottom: 0.5rem;
+    }
+    .pgn__card-header-title-md {
+      margin-bottom: 0.5rem;
+      min-height: 48px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .pgn__card-section {
+      margin-bottom: 0.5rem;
+      min-height: 32px;
+    }
+    .pgn__card-footer {
+      margin-top: auto;
+    }
+    .course-card-banners {
+      margin-top: 0.5rem;
+    }
     }
     .pgn__card-header-content {
       margin-top: 0.5rem;
@@ -88,4 +109,4 @@
       }
     }
   }
-}
+
