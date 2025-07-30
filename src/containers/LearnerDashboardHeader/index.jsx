@@ -33,8 +33,6 @@ export const LearnerDashboardHeader = () => {
         secondaryMenuItems={learnerHomeHeaderMenu.secondaryMenu}
         userMenuItems={learnerHomeHeaderMenu.userMenu}
       />
-      <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
-      <link href="https://framework-gb.cdn.gob.mx/assets/styles/main.css" rel="stylesheet"></link>
     </>
   );
 };
