@@ -24,11 +24,10 @@
   position: relative;
   width: 100%;
   height: 450px;
-  overflow: hidden;        // para recortar el ::before si se escala
+  overflow: hidden;
   display: flex;
   align-items: flex-start;
 
-  // El desenfoque solo en el ::before
   &::before {
     content: "";
     position: absolute;
@@ -41,7 +40,6 @@
     z-index: 1;
   }
 
-  // Tu contenido por encima, sin blur
   .user-info-banner {
     position: relative;
     z-index: 2;
@@ -51,6 +49,17 @@
     padding: 2rem 0 0 2rem;
   }
 }
+
+.user-avatar {
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.5rem;
+  border-radius: 50%;        
+  object-fit: cover;         
+  background-color: #f0f0f0;
+}
+
 
 
 .user-info-content {

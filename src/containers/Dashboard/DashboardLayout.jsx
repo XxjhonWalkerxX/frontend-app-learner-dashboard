@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Container, Col } from '@openedx/paragon';
 import bannerClassroom from 'assets/banner_classroom.jpg';
+import avatarIcon from 'assets/avatar.svg';
 import './index.scss';
 
 import { AppContext } from '@edx/frontend-platform/react';
@@ -24,6 +25,7 @@ export const DashboardLayout = ({ children }) => {
         {authenticatedUser && (
           <div className="user-info-banner">
             <div className="user-info-content">
+              <img src={avatarIcon} alt="Avatar" className="user-avatar" />
               <div className="user-name">{authenticatedUser.full_name || authenticatedUser.username}</div>
               <div className="user-email">{authenticatedUser.email}</div>
             </div>
