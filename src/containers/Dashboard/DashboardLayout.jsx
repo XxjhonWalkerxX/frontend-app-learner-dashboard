@@ -7,37 +7,20 @@ import WidgetSidebarSlot from 'plugin-slots/WidgetSidebarSlot';
 
 import hooks from './hooks';
 
+// Siempre ocupar 12 columnas
 export const columnConfig = {
   courseList: {
-    withSidebar: {
-      lg: { span: 12, offset: 0 },
-      xl: { span: 8, offset: 0 },
-    },
-    noSidebar: {
-      lg: { span: 12, offset: 0 },
-      xl: { span: 12, offset: 0 },
-    },
-  },
-  sidebar: {
     lg: { span: 12, offset: 0 },
-    xl: { span: 4, offset: 0 },
+    xl: { span: 12, offset: 0 },
   },
 };
 
 export const DashboardLayout = ({ children }) => {
-  const {
-    isCollapsed,
-    sidebarShowing,
-  } = hooks.useDashboardLayoutData();
-
-  const courseListColumnProps = sidebarShowing
-    ? columnConfig.courseList.withSidebar
-    : columnConfig.courseList.noSidebar;
-
+  // Ya no se necesita lógica de sidebar
   return (
     <Container fluid size="xl">
       <Row>
-        <Col {...courseListColumnProps} className="course-list-column">
+        <Col {...columnConfig.courseList} className="course-list-column">
           {children}
         </Col>
       </Row>
