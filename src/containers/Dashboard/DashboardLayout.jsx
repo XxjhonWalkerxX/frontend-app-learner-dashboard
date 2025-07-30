@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container, Col } from '@openedx/paragon';
+import bannerClassroom from 'assets/banner_classroom.jpg';
 
-import { Container, Col, Row } from '@openedx/paragon';
-
-import WidgetSidebarSlot from 'plugin-slots/WidgetSidebarSlot';
-
-import hooks from './hooks';
-
-// Siempre ocupar 12 columnas
 export const columnConfig = {
   courseList: {
     lg: { span: 12, offset: 0 },
@@ -16,15 +11,27 @@ export const columnConfig = {
 };
 
 export const DashboardLayout = ({ children }) => {
-  // Ya no se necesita lógica de sidebar
   return (
-    <Container fluid size="xl">
+    <div>
+      <div
+        style={{
+          width: '100%',
+          height: '220px', 
+          backgroundImage: `url(${bannerClassroom})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(4px)', 
+        }}
+      />
+      <Container fluid size="xl" style={{ marginTop: '-120px', position: 'relative', zIndex: 1 }}>
         <Col {...columnConfig.courseList} className="course-list-column">
           {children}
         </Col>
-    </Container>
+      </Container>
+    </div>
   );
 };
+
 DashboardLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };
