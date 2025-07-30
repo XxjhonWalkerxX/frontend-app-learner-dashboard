@@ -19,11 +19,9 @@ export const DashboardLayout = ({ children }) => {
   // Ya no se necesita lógica de sidebar
   return (
     <Container fluid size="xl">
-      <Row>
         <Col {...columnConfig.courseList} className="course-list-column">
           {children}
         </Col>
-      </Row>
     </Container>
   );
 };
