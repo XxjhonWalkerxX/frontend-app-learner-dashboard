@@ -1,112 +1,100 @@
 @import "@openedx/paragon/scss/core/core";
 
 .course-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* Manejamos aquí ancho responsive */
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 2rem;
+
   .card {
-    width: 340px;
-    height: 420px;
+    /* Hacemos que la tarjeta estire para igualar alturas si el padre es flex/ grid */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background: #f9f7f4;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.10);
     border: 1px solid #e0e0e0;
-    margin: 0 auto 2rem auto;
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
-    flex: 0 0 420px;
-    .pgn__card-wrapper-image-cap.vertical {
-      display: flex;
-      min-height: 160px;
-      max-height: 180px;
-      img {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-      }
-    }
-    .pgn__card-body {
-      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-      background: #f9f7f4;
-      flex: 1 1 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-      min-height: 0;
-    }
-    .pgn__card-header-content {
-      margin-bottom: 0.5rem;
-    }
-    .pgn__card-header-title-md {
-      margin-bottom: 0.5rem;
-      min-height: 48px;
-      display: flex;
-      align-items: flex-end;
-    }
-    .pgn__card-section {
-      margin-bottom: 0.5rem;
-      min-height: 32px;
-    }
-    .pgn__card-footer {
-      margin-top: auto;
-    }
-    .course-card-banners {
-      margin-top: 0.5rem;
-    }
-    }
-    .pgn__card-header-content {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .pgn__card-footer {
-      flex-wrap: nowrap;
-      &.vertical {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .pgn__action-row {
-        align-self: flex-start;
-        white-space: nowrap;
-        margin-top: 1rem;
-      }
-    }
-    .course-card-verify-ribbon-container {
-      width: 100%;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      text-align: center;
-      .badge {
-        border-radius: 0;
-      }
-      > img {
-        width: 40px;
-        z-index: 1000;
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-    }
   }
-  .course-card-banners {
-    > .alert {
-      border-radius: 0 0 12px 12px;
-      box-shadow: none;
-      padding: 0.75rem 1.2rem;
-      background: #f3f1ed;
-    }
-    .related-programs-banner {
-      .related-programs-list-container {
-        list-style: none;
-        display: inline;
-        > li {
-          line-height: 1rem;
-        }
-      }
+
+  /* 1) Imagen siempre 180px */
+  .pgn__card-wrapper-image-cap.vertical {
+    flex: 0 0 auto;
+    height: 180px;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
     }
   }
 
+  /* 2–3–4) Body como grid de 3 filas */
+  .pgn__card-body {
+    display: grid;
+    grid-template-rows: 
+      auto     /* header, altura mínima según contenido + min-height */
+      1fr      /* sección, crece para rellenar */
+      auto;    /* footer */
+    padding: 1.5rem 1.2rem;
+    flex: 1 1 auto;
+    min-height: 0; /* importante para que 1fr funcione dentro de flex */
+  }
+
+  /* Header: fuerza altura mínima para que todos queden igual */
+  .pgn__card-header-content {
+    margin-bottom: 0.5rem;
+  }
+  .pgn__card-header-title-md {
+    min-height: 3rem;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Sección de detalles: que pueda hacer overflow interno si es muy largo */
+  .pgn__card-section {
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Footer siempre abajo */
+  .pgn__card-footer {
+    margin-top: auto;
+    flex-wrap: nowrap;
+    &.vertical {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .pgn__action-row {
+      margin-top: 1rem;
+      white-space: nowrap;
+    }
+  }
+
+  /* Banners al final */
+  .course-card-banners {
+    margin-top: 0.5rem;
+    > .alert {
+      border-radius: 0 0 12px 12px;
+      background: #f3f1ed;
+      padding: 0.75rem 1.2rem;
+      box-shadow: none;
+    }
+  }
+
+  /* Ribbons, badges, etc */
+  .course-card-verify-ribbon-container {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    > img {
+      width: 40px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
