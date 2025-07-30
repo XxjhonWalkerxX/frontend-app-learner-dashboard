@@ -89,6 +89,32 @@ export const App = () => {
                 <Dashboard />
               )}
           </main>
+          {/*
+          INYECTAMOS EL FOOTER DE GOB.MX en un iframe aislado
+        */}
+        <div className="gobmx-footer-wrapper">
+          <iframe
+            title="GobMx Footer"
+            sandbox="allow-scripts allow-same-origin"
+            srcDoc={`
+              <!DOCTYPE html>
+              <html lang="es">
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width,initial-scale=1">
+                  <link
+                    rel="stylesheet"
+                    href="https://framework-gb.cdn.gob.mx/assets/styles/main.css"
+                  >
+                </head>
+                <body style="margin:0;padding:0">
+                  <gb-footer></gb-footer>
+                  <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+                </body>
+              </html>
+            `}
+          />
+        </div>
         </AppWrapper>
       </div>
     </>
