@@ -24,7 +24,7 @@ const getLearnerHeaderMenu = (
     }] : []),
     {
       type: 'item',
-      href: `${urls.baseAppUrl(courseSearchUrl)}`,
+      href: `https://emi.aprende.gob.mx/courses`,
       content: formatMessage(messages.discoverNew),
       onClick: (e) => {
         exploreCoursesClick(e);
