@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, Col } from '@openedx/paragon';
 import bannerClassroom from 'assets/banner_classroom.jpg';
 import avatarIcon from 'assets/avatar.svg';
+import EMIlogo from 'EMI_logo.png';
 import './index.scss';
 
 import { AppContext } from '@edx/frontend-platform/react';
