@@ -39,9 +39,8 @@ const Certificates = () => {
           }
         );
         if (!resp.ok) throw new Error(`Error ${resp.status}`);
-        const data = await resp.json();
-        data = mockCerts;
-        setCerts(data);
+        //const data = await resp.json();
+        setCerts(mockCerts);
       } catch (e) {
         setError(e.message);
       } finally {
