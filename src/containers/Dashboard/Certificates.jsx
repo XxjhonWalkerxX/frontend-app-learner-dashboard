@@ -12,7 +12,8 @@ const mockCerts = [
     certificate_type: "final",
     created_date: new Date().toISOString(),
     download_url: "/static/certificados/ejemplo.pdf",
-    status: "downloadable"
+    status: "downloadable",
+    grade: "9.20"
   }
 ];
 
@@ -55,9 +56,9 @@ const Certificates = () => {
     return (
       <div className="fondo_verde_oscuro mt-5 p-4 text-center text-white">
         <div className="spinner-border text-light" role="status">
-          <span className="visually-hidden">Cargando...</span>
+          <span className="visually-hidden">Loading...</span>
         </div>
-        <p className="mt-2">Obteniendo certificados...</p>
+        <p className="mt-2">Obtaining certificates...</p>
       </div>
     );
   }
@@ -78,7 +79,7 @@ const Certificates = () => {
   if (!certs.length) {
     return (
       <div className="fondo_verde_oscuro mt-5 p-4 text-white">
-        <p>No tienes certificados disponibles.</p>
+        <p>No certificates available</p>
       </div>
     );
   }
@@ -100,14 +101,17 @@ const Certificates = () => {
                 <div className="card-body">
                   <h5 className="card-title">{cert.course_display_name}</h5>
                   <p className="card-text mb-1">
-                    <strong>Institución:</strong> {cert.course_organization}
+                    <strong>Organization:</strong> {cert.course_organization}
                   </p>
                   <p className="card-text mb-1">
-                    <strong>Tipo:</strong> {cert.certificate_type}
+                    <strong>Type:</strong> {cert.certificate_type}
                   </p>
                   <p className="card-text">
                     <strong>Emitido:</strong> {fecha}
                   </p>
+                    <p className="card-text">
+                    <strong>Date:</strong> {cert.grade}
+                    </p>
                 </div>
                 <div className="card-footer bg-transparent border-top-0">
                   {cert.status === 'downloadable' ? (
@@ -118,10 +122,10 @@ const Certificates = () => {
                       rel="noopener noreferrer"
                     >
                       <i className="bi bi-download me-1 icon_download"></i>
-                      Descargar
+                      Download Certificate
                     </a>
                   ) : (
-                    <span className="badge bg-secondary">No disponible</span>
+                    <span className="badge bg-secondary">No available</span>
                   )}
                 </div>
               </div>

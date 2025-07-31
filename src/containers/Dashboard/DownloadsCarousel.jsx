@@ -48,9 +48,9 @@ const DownloadsCarousel = () => {
     return (
       <div className="text-center text-white py-5">
         <div className="spinner-border text-light" role="status">
-          <span className="visually-hidden">Cargando...</span>
+          <span className="visually-hidden">Loading...</span>
         </div>
-        <p className="mt-2">Cargando niveles desde SEP...</p>
+        <p className="mt-2">Loading levels from SEP...</p>
       </div>
     );
   }
@@ -58,10 +58,10 @@ const DownloadsCarousel = () => {
   if (error) {
     return (
       <div className="alert alert-warning text-dark" role="alert">
-        <h4><i className="bi bi-exclamation-triangle"></i> Error al cargar contenido</h4>
+        <h4><i className="bi bi-exclamation-triangle"></i> Error loading content</h4>
         <p>{error}</p>
         <button className="btn btn-outline-primary btn-sm" onClick={() => window.location.reload()}>
-          <i className="bi bi-arrow-clockwise"></i> Intentar nuevamente
+          <i className="bi bi-arrow-clockwise"></i> Try again
         </button>
       </div>
     );
@@ -111,7 +111,7 @@ const DownloadsCarousel = () => {
                       <p>{lvl.raiz.nombre}</p>
                       <p>LEVEL {lvl.nombre.toUpperCase()}</p>
                       {lvl.activo
-                        ? <span className="badge bg-success position-absolute top-0 end-0 m-2">Activo</span>
+                        ? <span className="badge bg-success position-absolute top-0 end-0 m-2">Active</span>
                         : <span className="badge bg-secondary position-absolute top-0 end-0 m-2">Inactivo</span>
                       }
                       {lvl.suscrito
