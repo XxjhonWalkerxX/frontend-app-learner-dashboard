@@ -14,6 +14,46 @@ const mockCerts = [
     download_url: "/static/certificados/ejemplo.pdf",
     status: "downloadable",
     grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
   }
 ];
 
@@ -107,10 +147,10 @@ const Certificates = () => {
                     <strong>Type:</strong> {cert.certificate_type}
                   </p>
                   <p className="card-text">
-                    <strong>Emitido:</strong> {fecha}
+                    <strong>Date:</strong> {fecha}
                   </p>
                     <p className="card-text">
-                    <strong>Date:</strong> {cert.grade}
+                    <strong>Grade:</strong> {cert.grade}
                     </p>
                 </div>
                 <div className="card-footer bg-transparent border-top-0">
