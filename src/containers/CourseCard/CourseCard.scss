@@ -17,16 +17,6 @@
     border: 1px solid #e0e0e0;
     overflow: hidden;
 
-    /* Animación de levantar/zoom al pasar el mouse */
-    transition: transform 0.25s cubic-bezier(0.4, 0.2, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0.2, 0.2, 1);
-    will-change: transform, box-shadow;
-    cursor: pointer;
-  }
-
-  .card:hover, .card:focus-within {
-    transform: translateY(-8px) scale(1.035);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-
     /* Contenedor principal: imagen, body y banners */
     > .d-flex {
       display: flex;
