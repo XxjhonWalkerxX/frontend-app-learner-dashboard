@@ -1,11 +1,59 @@
-// Certificates.jsx
 import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from '@edx/frontend-platform/react';
 import './index.scss';
 
 const API_BASE = 'https://emi.aprende.gob.mx';
 const mockCerts = [
-  // ... tus objetos mock ...
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  },
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable",
+    grade: "9.20"
+  }
 ];
 
 const Certificates = () => {
