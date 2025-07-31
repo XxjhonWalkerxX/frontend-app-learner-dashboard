@@ -1,7 +1,7 @@
 // Certificates.jsx
 import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from '@edx/frontend-platform/react';
-import './index.scss';  // Asegúrate de que aquí esté definido .fondo_verde_oscuro, .icon_download, etc.
+import './index.scss';
 
 const API_BASE = 'https://cursos.aprende.gob.mx';
 
