@@ -21,7 +21,11 @@ const Certificates = () => {
     const fetchCerts = async () => {
       try {
         const resp = await fetch(
-          `${API_BASE}/api/certificates/v0/certificates/${username}/`
+          `${API_BASE}/api/certificates/v0/certificates/${username}/`,
+          { 
+            credentials: 'same-origin',
+            headers: { Accept: 'application/json' },
+          }
         );
         if (!resp.ok) throw new Error(`Error ${resp.status}`);
         const data = await resp.json();
