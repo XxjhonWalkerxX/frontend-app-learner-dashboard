@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from '@edx/frontend-platform/react';
 import './index.scss';
 
-const API_BASE = 'https://cursos.aprende.gob.mx';
+const API_BASE = 'https://emi.aprende.gob.mx';
 
 const Certificates = () => {
   const { authenticatedUser } = useContext(AppContext) || {};
