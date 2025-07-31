@@ -40,10 +40,7 @@ const Certificates = () => {
         );
         if (!resp.ok) throw new Error(`Error ${resp.status}`);
         const data = await resp.json();
-        // Si no hay certificados, usa los de prueba
-        if (!data.length) {
-            data = mockCerts;
-        }
+        data = mockCerts;
         setCerts(data);
       } catch (e) {
         setError(e.message);
