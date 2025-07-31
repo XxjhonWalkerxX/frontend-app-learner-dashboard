@@ -8,6 +8,7 @@ import bannerClassroom from 'assets/banner_classroom.jpg';
 import avatarIcon from 'assets/avatar.svg';
 import EMIlogo from 'assets/EMI_logo.png';
 import DownloadsCarousel from './DownloadsCarousel';  
+import Certificates from './Certificates';
 import './index.scss';
 
 export const columnConfig = {
@@ -73,8 +74,13 @@ export const DashboardLayout = ({ children }) => {
             <DownloadsCarousel />
           </Col>
         )}
+        {activeTab === 'certificates' && (
+          <Col {...columnConfig.courseList} className="course-list-column">
+            <Certificates />
+          </Col>
+        )}
 
-        {activeTab !== 'my-courses' && activeTab !== 'downloads' && (
+        {activeTab !== 'my-courses' && activeTab !== 'downloads' && activeTab !== 'certificates' && (
           <div className="dashboard-placeholder">
             <p>Esta sección («{tabs.find(t => t.id === activeTab).label}») estará disponible pronto.</p>
           </div>
