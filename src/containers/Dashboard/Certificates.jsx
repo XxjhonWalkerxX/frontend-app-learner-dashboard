@@ -4,6 +4,17 @@ import { AppContext } from '@edx/frontend-platform/react';
 import './index.scss';
 
 const API_BASE = 'https://emi.aprende.gob.mx';
+const mockCerts = [
+  {
+    course_id: "course-v1:EMI+TEST+2025",
+    course_display_name: "Curso de Prueba",
+    course_organization: "EMI",
+    certificate_type: "final",
+    created_date: new Date().toISOString(),
+    download_url: "/static/certificados/ejemplo.pdf",
+    status: "downloadable"
+  }
+];
 
 const Certificates = () => {
   const { authenticatedUser } = useContext(AppContext) || {};
@@ -29,6 +40,10 @@ const Certificates = () => {
         );
         if (!resp.ok) throw new Error(`Error ${resp.status}`);
         const data = await resp.json();
+        // Si no hay certificados, usa los de prueba
+        if (!data.length) {
+            data = mockCerts;
+        }
         setCerts(data);
       } catch (e) {
         setError(e.message);
