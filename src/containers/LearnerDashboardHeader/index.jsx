@@ -27,48 +27,12 @@ export const LearnerDashboardHeader = () => {
 
   return (
     <>
-    <iframe
-      srcdoc='
-        <!DOCTYPE html>
-        <html lang="es">
-          <head>
-            <link href="https://framework-gb.cdn.gob.mx/assets/styles/main.css" rel="stylesheet">
-            <style>
-              footer, .footer { display: none !important; }
-            </style>
-          </head>
-          <body>
-            <div id="gobmx-content"></div>
-            <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
-          </body>
-        </html>
-      '
-      style="width:100%;height:120px;border:none;"
-    ></iframe>
       <ConfirmEmailBanner />
       <Header
         mainMenuItems={learnerHomeHeaderMenu.mainMenu}
         secondaryMenuItems={learnerHomeHeaderMenu.secondaryMenu}
         userMenuItems={learnerHomeHeaderMenu.userMenu}
       />
-      <iframe
-      srcdoc='
-        <!DOCTYPE html>
-        <html lang="es">
-          <head>
-            <link href="https://framework-gb.cdn.gob.mx/assets/styles/main.css" rel="stylesheet">
-            <style>
-              .navbar { display: none !important; }
-            </style>
-          </head>
-          <body>
-            <div id="gobmx-content"></div>
-            <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
-          </body>
-        </html>
-      '
-      style="width:100%;height:200px;border:none;"
-    ></iframe>
     </>
   );
 };
