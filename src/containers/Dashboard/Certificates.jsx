@@ -20,13 +20,16 @@ const Certificates = () => {
     }
     const fetchCerts = async () => {
       try {
-        const resp = await fetch(
-          `${API_BASE}/api/certificates/v0/certificates/${username}/`,
-          { 
-            credentials: 'same-origin',
-            headers: { Accept: 'application/json' },
-          }
-        );
+        fetch(`${API_BASE}/api/certificates/v0/certificates/${username}/`, {
+            credentials: 'include',        // o 'same-origin' si front y back están en el mismo dominio
+            headers: { 'Accept': 'application/json' }
+            })
+            .then(r => {
+                if (!r.ok) throw new Error(r.status);
+                return r.json();
+            })
+        .then(data => setCerts(data))
+        .catch(e => setError(e.message));
         if (!resp.ok) throw new Error(`Error ${resp.status}`);
         const data = await resp.json();
         setCerts(data);
