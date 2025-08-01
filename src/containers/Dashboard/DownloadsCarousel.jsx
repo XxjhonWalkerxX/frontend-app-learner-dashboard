@@ -5,15 +5,6 @@ import './index.scss';
 const API_URL =
   'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
 
-// Helper: divide un array en “chunks” de tamaño N
-const chunkArray = (arr, size) => {
-  const chunks = [];
-  for (let i = 0; i < arr.length; i += size) {
-    chunks.push(arr.slice(i, i + size));
-  }
-  return chunks;
-};
-
 const DownloadsCarousel = () => {
   const [levelsData, setLevelsData]     = useState([]);
   const [currentLevel, setCurrentLevel] = useState('');
@@ -93,41 +84,60 @@ const DownloadsCarousel = () => {
       </div>
 
       <div className="row">
-        <div className="col-md-12 fondo_verde_oscuro mt-5">
+        <div className="col-12 fondo_verde_oscuro mt-5 position-relative">
           <div
             id="sepCarousel"
-            className="carousel carousel-dark slide"
+            className="carousel slide"
             data-bs-interval="false"
+            data-bs-ride="false"
           >
             <div className="carousel-inner">
               <div className="carousel-item active">
-                <div className="d-flex">
-                  {displayLevels.map((lvl,i) => {
+                <div className="row g-3">
+                  {displayLevels.map((lvl, i) => {
                     const imgSrc = lvl.portada || '/static/images/default-course.jpg';
                     return (
-                      <div key={i} className="flex-shrink-0 me-3">
+                      <div key={i} className="col-lg-3 col-md-6 col-sm-12">
                         <div
                           className="card bg-dark text-white h-100 position-relative"
+                          style={{ cursor: 'pointer' }}
                           onClick={() => openLevel(lvl.slug)}
                         >
-                          <img
-                            src={imgSrc}
-                            alt={lvl.nombre_completo}
-                            className="card-img"
-                            onError={e => e.currentTarget.src = '/static/images/default-course.jpg'}
-                            loading="lazy"
-                          />
-                          <div className="card-img-overlay d-flex flex-column justify-content-end">
-                            <h5 className="fw-bold">{lvl.tipo.nombre}: {lvl.nombre}</h5>
-                            <p className="mb-1">{lvl.nivel.nombre}</p>
-                            <p className="mb-1">{lvl.raiz.nombre}</p>
-                            <div className="mt-2 text-end">
+                          <div className="position-relative">
+                            <img
+                              src={imgSrc}
+                              alt={lvl.nombre_completo}
+                              className="card-img-top"
+                              style={{ height: '200px', objectFit: 'cover' }}
+                              onError={e => e.currentTarget.src = '/static/images/default-course.jpg'}
+                              loading="lazy"
+                            />
+                            <div className="position-absolute top-0 end-0 m-2">
                               {lvl.activo
-                                ? <span className="badge bg-success me-1">Activo</span>
-                                : <span className="badge bg-secondary me-1">Inactivo</span>}
+                                ? <span className="badge bg-success">Activo</span>
+                                : <span className="badge bg-secondary">Inactivo</span>}
+                            </div>
+                            <div className="position-absolute top-50 start-50 translate-middle">
+                              <div 
+                                className="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
+                                style={{ width: '60px', height: '60px' }}
+                              >
+                                <i className="bi bi-play-fill" style={{ fontSize: '24px' }}></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="card-body">
+                            <h5 className="card-title fw-bold">{lvl.tipo?.nombre}: {lvl.nombre}</h5>
+                            <p className="card-text mb-1">{lvl.nivel?.nombre}</p>
+                            <p className="card-text mb-2">{lvl.raiz?.nombre}</p>
+                            <div className="mt-auto">
                               {lvl.suscrito
-                                ? <span className="badge bg-primary"><i className="bi bi-check-circle me-1" />Suscrito</span>
-                                : <span className="badge bg-outline-light"><i className="bi bi-plus-circle me-1" />Suscribirse</span>}
+                                ? <span className="badge bg-primary">
+                                    <i className="bi bi-check-circle me-1" />Suscrito
+                                  </span>
+                                : <span className="badge bg-outline-light">
+                                    <i className="bi bi-plus-circle me-1" />Suscribirse
+                                  </span>}
                             </div>
                           </div>
                         </div>
@@ -139,22 +149,36 @@ const DownloadsCarousel = () => {
             </div>
 
             <button
-              className="carousel-control-prev"
+              className="carousel-control-prev position-absolute top-50 start-0 translate-middle-y"
               type="button"
               data-bs-target="#sepCarousel"
               data-bs-slide="prev"
+              style={{ 
+                width: '40px', 
+                height: '40px', 
+                backgroundColor: 'rgba(255,255,255,0.2)', 
+                borderRadius: '50%',
+                border: 'none',
+                marginLeft: '10px'
+              }}
             >
-              <i className="bi bi-chevron-left"></i>
-              <span className="visually-hidden">Anterior</span>
+              <i className="bi bi-chevron-left text-white" style={{ fontSize: '20px' }}></i>
             </button>
             <button
-              className="carousel-control-next"
+              className="carousel-control-next position-absolute top-50 end-0 translate-middle-y"
               type="button"
               data-bs-target="#sepCarousel"
               data-bs-slide="next"
+              style={{ 
+                width: '40px', 
+                height: '40px', 
+                backgroundColor: 'rgba(255,255,255,0.2)', 
+                borderRadius: '50%',
+                border: 'none',
+                marginRight: '10px'
+              }}
             >
-              <i className="bi bi-chevron-right"></i>
-              <span className="visually-hidden">Siguiente</span>
+              <i className="bi bi-chevron-right text-white" style={{ fontSize: '20px' }}></i>
             </button>
           </div>
         </div>

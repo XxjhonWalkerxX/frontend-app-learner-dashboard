@@ -5,57 +5,58 @@ import './index.scss';
 
 const API_BASE = 'https://emi.aprende.gob.mx';
 const mockCerts = [
-{
-    course_id: "course-v1:EMI+TEST+2025",
-    course_display_name: "Curso de Prueba",
-    course_organization: "EMI",
-    certificate_type: "final",
-    created_date: new Date().toISOString(),
-    download_url: "/static/certificados/ejemplo.pdf",
+  {
+    course_id: "course-v1:EMI+MATEMATICAS+2025_T1",
+    course_display_name: "Matemáticas para Bachillerato",
+    course_organization: "EMI - Escuela Mexicana de Inglés",
+    certificate_type: "verified",
+    created_date: "2025-01-15T10:30:00Z",
+    download_url: "/static/certificados/matematicas_bachillerato.pdf",
     status: "downloadable",
-    grade: "9.21"
+    grade: "95"
   },
   {
-    course_id: "course-v1:EMI+TEST+2025",
-    course_display_name: "Curso de Prueba",
-    course_organization: "EMI",
-    certificate_type: "final",
-    created_date: new Date().toISOString(),
-    download_url: "/static/certificados/ejemplo.pdf",
+    course_id: "course-v1:EMI+INGLES_A2+2024_T4",
+    course_display_name: "Inglés Nivel A2 - Elemental",
+    course_organization: "EMI - Escuela Mexicana de Inglés",
+    certificate_type: "honor",
+    created_date: "2024-12-20T14:45:00Z",
+    download_url: "/static/certificados/ingles_a2.pdf",
     status: "downloadable",
-    grade: "9.20"
+    grade: "88"
   },
   {
-    course_id: "course-v1:EMI+TEST+2025",
-    course_display_name: "Curso de Prueba",
-    course_organization: "EMI",
-    certificate_type: "final",
-    created_date: new Date().toISOString(),
-    download_url: "/static/certificados/ejemplo.pdf",
+    course_id: "course-v1:EMI+CIENCIAS+2024_T3",
+    course_display_name: "Ciencias Naturales - Biología",
+    course_organization: "EMI - Escuela Mexicana de Inglés",
+    certificate_type: "verified",
+    created_date: "2024-11-10T09:15:00Z",
+    download_url: "/static/certificados/ciencias_biologia.pdf",
     status: "downloadable",
-    grade: "9.21"
+    grade: "92"
   },
   {
-    course_id: "course-v1:EMI+TEST+2025",
-    course_display_name: "Curso de Prueba",
-    course_organization: "EMI",
-    certificate_type: "final",
-    created_date: new Date().toISOString(),
-    download_url: "/static/certificados/ejemplo.pdf",
+    course_id: "course-v1:EMI+HISTORIA+2024_T2",
+    course_display_name: "Historia de México",
+    course_organization: "EMI - Escuela Mexicana de Inglés",
+    certificate_type: "verified",
+    created_date: "2024-08-30T16:20:00Z",
+    download_url: "/static/certificados/historia_mexico.pdf",
     status: "downloadable",
-    grade: "9.22"
+    grade: "87"
   },
   {
-    course_id: "course-v1:EMI+TEST+2025",
-    course_display_name: "Curso de Prueba",
-    course_organization: "EMI",
-    certificate_type: "final",
-    created_date: new Date().toISOString(),
-    download_url: "/static/certificados/ejemplo.pdf",
+    course_id: "course-v1:EMI+PROGRAMACION+2024_T1",
+    course_display_name: "Introducción a la Programación",
+    course_organization: "EMI - Escuela Mexicana de Inglés",
+    certificate_type: "honor",
+    created_date: "2024-05-25T11:00:00Z",
+    download_url: "/static/certificados/programacion_intro.pdf",
     status: "downloadable",
-    grade: "9.23"
+    grade: "96"
   }
 ];
+
 // Helper para dividir en grupos de N
 const chunkArray = (arr, size) => {
   const chunks = [];
