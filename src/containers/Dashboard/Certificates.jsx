@@ -64,9 +64,9 @@ const chunkArray = (arr, size) => {
 const Certificates = () => {
   const { authenticatedUser } = useContext(AppContext) || {};
   const username = authenticatedUser?.username;
-  const [certs, setCerts]     = useState([]);
+  const [certs, setCerts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!username) {
@@ -96,34 +96,50 @@ const Certificates = () => {
   }, [username]);
 
   if (loading) return (
-    <div className="fondo_verde_oscuro mt-5 p-4 text-center text-white">
-      <div className="spinner-border text-light" role="status"></div>
-      <p className="mt-2">Obtaining certificates...</p>
+    <div className="certificates-container">
+      <div className="certificates-loading glass-morphism">
+        <div className="spinner-border text-light" role="status"></div>
+        <p className="mt-3">Obteniendo certificados...</p>
+      </div>
     </div>
   );
 
   if (error) return (
-    <div className="fondo_verde_oscuro mt-5 p-4">
-      <div className="alert alert-danger mb-0">
-        <i className="bi bi-exclamation-triangle-fill me-1"></i>{error}
+    <div className="certificates-container">
+      <div className="certificates-error glass-morphism">
+        <div className="error-icon">⚠️</div>
+        <p className="error-message">{error}</p>
       </div>
     </div>
   );
 
   if (!certs.length) return (
-    <div className="fondo_verde_oscuro mt-5 p-4 text-white">
-      <p>No certificates available</p>
+    <div className="certificates-container">
+      <div className="certificates-empty glass-morphism">
+        <div className="empty-icon">📜</div>
+        <p>No hay certificados disponibles</p>
+      </div>
     </div>
   );
 
-  // Divide en grupos de 4
-  const slides = chunkArray(certs, 4);
+  // Divide en grupos de 3 para mejor visualización
+  const slides = chunkArray(certs, 3);
 
   return (
-    <div className="fondo_verde_oscuro mt-5 p-4">
+    <div className="certificates-container">
+      <div className="certificates-header glass-morphism mb-4">
+        <h2 className="certificates-title">
+          <span className="title-icon">🏆</span>
+          Mis Certificados
+        </h2>
+        <p className="certificates-subtitle">
+          Descarga y comparte tus logros académicos
+        </p>
+      </div>
+
       <div
         id="certCarousel"
-        className="carousel carousel-dark slide position-relative"
+        className="certificates-carousel"
         data-bs-interval="false"
       >
         <div className="carousel-inner">
@@ -132,46 +148,61 @@ const Certificates = () => {
               key={idx}
               className={`carousel-item${idx === 0 ? ' active' : ''}`}
             >
-              <div className="row gy-4 justify-content-center">
+              <div className="certificates-grid">
                 {group.map((cert, i) => {
                   const fecha = new Date(cert.created_date)
-                    .toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+                    .toLocaleDateString('es-MX', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    });
                   const downloadLink = `${API_BASE}${cert.download_url}`;
+                  
                   return (
                     <div
                       key={cert.course_id + i}
-                      className="col-12 col-sm-6 col-md-4 col-lg-3"
+                      className="certificate-card glass-morphism"
                     >
-                      <div className="card bg-dark text-white h-100">
-                        <div className="card-body d-flex flex-column">
-                          <h5 className="card-title">{cert.course_display_name}</h5>
-                          <p className="card-text mb-1">
-                            <strong>Organization:</strong> {cert.course_organization}
-                          </p>
-                          <p className="card-text mb-1">
-                          </p>
-                          <p className="card-text mb-1">
-                            <strong>Date:</strong> {fecha}
-                          </p>
-                          <p className="card-text mb-3">
-                            <strong>Grade:</strong> {cert.grade}
-                          </p>
-                          <div className="mt-auto text-center">
-                            {cert.status === 'downloadable' ? (
-                              <a
-                                href={downloadLink}
-                                className="btn btn-outline-light w-100"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <i className="bi bi-download me-1 icon_download"></i>
-                                Download
-                              </a>
-                            ) : (
-                              <span className="badge bg-secondary">No available</span>
-                            )}
+                      <div className="certificate-header">
+                        <div className="certificate-icon">📜</div>
+                        <div className="certificate-grade">
+                          <span className="grade-number">{cert.grade}</span>
+                          <span className="grade-symbol">%</span>
+                        </div>
+                      </div>
+                      
+                      <div className="certificate-content">
+                        <h3 className="certificate-title">{cert.course_display_name}</h3>
+                        
+                        <div className="certificate-details">
+                          <div className="detail-item">
+                            <span className="detail-icon">🏛️</span>
+                            <span className="detail-text">{cert.course_organization}</span>
+                          </div>
+                          
+                          <div className="detail-item">
+                            <span className="detail-icon">📅</span>
+                            <span className="detail-text">{fecha}</span>
                           </div>
                         </div>
+                      </div>
+                      
+                      <div className="certificate-actions">
+                        {cert.status === 'downloadable' ? (
+                          <a
+                            href={downloadLink}
+                            className="download-btn glass-button"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <span className="btn-icon">⬇️</span>
+                            <span className="btn-text">Descargar</span>
+                          </a>
+                        ) : (
+                          <div className="status-badge unavailable">
+                            <span>No disponible</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
@@ -180,23 +211,24 @@ const Certificates = () => {
             </div>
           ))}
         </div>
+        
         {slides.length > 1 && (
           <>
             <button
-              className="carousel-control-prev"
+              className="carousel-control carousel-control-prev"
               type="button"
               data-bs-target="#certCarousel"
               data-bs-slide="prev"
             >
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <div className="control-icon glass-button">‹</div>
             </button>
             <button
-              className="carousel-control-next"
+              className="carousel-control carousel-control-next"
               type="button"
               data-bs-target="#certCarousel"
               data-bs-slide="next"
             >
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <div className="control-icon glass-button">›</div>
             </button>
           </>
         )}
