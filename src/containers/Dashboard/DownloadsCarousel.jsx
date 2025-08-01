@@ -168,17 +168,6 @@ const DownloadsCarousel = () => {
                   <p className="level-program">{level.nivel.nombre}</p>
                   <p className="level-section">{level.raiz.nombre}</p>
                 </div>
-                
-                <div className="card-footer">
-                  <button className={`subscribe-btn ${level.suscrito ? 'subscribed' : ''}`}>
-                    <i className={`bi ${level.suscrito ? 'bi-check-circle-fill' : 'bi-plus-circle'} me-2`}></i>
-                    {level.suscrito ? 'Suscrito' : 'Suscribirse'}
-                  </button>
-                  <button className="download-btn">
-                    <i className="bi bi-download me-2"></i>
-                    Descargar
-                  </button>
-                </div>
               </div>
             </div>
           ))}
