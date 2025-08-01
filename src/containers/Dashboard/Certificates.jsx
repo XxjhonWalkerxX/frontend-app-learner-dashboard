@@ -3,19 +3,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { AppContext } from '@edx/frontend-platform/react';
 import './index.scss';
 
-// Bootstrap carousel initialization
-const initBootstrapCarousel = () => {
-  if (typeof window !== 'undefined' && window.bootstrap) {
-    const carouselElement = document.querySelector('#certCarousel');
-    if (carouselElement) {
-      return new window.bootstrap.Carousel(carouselElement, {
-        interval: false,
-        wrap: true
-      });
-    }
-  }
-};
-
 const API_BASE = 'https://emi.aprende.gob.mx';
 const mockCerts = [
   {
@@ -108,16 +95,6 @@ const Certificates = () => {
     })();
   }, [username]);
 
-  // Initialize Bootstrap carousel after component mounts and certificates are loaded
-  useEffect(() => {
-    if (!loading && certs.length > 0) {
-      const timer = setTimeout(() => {
-        initBootstrapCarousel();
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [loading, certs]);
-
   if (loading) return (
     <div className="fondo_verde_oscuro mt-5 p-4 text-center text-white">
       <div className="spinner-border text-light" role="status"></div>
@@ -139,31 +116,14 @@ const Certificates = () => {
     </div>
   );
 
-  // Divide en grupos según el tamaño de pantalla
-  // Desktop: 4 por slide, Tablet: 2 por slide, Mobile: 1 por slide
-  const getCardsPerSlide = () => {
-    if (typeof window === 'undefined') return 4;
-    if (window.innerWidth >= 1200) return 4; // xl
-    if (window.innerWidth >= 768) return 2;  // md
-    return 1; // sm y menor
-  };
-
-  const [cardsPerSlide, setCardsPerSlide] = useState(getCardsPerSlide);
-
-  useEffect(() => {
-    const handleResize = () => setCardsPerSlide(getCardsPerSlide());
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const slides = chunkArray(certs, cardsPerSlide);
+  // Divide en grupos de 4
+  const slides = chunkArray(certs, 4);
 
   return (
     <div className="fondo_verde_oscuro mt-5 p-4">
       <div
         id="certCarousel"
-        className="carousel slide"
-        data-bs-ride="false"
+        className="carousel carousel-dark slide position-relative"
         data-bs-interval="false"
       >
         <div className="carousel-inner">
@@ -177,13 +137,10 @@ const Certificates = () => {
                   const fecha = new Date(cert.created_date)
                     .toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
                   const downloadLink = `${API_BASE}${cert.download_url}`;
-                  const colClass = cardsPerSlide === 1 ? 'col-12' : 
-                                  cardsPerSlide === 2 ? 'col-12 col-md-6' : 
-                                  'col-12 col-md-6 col-xl-3';
                   return (
                     <div
                       key={cert.course_id + i}
-                      className={colClass}
+                      className="col-12 col-sm-6 col-md-4 col-lg-3"
                     >
                       <div className="card bg-dark text-white h-100">
                         <div className="card-body d-flex flex-column">
@@ -198,7 +155,7 @@ const Certificates = () => {
                             <strong>Date:</strong> {fecha}
                           </p>
                           <p className="card-text mb-3">
-                            <strong>Grade:</strong> {cert.grade}%
+                            <strong>Grade:</strong> {cert.grade}
                           </p>
                           <div className="mt-auto text-center">
                             {cert.status === 'downloadable' ? (
@@ -231,20 +188,16 @@ const Certificates = () => {
               type="button"
               data-bs-target="#certCarousel"
               data-bs-slide="prev"
-              aria-label="Previous"
             >
-              <i className="bi bi-chevron-left" style={{ fontSize: '1.5rem', color: '#fff' }}></i>
-              <span className="visually-hidden">Previous</span>
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
             </button>
             <button
               className="carousel-control-next"
               type="button"
               data-bs-target="#certCarousel"
               data-bs-slide="next"
-              aria-label="Next"
             >
-              <i className="bi bi-chevron-right" style={{ fontSize: '1.5rem', color: '#fff' }}></i>
-              <span className="visually-hidden">Next</span>
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
             </button>
           </>
         )}

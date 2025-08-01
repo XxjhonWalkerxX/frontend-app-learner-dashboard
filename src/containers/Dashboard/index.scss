@@ -8,17 +8,6 @@ $color-dorado: #B17A2A;
 $gutter: map-get($spacers, 4);
 
 // -----------------------------------
-// Global utilities
-// -----------------------------------
-@keyframes spin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-// -----------------------------------
 // Banner con glassmorphism & gradiente
 // -----------------------------------
 .dashboard-banner-bg {
@@ -78,24 +67,15 @@ $gutter: map-get($spacers, 4);
 }
 
 // -----------------------------------
-// Usuario (glassmorphism)
+// Usuario (info del banner)
 // -----------------------------------
 .user-info-banner {
   position: absolute;
   bottom: 1.5rem;
   left: 1.5rem;
   z-index: 4;
-}
-.user-info-content {
   display: flex;
   align-items: center;
-  backdrop-filter: saturate(180%) blur(10px);
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 12px;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  max-width: 300px;
 }
 .user-avatar {
   flex-shrink: 0;
@@ -128,6 +108,16 @@ $gutter: map-get($spacers, 4);
 // -----------------------------------
 .course-list-column {
   padding: 0 $gutter;
+}
+
+// -----------------------------------
+// Loading spinner
+// -----------------------------------
+.course-list-loading {
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
 }
 
 // -----------------------------------
@@ -168,137 +158,15 @@ $gutter: map-get($spacers, 4);
 }
 
 // -----------------------------------
-// Tarjetas genéricas
-// -----------------------------------
-.card[data-level-id]:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease;
-}
-.card[data-level-id] .icon_video:hover {
-  transform: scale(1.1);
-  color: #ffc107;
-  transition: all 0.3s ease;
-}
-
-// -----------------------------------
-// Spinner
-// -----------------------------------
-.spinner-border {
-  width: 3rem;
-  height: 3rem;
-}
-
-// -----------------------------------
-// Fondo y iconos
-// -----------------------------------
-.fondo_verde_oscuro {
-  background-color: $verde-oscuro;
-  padding: 2rem 0;
-}
-.icon_download {
-  font-size: 1.2rem;
-}
-
-// -----------------------------------
-// Imágenes de tarjeta
-// -----------------------------------
-.card-img {
-  object-fit: cover;
-  height: 250px;
-}
-
-// -----------------------------------
-// Variables
-// -----------------------------------
-$verde-oscuro: #2a5934;
-$color-dorado: #B17A2A;
-$gutter: map-get($spacers, 4);
-
-// -----------------------------------
-// Global utilities
-// -----------------------------------
-@keyframes spin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.spin { animation: spin 1s linear infinite; }
-
-// -----------------------------------
-// Selector de nivel
-// -----------------------------------
-.select_nivel {
-  width: 100%;
-  border: 2px solid $color-dorado;
-  border-radius: 0.5rem;
-}
-
-// -----------------------------------
-// Fondo del carrusel (Downloads)
+// Fondo verde y estilos para certificados
 // -----------------------------------
 .fondo_verde_oscuro {
   background-color: $verde-oscuro;
   padding: 2rem 1rem;
 }
-
-// -----------------------------------
-// Tarjetas
-// -----------------------------------
-.card {
-  border: none;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+.icon_download {
+  font-size: 1.2rem;
 }
-.card-img {
-  object-fit: cover;
-  height: 200px;
-}
-.card-img-overlay {
-  background: rgba(0,0,0,0.4);
-  padding: 1rem;
-}
-
-// -----------------------------------
-// Carrusel de Downloads (#sepCarousel)
-// -----------------------------------
-#sepCarousel {
-  position: relative;
-
-  .carousel-inner {
-    display: flex;
-    gap: $gutter;
-  }
-
-  .carousel-item {
-    flex: 0 0 calc((100% - (#{$gutter} * 3)) / 4);
-  }
-
-  .carousel-control-prev,
-  .carousel-control-next {
-    width: 2.5rem;
-    height: 2.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
-  }
-  .carousel-control-prev { left: 0.5rem; }
-  .carousel-control-next { right: 0.5rem; }
-
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon { display: none; }
-
-  .carousel-control-prev i,
-  .carousel-control-next i {
-    font-size: 1.5rem;
-    color: #fff;
-  }
-}
-
 // -----------------------------------
 // Carrusel de Certificates (#certCarousel)
 // -----------------------------------
@@ -307,61 +175,22 @@ $gutter: map-get($spacers, 4);
 
   .carousel-control-prev,
   .carousel-control-next {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(255,255,255,0.15);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
-    border: none;
-    opacity: 0.8;
-    transition: opacity 0.3s ease, background-color 0.3s ease;
-
-    &:hover {
-      opacity: 1;
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
-    }
+    z-index: 2;
   }
-
-  .carousel-control-prev { 
-    left: -1.5rem; 
-  }
-  
-  .carousel-control-next { 
-    right: -1.5rem; 
-  }
-
+  .carousel-control-prev { left: -1rem; }
+  .carousel-control-next { right: -1rem; }
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
-    display: none; // Usamos iconos personalizados
-  }
-
-  // Asegurar que las tarjetas mantengan altura uniforme
-  .card {
-    min-height: 350px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    }
-  }
-
-  // Forzar que todas las tarjetas en el mismo slide tengan la misma altura
-  .carousel-item .row > div {
-    display: flex;
-    
-    .card {
-      width: 100%;
-    }
+    background-size: 1.25rem 1.25rem;
   }
 }
 
@@ -373,67 +202,13 @@ $gutter: map-get($spacers, 4);
   .dashboard-logo { width: 120px; top: 1rem; }
   .user-info-banner { bottom: 1rem; left: 1rem; }
   .user-avatar { width: 56px; height: 56px; }
-  .user-info-content { padding: 0.75rem 1.25rem; max-width: 260px; }
   .user-name { font-size: 1rem; }
   .user-email { font-size: 0.8rem; }
   .course-list-column { padding: 0 map-get($spacers,3); }
-  .card-img { height: 180px; }
-  
-  // Responsive para carrusel de Downloads
-  #sepCarousel {
-    .carousel-inner { overflow-x: auto; justify-content: center; }
-    .carousel-item { flex: 0 0 90% !important; }
-    .carousel-control-prev,
-    .carousel-control-next { display: none; }
-  }
-
-  // Responsive para carrusel de Certificates
-  #certCarousel {
-    .carousel-control-prev,
-    .carousel-control-next {
-      left: 0.5rem;
-      right: 0.5rem;
-      width: 2.5rem;
-      height: 2.5rem;
-    }
-    .carousel-control-prev { left: 0.5rem; }
-    .carousel-control-next { right: 0.5rem; }
-    
-    .card {
-      min-height: 300px;
-    }
-    
-    // En tablets, mostrar 2 columnas
-    .carousel-item .row > div {
-      flex: 0 0 50%;
-      max-width: 50%;
-    }
-  }
 }
 
 @include media-breakpoint-down(sm) {
   .dashboard-banner-bg { height: 200px; }
   .dashboard-logo { width: 100px; }
-  .user-info-content { padding: 0.5rem 1rem; max-width: 220px; }
   .course-list-column { padding: 0 map-get($spacers,2); }
-
-  // En móviles muy pequeños, forzar una columna
-  #certCarousel {
-    .carousel-control-prev,
-    .carousel-control-next {
-      width: 2rem;
-      height: 2rem;
-    }
-    
-    .card {
-      min-height: 280px;
-      margin-bottom: 1rem;
-    }
-    
-    // En móviles, mostrar 1 columna por slide
-    .carousel-item .row > div {
-      flex: 0 0 100% !important;
-      max-width: 100% !important;
-    }
-  }
 }
