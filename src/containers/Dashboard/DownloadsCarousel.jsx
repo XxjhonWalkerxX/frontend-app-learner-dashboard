@@ -5,12 +5,37 @@ const DownloadsCarousel = () => {
   const [currentLevel, setCurrentLevel] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSliding, setIsSliding] = useState(false);
 
   const API_URL = 'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
 
   useEffect(() => {
     loadData();
   }, []);
+
+  // Agregar efectos de transición al carrusel
+  useEffect(() => {
+    const carouselElement = document.getElementById('sepCarousel');
+    if (carouselElement) {
+      const handleSlideStart = () => {
+        setIsSliding(true);
+        carouselElement.classList.add('sliding');
+      };
+      
+      const handleSlideEnd = () => {
+        setIsSliding(false);
+        carouselElement.classList.remove('sliding');
+      };
+
+      carouselElement.addEventListener('slide.bs.carousel', handleSlideStart);
+      carouselElement.addEventListener('slid.bs.carousel', handleSlideEnd);
+
+      return () => {
+        carouselElement.removeEventListener('slide.bs.carousel', handleSlideStart);
+        carouselElement.removeEventListener('slid.bs.carousel', handleSlideEnd);
+      };
+    }
+  }, [levels]);
 
   const loadData = async () => {
     try {
@@ -189,7 +214,25 @@ const DownloadsCarousel = () => {
                           <div 
                             className="card bg-dark text-white h-100 position-relative" 
                             data-level-id={`${level.id}-${slideIndex}-${index}`}
-                            style={{ cursor: 'pointer', borderRadius: '12px', overflow: 'hidden' }}
+                            style={{ 
+                              cursor: 'pointer', 
+                              borderRadius: '12px', 
+                              overflow: 'hidden',
+                              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                              transform: isSliding ? 'scale(0.98)' : 'scale(1)'
+                            }}
+                            onMouseEnter={(e) => {
+                              if (!isSliding) {
+                                e.currentTarget.style.transform = 'scale(1.02)';
+                                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+                              }
+                            }}
+                            onMouseLeave={(e) => {
+                              if (!isSliding) {
+                                e.currentTarget.style.transform = 'scale(1)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }
+                            }}
                           >
                             <img 
                               className="card-img" 

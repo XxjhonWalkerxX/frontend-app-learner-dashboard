@@ -215,6 +215,22 @@ $gutter: map-get($spacers, 4);
 }
 
 #sepCarousel {
+  // Transiciones suaves para el carrusel
+  .carousel-inner {
+    transition: transform 0.6s ease-in-out;
+  }
+  
+  .carousel-item {
+    transition: transform 0.6s ease-in-out;
+  }
+  
+  // Transición personalizada para el slide
+  &.sliding {
+    .carousel-inner {
+      transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  }
+  
   .carousel-control-prev,
   .carousel-control-next {
     width: 2.5rem;
@@ -229,10 +245,16 @@ $gutter: map-get($spacers, 4);
     z-index: 2;
     border: none;
     opacity: 0.7;
+    transition: all 0.3s ease;
     
     &:hover {
       opacity: 1;
       background-color: rgba(255,255,255,0.25);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    &:active {
+      transform: translateY(-50%) scale(0.95);
     }
   }
   
