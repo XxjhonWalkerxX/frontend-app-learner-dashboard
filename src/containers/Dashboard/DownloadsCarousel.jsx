@@ -6,7 +6,6 @@ const DownloadsCarousel = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const API_URL = 'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
 
@@ -49,23 +48,17 @@ const DownloadsCarousel = () => {
   };
 
   const nextSlide = () => {
-    if (isTransitioning) return;
     const carouselSlides = getCarouselSlides();
     if (carouselSlides.length <= 1) return;
     
-    setIsTransitioning(true);
     setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const prevSlide = () => {
-    if (isTransitioning) return;
     const carouselSlides = getCarouselSlides();
     if (carouselSlides.length <= 1) return;
     
-    setIsTransitioning(true);
     setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
-    setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const handleLevelChange = (e) => {
@@ -155,20 +148,58 @@ const DownloadsCarousel = () => {
     <div className="fondo_verde_oscuro mt-5">
       {/* Select de nivel */}
       <div className="row mt-5 mlef">
-        <div className="col-md-3">
-          <select 
-            id="levelSelector" 
-            className="form-select select_nivel" 
-            value={currentLevel}
-            onChange={handleLevelChange}
-            aria-label="Selector de nivel"
-          >
-            {uniqueLevels.map((level, index) => (
-              <option key={level.slug} value={level.slug}>
-                Level {level.nombre}
-              </option>
-            ))}
-          </select>
+        <div className="col-md-4">
+          <div className="mb-3">
+            <label 
+              htmlFor="levelSelector" 
+              className="form-label text-white fw-bold mb-2"
+              style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)' }}
+            >
+              📚 Selecciona un Nivel
+            </label>
+            <select 
+              id="levelSelector" 
+              className="form-select" 
+              value={currentLevel}
+              onChange={handleLevelChange}
+              aria-label="Selector de nivel"
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(15px)',
+                border: '2px solid rgba(177, 122, 42, 0.6)',
+                borderRadius: '12px',
+                color: 'white',
+                padding: '0.75rem 1rem',
+                fontSize: '1rem',
+                fontWeight: '600',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'rgba(177, 122, 42, 1)';
+                e.target.style.boxShadow = '0 0 0 0.2rem rgba(177, 122, 42, 0.25)';
+                e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'rgba(177, 122, 42, 0.6)';
+                e.target.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              {uniqueLevels.map((level, index) => (
+                <option 
+                  key={level.slug} 
+                  value={level.slug}
+                  style={{
+                    backgroundColor: '#2a5934',
+                    color: 'white'
+                  }}
+                >
+                  📖 Level {level.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -179,30 +210,51 @@ const DownloadsCarousel = () => {
             <div className="carousel-wrapper position-relative">
               
               {/* Contenedor del carrusel */}
-              <div className="carousel-container-custom overflow-hidden">
+              <div 
+                className="carousel-container-custom overflow-hidden position-relative"
+                style={{ 
+                  width: '100%',
+                  height: 'auto'
+                }}
+              >
                 <div 
-                  className="carousel-slides-wrapper d-flex transition-transform"
+                  className="d-flex"
                   style={{ 
                     transform: `translateX(-${currentSlide * 100}%)`,
-                    transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none'
+                    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                    width: `${carouselSlides.length * 100}%`
                   }}
                 >
                   {carouselSlides.map((slideGroup, slideIndex) => (
                     <div 
                       key={slideIndex}
-                      className="carousel-slide-custom d-flex justify-content-center w-100 flex-shrink-0"
+                      className="w-100 flex-shrink-0"
+                      style={{ width: `${100 / carouselSlides.length}%` }}
                     >
-                      <div className="row gy-4 w-100 justify-content-center">
+                      <div className="row gy-4 justify-content-center mx-2">
                         {slideGroup.map((level, index) => (
                           <div key={`${level.id}-${slideIndex}-${index}`} className="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div 
-                              className="card bg-white text-dark h-100 position-relative downloads-card" 
+                              className="card h-100 position-relative downloads-card glass-morphism" 
                               style={{ 
                                 cursor: 'pointer', 
-                                borderRadius: '12px', 
-                                overflow: 'hidden'
+                                borderRadius: '16px', 
+                                overflow: 'hidden',
+                                background: 'rgba(255, 255, 255, 0.1)',
+                                backdropFilter: 'blur(15px)',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                               }}
                               onClick={() => openLevel(level)}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
+                              }}
                             >
                               <div className="position-relative">
                                 <img 
@@ -213,36 +265,102 @@ const DownloadsCarousel = () => {
                                     e.target.src = '/static/images/default-course.jpg';
                                   }}
                                   loading="lazy"
-                                  style={{ objectFit: 'cover', height: '200px' }}
+                                  style={{ 
+                                    objectFit: 'cover', 
+                                    height: '200px',
+                                    filter: 'brightness(0.9) saturate(1.1)'
+                                  }}
+                                />
+                                
+                                {/* Overlay glassmorphism en la imagen */}
+                                <div 
+                                  className="position-absolute"
+                                  style={{
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    background: 'linear-gradient(135deg, rgba(177, 122, 42, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(177, 122, 42, 0.1) 100%)',
+                                    backdropFilter: 'blur(2px)'
+                                  }}
                                 />
                                 
                                 {/* Badge de estado en la esquina superior derecha */}
-                                <span className="badge position-absolute top-0 end-0 m-2" 
-                                      style={{ 
-                                        backgroundColor: level.activo ? '#28a745' : '#6c757d',
-                                        color: 'white'
-                                      }}>
-                                  {level.activo ? 'Activo' : 'Inactivo'}
+                                <span 
+                                  className="badge position-absolute top-0 end-0 m-2" 
+                                  style={{ 
+                                    background: level.activo 
+                                      ? 'linear-gradient(135deg, #28a745, #20c997)' 
+                                      : 'linear-gradient(135deg, #6c757d, #495057)',
+                                    color: 'white',
+                                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                                    backdropFilter: 'blur(10px)',
+                                    borderRadius: '12px',
+                                    padding: '0.5rem 0.8rem',
+                                    fontSize: '0.75rem',
+                                    fontWeight: '600'
+                                  }}
+                                >
+                                  {level.activo ? '✓ Activo' : '⏸ Inactivo'}
                                 </span>
                                 
-                                {/* Icono de play en el centro */}
-                                <div className="position-absolute top-50 start-50 translate-middle">
+                                {/* Icono de play en el centro con efecto glassmorphism */}
+                                <div 
+                                  className="position-absolute top-50 start-50 translate-middle"
+                                  style={{
+                                    background: 'rgba(255, 255, 255, 0.2)',
+                                    backdropFilter: 'blur(10px)',
+                                    borderRadius: '50%',
+                                    width: '70px',
+                                    height: '70px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                                    transition: 'all 0.3s ease'
+                                  }}
+                                >
                                   <i 
-                                    className="bi bi-play-circle-fill text-white" 
-                                    style={{ fontSize: '3rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
+                                    className="bi bi-play-fill text-white" 
+                                    style={{ fontSize: '2rem', marginLeft: '4px' }}
                                   ></i>
                                 </div>
                               </div>
                               
-                              <div className="card-body p-3">
-                                <h5 className="card-title fw-bold mb-2" style={{ fontSize: '1.1rem', color: '#2c3e50' }}>
-                                  Level: {level.nombre}
+                              <div 
+                                className="card-body p-3"
+                                style={{
+                                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                                  color: 'white'
+                                }}
+                              >
+                                <h5 
+                                  className="card-title fw-bold mb-2" 
+                                  style={{ 
+                                    fontSize: '1.1rem', 
+                                    color: 'white',
+                                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                                  }}
+                                >
+                                  📚 Level: {level.nombre}
                                 </h5>
-                                <p className="card-text mb-1 small text-muted">
-                                  {level.nivel.nombre}
+                                <p 
+                                  className="card-text mb-1 small"
+                                  style={{ 
+                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    fontSize: '0.85rem'
+                                  }}
+                                >
+                                  🎓 {level.nivel.nombre}
                                 </p>
-                                <p className="card-text mb-0 small text-muted">
-                                  {level.raiz.nombre}
+                                <p 
+                                  className="card-text mb-0 small"
+                                  style={{ 
+                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    fontSize: '0.85rem'
+                                  }}
+                                >
+                                  🏫 {level.raiz.nombre}
                                 </p>
                               </div>
                             </div>
@@ -258,20 +376,93 @@ const DownloadsCarousel = () => {
               {carouselSlides.length > 1 && (
                 <>
                   <button 
-                    className="carousel-control-custom carousel-control-prev-custom" 
+                    className="position-absolute top-50 start-0 translate-middle-y"
+                    style={{
+                      left: '-2rem',
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '50%',
+                      width: '60px',
+                      height: '60px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      zIndex: 10
+                    }}
                     onClick={prevSlide}
-                    disabled={isTransitioning}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                      e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                      e.target.style.transform = 'translateY(-50%) scale(1)';
+                    }}
                   >
-                    <i className="bi bi-chevron-left text-white fs-3"></i>
+                    <i className="bi bi-chevron-left text-white" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}></i>
                   </button>
                   <button 
-                    className="carousel-control-custom carousel-control-next-custom" 
+                    className="position-absolute top-50 end-0 translate-middle-y"
+                    style={{
+                      right: '-2rem',
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '50%',
+                      width: '60px',
+                      height: '60px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      zIndex: 10
+                    }}
                     onClick={nextSlide}
-                    disabled={isTransitioning}
+                    onMouseEnter={(e) => {
+                      e.target.style.background = 'rgba(255, 255, 255, 0.3)';
+                      e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                      e.target.style.transform = 'translateY(-50%) scale(1)';
+                    }}
                   >
-                    <i className="bi bi-chevron-right text-white fs-3"></i>
+                    <i className="bi bi-chevron-right text-white" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}></i>
                   </button>
                 </>
+              )}
+              
+              {/* Indicadores de slide */}
+              {carouselSlides.length > 1 && (
+                <div 
+                  className="position-absolute bottom-0 start-50 translate-middle-x mb-3"
+                  style={{ zIndex: 10 }}
+                >
+                  <div className="d-flex gap-2">
+                    {carouselSlides.map((_, index) => (
+                      <button
+                        key={index}
+                        className="border-0"
+                        style={{
+                          width: '12px',
+                          height: '12px',
+                          borderRadius: '50%',
+                          background: index === currentSlide 
+                            ? 'rgba(177, 122, 42, 0.9)' 
+                            : 'rgba(255, 255, 255, 0.4)',
+                          backdropFilter: 'blur(10px)',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease'
+                        }}
+                        onClick={() => setCurrentSlide(index)}
+                      />
+                    ))}
+                  </div>
+                </div>
               )}
             </div>
           </div>
