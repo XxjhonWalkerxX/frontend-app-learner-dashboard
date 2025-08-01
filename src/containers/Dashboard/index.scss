@@ -342,16 +342,24 @@ $gutter: map-get($spacers, 4);
 }
 
 .level-card {
-  flex-shrink: 0;
-  padding: 1.5rem;
+  flex: 0 0 100%;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
   cursor: pointer;
-  box-sizing: border-box;
   
   @media (min-width: 768px) {
-    padding: 2rem;
+    flex-direction: row;
+    text-align: left;
+  }
+  
+  &.active {
+    .card-image-wrapper {
+      transform: scale(1);
+    }
   }
   
   &:hover {
@@ -372,13 +380,19 @@ $gutter: map-get($spacers, 4);
 .card-image-wrapper {
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   aspect-ratio: 16/9;
   border-radius: 16px;
   overflow: hidden;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   transition: transform 0.4s ease;
   box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  
+  @media (min-width: 768px) {
+    flex: 0 0 45%;
+    margin-bottom: 0;
+    margin-right: 2rem;
+  }
   
   .level-image {
     width: 100%;
@@ -401,21 +415,21 @@ $gutter: map-get($spacers, 4);
     
     .play-button {
       color: white;
-      font-size: 3rem;
+      font-size: 4rem;
       transition: transform 0.3s ease;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
     }
     
     .level-badge {
       position: absolute;
-      top: 0.8rem;
-      left: 0.8rem;
+      top: 1rem;
+      left: 1rem;
       background: $color-dorado;
       color: white;
-      padding: 0.4rem 0.8rem;
-      border-radius: 15px;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
       font-weight: 600;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       box-shadow: 0 4px 15px rgba(177, 122, 42, 0.4);
     }
   }
@@ -424,19 +438,17 @@ $gutter: map-get($spacers, 4);
 .card-content {
   flex: 1;
   color: white;
-  text-align: center;
-  width: 100%;
   
   .level-header {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1rem;
     
     .level-name {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 700;
       margin: 0;
       color: white;
@@ -444,9 +456,9 @@ $gutter: map-get($spacers, 4);
     }
     
     .status-badge {
-      padding: 0.3rem 0.8rem;
-      border-radius: 15px;
-      font-size: 0.7rem;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -466,17 +478,17 @@ $gutter: map-get($spacers, 4);
   }
   
   .level-details {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     
     .level-program {
-      font-size: 1rem;
+      font-size: 1.2rem;
       font-weight: 500;
       color: rgba(255,255,255,0.9);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
     }
     
     .level-section {
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: rgba(255,255,255,0.7);
       margin-bottom: 0;
     }
@@ -484,17 +496,16 @@ $gutter: map-get($spacers, 4);
   
   .card-footer {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
     
     .subscribe-btn,
     .download-btn {
-      padding: 0.6rem 1.2rem;
+      padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: 20px;
+      border-radius: 25px;
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       transition: all 0.3s ease;
       cursor: pointer;
       display: flex;
@@ -630,27 +641,23 @@ $gutter: map-get($spacers, 4);
     }
   }
   
-  // En móviles, mostrar solo 1 elemento a la vez
-  .downloads-carousel-wrapper {
-    .level-card {
-      flex: 0 0 100% !important;
-      padding: 1.5rem;
-      
-      .card-content {
-        .level-header {
-          .level-name {
-            font-size: 1.3rem;
-          }
+  .level-card {
+    padding: 1.5rem;
+    
+    .card-content {
+      .level-header {
+        .level-name {
+          font-size: 1.5rem;
         }
+      }
+      
+      .card-footer {
+        justify-content: center;
         
-        .card-footer {
-          justify-content: center;
-          
-          .subscribe-btn,
-          .download-btn {
-            flex: 1;
-            min-width: 120px;
-          }
+        .subscribe-btn,
+        .download-btn {
+          flex: 1;
+          min-width: 140px;
         }
       }
     }
@@ -663,15 +670,6 @@ $gutter: map-get($spacers, 4);
     
     &.next {
       right: 10px;
-    }
-  }
-}
-
-@media (max-width: 992px) and (min-width: 769px) {
-  // En tablets, mostrar 2 elementos a la vez
-  .downloads-carousel-wrapper {
-    .level-card {
-      flex: 0 0 50% !important;
     }
   }
 }

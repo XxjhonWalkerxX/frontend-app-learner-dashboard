@@ -80,8 +80,13 @@ const Certificates = () => {
           { credentials: 'include', headers: { Accept: 'application/json' } }
         );
         if (!resp.ok) throw new Error(`Error ${resp.status}`);
-        // const data = await resp.json();
-        setCerts(mockCerts);
+        const data = await resp.json();
+        //si no hay certificados, usar mock
+        if (!data.length) {
+          setCerts(mockCerts);
+        } else {
+          setCerts(data);
+        }
       } catch (e) {
         setError(e.message);
       } finally {
