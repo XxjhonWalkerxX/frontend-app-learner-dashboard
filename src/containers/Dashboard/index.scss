@@ -1,6 +1,12 @@
 @import "@openedx/paragon/scss/core/core";
 
 // -----------------------------------
+// Variables
+// -----------------------------------
+$verde-oscuro: #2a5934;
+$color-dorado: #B17A2A;
+
+// -----------------------------------
 // Banner con glassmorphism & gradiente
 // -----------------------------------
 .dashboard-banner-bg {
@@ -20,7 +26,6 @@
   align-items: flex-start;
   justify-content: center;
 
-  // Imagen + blur
   &::before {
     content: "";
     position: absolute;
@@ -33,7 +38,6 @@
     z-index: 1;
   }
 
-  // Gradiente encima del blur
   &::after {
     content: "";
     position: absolute;
@@ -44,7 +48,7 @@
 }
 
 // -----------------------------------
-// Logo EMI centrado un poco hacia arriba
+// Logo EMI centrado
 // -----------------------------------
 .dashboard-logo {
   position: absolute;
@@ -56,11 +60,12 @@
   z-index: 3;
   pointer-events: none;
   opacity: 0.9;
-  transition: transform 0.3s ease;
-}
-.dashboard-logo:hover {
-  transform: translateX(-50%) scale(1.05);
-  opacity: 1;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  &:hover {
+    transform: translateX(-50%) scale(1.05);
+    opacity: 1;
+  }
 }
 
 // -----------------------------------
@@ -85,7 +90,6 @@
   max-width: 300px;
 }
 
-// Avatar
 .user-avatar {
   flex-shrink: 0;
   width: 64px;
@@ -97,11 +101,9 @@
   margin-right: 1rem;
 }
 
-// Texto
 .user-text {
   color: #fff;
   line-height: 1.2;
-  overflow: hidden;
 
   .user-name {
     font-size: 1.125rem;
@@ -123,11 +125,12 @@
 }
 
 // -----------------------------------
-// Cursos
+// Cursos (My Courses, Downloads…)
 // -----------------------------------
 .course-list-column {
   padding: 0 map-get($spacers, 4);
 }
+
 // -----------------------------------
 // NAV DE TABS
 // -----------------------------------
@@ -140,27 +143,27 @@
 
 .dashboard-tab {
   background: transparent;
-  border: 2px solid #B17A2A;  // dorado EMI
+  border: 2px solid $color-dorado;
   border-radius: 9999px;
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #B17A2A;
+  color: $color-dorado;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
 
   &:hover {
-    background: rgba(177, 122, 42, 0.1);
+    background: rgba($color-dorado, 0.1);
   }
 
   &.active {
-    background: #B17A2A;
+    background: $color-dorado;
     color: #fff;
   }
 }
 
 // -----------------------------------
-// PLACEHOLDER
+// PLACEHOLDER (Proximidad)
 // -----------------------------------
 .dashboard-placeholder {
   padding: 3rem 1rem;
@@ -172,9 +175,85 @@
   border-radius: 8px;
 }
 
+// -----------------------------------
+// Utilidades generales
+// -----------------------------------
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spin { 
+  animation: spin 1s linear infinite; 
+}
+
+.badge {
+  font-size: 0.7rem;
+}
+
+.card[data-level-id]:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+.card[data-level-id] .icon_video:hover {
+  transform: scale(1.1);
+  color: #ffc107;
+  transition: all 0.3s ease;
+}
+
+.card-img {
+  object-fit: cover;
+  height: 400px;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+// Fondo oscuro reutilizable
+.fondo_verde_oscuro {
+  background-color: $verde-oscuro;
+}
+
+.icon_download {
+  font-size: 1.2rem;
+}
 
 // -----------------------------------
-// Responsive tweaks
+// Carrusel de Certificates
+// -----------------------------------
+#certCarousel {
+  position: relative;
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  .carousel-control-prev {
+    left: -1rem;
+  }
+  .carousel-control-next {
+    right: -1rem;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-size: 1.25rem 1.25rem;
+  }
+}
+
+// -----------------------------------
+// Responsive genérico
 // -----------------------------------
 @include media-breakpoint-down(md) {
   .dashboard-banner-bg {
@@ -222,199 +301,4 @@
   .course-list-column {
     padding: 0 map-get($spacers, 2);
   }
-}
-
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.spin { 
-    animation: spin 1s linear infinite; 
-}
-
-.card[data-level-id]:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-}
-
-.card[data-level-id] .icon_video:hover {
-    transform: scale(1.1);
-    color: #ffc107;
-    transition: all 0.3s ease;
-}
-
-.badge {
-    font-size: 0.7rem;
-}
-
-.card-img {
-    object-fit: cover;
-    height: 400px;
-}
-
-.spinner-border {
-    width: 3rem;
-    height: 3rem;
-}
-.fondo_verde_oscuro { background-color: #2a5934; } // o el tono que uses
-.icon_download { font-size: 1.2rem; }
-
-/* Responsive fixes para móvil */
-@media (max-width: 768px) {
-    /* FORZAR QUE EL CARRUSEL MUESTRE SOLO UN ELEMENTO EN MÓVIL */
-    
-    /* Carrusel dinámico de niveles */
-    #sepCarousel .carousel-inner .carousel-item {
-        display: flex !important;
-        justify-content: center !important;
-        padding: 0 10px;
-    }
-    
-    #sepCarousel .carousel-inner .carousel-item .col-md-12 {
-        flex: 0 0 90% !important;
-        max-width: 90% !important;
-        margin: 0 auto;
-    }
-    
-    /* Carrusel estático de fun facts */
-    #recipeCarousel .carousel-inner .carousel-item {
-        display: flex !important;
-        justify-content: center !important;
-        padding: 0 10px;
-    }
-    
-    #recipeCarousel .carousel-inner .carousel-item .col-md-12 {
-        flex: 0 0 90% !important;
-        max-width: 90% !important;
-        margin: 0 auto;
-    }
-    
-    /* Grids de cards - forzar una sola columna */
-    .row-cols-md-3 > .col,
-    .row-cols-md-6 > .col {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        margin-bottom: 1rem;
-    }
-    
-    /* Ajustar el tamaño de las imágenes en móvil */
-    .card-img,
-    .card-img-top {
-        height: 300px !important; /* Aumentado para compensar el padding adicional */
-        object-fit: cover;
-    }
-    
-    /* Ajustar el overlay para que todo el texto sea visible */
-    #sepCarousel .card-img-overlay {
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        padding: 0.75rem 0.75rem 3rem 0.75rem !important; /* Más padding inferior para badges */
-        position: relative !important;
-    }
-    
-    /* Asegurar que el contenido del overlay no se corte */
-    #sepCarousel .card-img-overlay > div:first-child {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex: 1 !important;
-    }
-    
-    /* Grupo de texto en la parte inferior */
-    #sepCarousel .card-img-overlay h5,
-    #sepCarousel .card-img-overlay p {
-        margin-bottom: 0.25rem !important;
-        line-height: 1.2 !important;
-    }
-    
-    /* Texto más pequeño en móvil para que quepa */
-    #sepCarousel .card-title {
-        font-size: 0.9rem !important;
-    }
-    
-    #sepCarousel .card-text {
-        font-size: 0.75rem !important;
-    }
-    
-    /* Ajustar posición de badges para que sean visibles */
-    #sepCarousel .badge.position-absolute.bottom-0 {
-        bottom: 0.5rem !important; /* Separar del borde inferior */
-        left: 0.5rem !important;
-        right: auto !important;
-        max-width: calc(100% - 1rem) !important;
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-    
-    #sepCarousel .badge.position-absolute.top-0 {
-        top: 0.5rem !important;
-        right: 0.5rem !important;
-    }
-    
-    /* Selector de nivel - layout vertical */
-    .row.mt-5.mlef .col-md-2 {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-    
-    .row.mt-5.mlef .col-md-10 {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        text-align: center;
-    }
-    
-    /* Centrar contenedores del carrusel */
-    #dynamicCarousel .row,
-    .carousel .row {
-        justify-content: center !important;
-    }
-    
-    /* Ajustar texto en móvil */
-    .card-title {
-        font-size: 1rem !important;
-    }
-    
-    .card-text {
-        font-size: 0.85rem !important;
-    }
-    
-    /* Badges más pequeños */
-    .badge {
-        font-size: 0.6rem !important;
-        padding: 0.25rem 0.4rem !important;
-    }
-    
-    /* Controles de carrusel más visibles */
-    .carousel-control-prev,
-    .carousel-control-next {
-        width: 15% !important;
-        opacity: 0.8 !important;
-    }
-    
-    .carousel-control-prev:hover,
-    .carousel-control-next:hover {
-        opacity: 1 !important;
-    }
-    
-    /* Iconos de video más grandes */
-    .icon_video {
-        font-size: 3rem !important;
-    }
-    
-    /* Forzar que todos los carousel-item tengan el mismo ancho */
-    .carousel-inner .carousel-item {
-        width: 100% !important;
-    }
-    
-    /* Asegurar que las cards no se vean múltiples */
-    .carousel-inner .carousel-item > div[class*="col"] {
-        width: 100% !important;
-        padding: 0 15px !important;
-    }
 }

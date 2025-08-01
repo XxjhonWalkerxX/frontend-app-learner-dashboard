@@ -122,7 +122,7 @@ const Certificates = () => {
     <div className="fondo_verde_oscuro mt-5 p-4">
       <div
         id="certCarousel"
-        className="carousel carousel-dark slide"
+        className="carousel carousel-dark slide position-relative"
         data-bs-interval="false"
       >
         <div className="carousel-inner">
