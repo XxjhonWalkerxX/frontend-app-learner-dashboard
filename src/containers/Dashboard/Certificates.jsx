@@ -13,7 +13,7 @@ const mockCerts = [
     created_date: new Date().toISOString(),
     download_url: "/static/certificados/ejemplo.pdf",
     status: "downloadable",
-    grade: "9.20"
+    grade: "9.21"
   },
   {
     course_id: "course-v1:EMI+TEST+2025",
@@ -33,7 +33,7 @@ const mockCerts = [
     created_date: new Date().toISOString(),
     download_url: "/static/certificados/ejemplo.pdf",
     status: "downloadable",
-    grade: "9.20"
+    grade: "9.21"
   },
   {
     course_id: "course-v1:EMI+TEST+2025",
@@ -43,7 +43,7 @@ const mockCerts = [
     created_date: new Date().toISOString(),
     download_url: "/static/certificados/ejemplo.pdf",
     status: "downloadable",
-    grade: "9.20"
+    grade: "9.22"
   },
   {
     course_id: "course-v1:EMI+TEST+2025",
@@ -53,7 +53,7 @@ const mockCerts = [
     created_date: new Date().toISOString(),
     download_url: "/static/certificados/ejemplo.pdf",
     status: "downloadable",
-    grade: "9.20"
+    grade: "9.23"
   }
 ];
 // Helper para dividir en grupos de N

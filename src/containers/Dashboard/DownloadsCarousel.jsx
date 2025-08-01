@@ -15,10 +15,10 @@ const chunkArray = (arr, size) => {
 };
 
 const DownloadsCarousel = () => {
-  const [levelsData, setLevelsData]       = useState([]);
-  const [currentLevel, setCurrentLevel]   = useState('');
-  const [loading, setLoading]             = useState(false);
-  const [error, setError]                 = useState(null);
+  const [levelsData, setLevelsData]     = useState([]);
+  const [currentLevel, setCurrentLevel] = useState('');
+  const [loading, setLoading]           = useState(false);
+  const [error, setError]               = useState(null);
 
   // 1) Carga inicial
   useEffect(() => {
@@ -41,7 +41,7 @@ const DownloadsCarousel = () => {
     loadData();
   }, []);
 
-  // 2) Construye array de items duplicados hasta al menos 5
+  // 2) Duplicar hasta tener al menos 5 items
   const getDisplayLevels = () => {
     let items = levelsData.filter(l => l.slug === currentLevel);
     while (items.length < 5 && levelsData.length) {
@@ -50,7 +50,7 @@ const DownloadsCarousel = () => {
     return items.slice(0, 5);
   };
 
-  const openLevel = (slug) => alert(`Abriendo nivel ${slug.toUpperCase()}`);
+  const openLevel = slug => alert(`Abriendo nivel ${slug.toUpperCase()}`);
 
   if (loading) {
     return (
@@ -73,15 +73,13 @@ const DownloadsCarousel = () => {
     );
   }
 
-  if (!levelsData.length) {
-    return null;
-  }
+  if (!levelsData.length) return null;
 
-  const uniqueLevels = Array.from(new Map(levelsData.map(l => [l.slug, l])).values());
+  const uniqueLevels  = Array.from(new Map(levelsData.map(l => [l.slug, l])).values());
   const displayLevels = getDisplayLevels();
 
-  // Partir en slides de 4 tarjetas
-  const slides = chunkArray(displayLevels, 4);
+  // Partir en slides de 5 tarjetas (porque el CSS calcula 5)
+  const slides = chunkArray(displayLevels, 5);
 
   return (
     <div className="row mb-4">
@@ -102,17 +100,17 @@ const DownloadsCarousel = () => {
       <div className="col-12">
         <div
           id="sepCarousel"
-          className="carousel carousel-dark slide position-relative"
+          className="carousel carousel-dark slide"
           data-bs-interval="false"
         >
           <div className="carousel-inner">
             {slides.map((group, idx) => (
               <div key={idx} className={`carousel-item${idx === 0 ? ' active' : ''}`}>
-                <div className="row gy-4 justify-content-center">
+                <div className="d-flex">
                   {group.map((lvl, i) => {
                     const imgSrc = lvl.portada || '/static/images/default-course.jpg';
                     return (
-                      <div key={i} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                      <div key={i} className="flex-shrink-0">
                         <div
                           className="card bg-dark text-white h-100 position-relative"
                           onClick={() => openLevel(lvl.slug)}
@@ -131,12 +129,10 @@ const DownloadsCarousel = () => {
                             <div className="mt-2 text-end">
                               {lvl.activo
                                 ? <span className="badge bg-success me-1">Activo</span>
-                                : <span className="badge bg-secondary me-1">Inactivo</span>
-                              }
+                                : <span className="badge bg-secondary me-1">Inactivo</span>}
                               {lvl.suscrito
                                 ? <span className="badge bg-primary"><i className="bi bi-check-circle me-1" />Suscrito</span>
-                                : <span className="badge bg-outline-light"><i className="bi bi-plus-circle me-1" />Suscribirse</span>
-                              }
+                                : <span className="badge bg-outline-light"><i className="bi bi-plus-circle me-1" />Suscribirse</span>}
                             </div>
                           </div>
                         </div>
@@ -156,7 +152,7 @@ const DownloadsCarousel = () => {
                 data-bs-target="#sepCarousel"
                 data-bs-slide="prev"
               >
-                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                <i className="bi bi-chevron-left" />
                 <span className="visually-hidden">Anterior</span>
               </button>
               <button
@@ -165,7 +161,7 @@ const DownloadsCarousel = () => {
                 data-bs-target="#sepCarousel"
                 data-bs-slide="next"
               >
-                <span className="carousel-control-next-icon" aria-hidden="true" />
+                <i className="bi bi-chevron-right" />
                 <span className="visually-hidden">Siguiente</span>
               </button>
             </>
