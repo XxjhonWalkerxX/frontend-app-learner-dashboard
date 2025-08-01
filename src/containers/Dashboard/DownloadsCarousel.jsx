@@ -2,40 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 const DownloadsCarousel = () => {
   const [levels, setLevels] = useState([]);
-  const [currentLevel, setCurrentLevel] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isSliding, setIsSliding] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const API_URL = 'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
 
   useEffect(() => {
     loadData();
   }, []);
-
-  // Agregar efectos de transición al carrusel
-  useEffect(() => {
-    const carouselElement = document.getElementById('sepCarousel');
-    if (carouselElement) {
-      const handleSlideStart = () => {
-        setIsSliding(true);
-        carouselElement.classList.add('sliding');
-      };
-      
-      const handleSlideEnd = () => {
-        setIsSliding(false);
-        carouselElement.classList.remove('sliding');
-      };
-
-      carouselElement.addEventListener('slide.bs.carousel', handleSlideStart);
-      carouselElement.addEventListener('slid.bs.carousel', handleSlideEnd);
-
-      return () => {
-        carouselElement.removeEventListener('slide.bs.carousel', handleSlideStart);
-        carouselElement.removeEventListener('slid.bs.carousel', handleSlideEnd);
-      };
-    }
-  }, [levels]);
 
   const loadData = async () => {
     try {
@@ -57,11 +33,6 @@ const DownloadsCarousel = () => {
       }
 
       setLevels(filteredData);
-      
-      // Seleccionar el primer nivel por defecto
-      if (filteredData.length > 0) {
-        setCurrentLevel(filteredData[0].slug);
-      }
 
     } catch (error) {
       console.error('Error al cargar datos:', error);
@@ -71,61 +42,46 @@ const DownloadsCarousel = () => {
     }
   };
 
-  const handleLevelChange = (e) => {
-    setCurrentLevel(e.target.value);
+  const nextSlide = () => {
+    if (isTransitioning || levels.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => (prev + 1) % levels.length);
+    setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  const openLevel = (slug, id) => {
-    alert(`Abriendo nivel ${slug.toUpperCase()}`);
+  const prevSlide = () => {
+    if (isTransitioning || levels.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => (prev - 1 + levels.length) % levels.length);
+    setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  // Obtener niveles únicos para el selector
-  const getUniqueLevels = () => {
-    const uniqueLevels = [];
-    const seenSlugs = new Set();
-    
-    for (let i = 0; i < levels.length; i++) {
-      const level = levels[i];
-      if (!seenSlugs.has(level.slug)) {
-        seenSlugs.add(level.slug);
-        uniqueLevels.push(level);
-      }
-    }
-    return uniqueLevels;
+  const goToSlide = (index) => {
+    if (isTransitioning || index === currentSlide) return;
+    setIsTransitioning(true);
+    setCurrentSlide(index);
+    setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  // Filtrar niveles según el nivel actual seleccionado
-  const getCurrentLevelData = () => {
-    let displayLevels = levels.filter(level => level.slug === currentLevel);
-    
-    // Si hay pocos elementos, duplicarlos hasta tener al menos 8
-    while (displayLevels.length < 8 && levels.length > 0) {
-      displayLevels = displayLevels.concat(levels.filter(level => level.slug === currentLevel));
-    }
-    
-    // Limitar a máximo 8 elementos para el carrusel
-    return displayLevels.slice(0, 8);
-  };
-
-  // Helper para dividir los elementos en grupos para el carrusel
-  const chunkArray = (arr, size) => {
-    const chunks = [];
-    for (let i = 0; i < arr.length; i += size) {
-      chunks.push(arr.slice(i, i + size));
-    }
-    return chunks;
+  const openLevel = (level) => {
+    window.open(`https://nemd.aprende.gob.mx/nivel/${level.slug}/`, '_blank');
   };
 
   if (loading) {
     return (
-      <div className="fondo_verde_oscuro mt-5">
-        <div className="row mt-5 mlef">
-          <div className="col-md-12 text-center">
-            <div className="spinner-border text-light" role="status">
-              <span className="visually-hidden">Cargando...</span>
-            </div>
-            <p className="mt-2 text-white">Cargando niveles desde SEP...</p>
+      <div className="downloads-container">
+        <div className="downloads-header">
+          <h2 className="downloads-title">
+            <i className="bi bi-download me-3"></i>
+            Recursos Educativos
+          </h2>
+          <p className="downloads-subtitle">Explora los diferentes niveles de inglés disponibles</p>
+        </div>
+        <div className="downloads-loading">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
           </div>
+          <p className="loading-text">Cargando recursos educativos...</p>
         </div>
       </div>
     );
@@ -133,201 +89,133 @@ const DownloadsCarousel = () => {
 
   if (error) {
     return (
-      <div className="fondo_verde_oscuro mt-5">
-        <div className="row mt-5">
-          <div className="col-md-12">
-            <div className="alert alert-warning text-dark" role="alert">
-              <h4 className="alert-heading">
-                <i className="bi bi-exclamation-triangle"></i> Error al cargar contenido
-              </h4>
-              <p className="mb-0">{error}</p>
-              <hr />
-              <p className="mb-0">
-                <button 
-                  className="btn btn-outline-primary btn-sm" 
-                  onClick={loadData}
-                >
-                  <i className="bi bi-arrow-clockwise"></i> Intentar nuevamente
-                </button>
-              </p>
-            </div>
+      <div className="downloads-container">
+        <div className="downloads-header">
+          <h2 className="downloads-title">
+            <i className="bi bi-download me-3"></i>
+            Recursos Educativos
+          </h2>
+        </div>
+        <div className="downloads-error">
+          <div className="error-icon">
+            <i className="bi bi-exclamation-triangle"></i>
           </div>
+          <h3>Error al cargar contenido</h3>
+          <p>{error}</p>
+          <button className="error-retry-btn" onClick={loadData}>
+            <i className="bi bi-arrow-clockwise me-2"></i>
+            Intentar nuevamente
+          </button>
         </div>
       </div>
     );
   }
 
-  const uniqueLevels = getUniqueLevels();
-  const displayLevels = getCurrentLevelData();
-  
-  // Dividir los niveles en grupos de 4 para el carrusel
-  const carouselSlides = chunkArray(displayLevels, 4);
-
   return (
-    <div className="fondo_verde_oscuro mt-5">
-      {/* Select de nivel */}
-      <div className="row mt-5 mlef">
-        <div className="col-md-2">
-          <select 
-            id="levelSelector" 
-            className="form-select select_nivel" 
-            value={currentLevel}
-            onChange={handleLevelChange}
-            aria-label="Selector de nivel"
-          >
-            {uniqueLevels.map((level, index) => (
-              <option key={level.slug} value={level.slug}>
-                Level {level.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="col-md-10">
-          {loading && (
-            <div className="text-end text-white">
-              <i className="bi bi-arrow-clockwise spin me-2"></i>Cargando contenido...
-            </div>
-          )}
+    <div className="downloads-container">
+      {/* Header con título y descripción */}
+      <div className="downloads-header">
+        <h2 className="downloads-title">
+          <i className="bi bi-download me-3"></i>
+          Recursos Educativos
+        </h2>
+        <p className="downloads-subtitle">Explora los diferentes niveles de inglés disponibles</p>
+        <div className="downloads-stats">
+          <span className="stat-item">
+            <i className="bi bi-collection-play me-2"></i>
+            {levels.length} {levels.length === 1 ? 'Nivel' : 'Niveles'}
+          </span>
         </div>
       </div>
 
-      {/* Carrusel de Videos */}
-      <div className="container-fluid text-center my-3 mb-5">
-        <div className="row">
-          <div className="row mx-auto my-auto justify-content-center">
+      {/* Carrusel moderno */}
+      <div className="downloads-carousel-wrapper">
+        <div className="carousel-container" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+          {levels.map((level, index) => (
             <div 
-              id="sepCarousel" 
-              className="carousel carousel-dark slide" 
-              data-bs-touch="false"
-              data-bs-interval="false" 
-              data-bs-wrap="false"
+              key={level.id} 
+              className={`level-card ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => openLevel(level)}
             >
-              <div className="carousel-inner" role="listbox">
-                {carouselSlides.map((slideGroup, slideIndex) => (
-                  <div 
-                    key={slideIndex}
-                    className={`carousel-item${slideIndex === 0 ? ' active' : ''}`}
-                  >
-                    <div className="row gy-4 justify-content-center">
-                      {slideGroup.map((level, index) => (
-                        <div key={`${level.id}-${slideIndex}-${index}`} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                          <div 
-                            className="card bg-dark text-white h-100 position-relative" 
-                            data-level-id={`${level.id}-${slideIndex}-${index}`}
-                            style={{ 
-                              cursor: 'pointer', 
-                              borderRadius: '12px', 
-                              overflow: 'hidden',
-                              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                              transform: isSliding ? 'scale(0.98)' : 'scale(1)'
-                            }}
-                            onMouseEnter={(e) => {
-                              if (!isSliding) {
-                                e.currentTarget.style.transform = 'scale(1.02)';
-                                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if (!isSliding) {
-                                e.currentTarget.style.transform = 'scale(1)';
-                                e.currentTarget.style.boxShadow = 'none';
-                              }
-                            }}
-                          >
-                            <img 
-                              className="card-img" 
-                              src={level.portada || level.tipo?.portada || level.nivel?.portada} 
-                              alt={level.nombre_completo}
-                              onError={(e) => {
-                                e.target.src = '/static/images/default-course.jpg';
-                              }}
-                              loading="lazy"
-                              style={{ objectFit: 'cover', height: '400px' }}
-                            />
-                            
-                            {/* Badge de estado en la esquina superior derecha */}
-                            {level.activo ? (
-                              <span className="badge bg-success position-absolute" style={{ top: '8px', right: '8px', zIndex: 10 }}>
-                                Activo
-                              </span>
-                            ) : (
-                              <span className="badge bg-secondary position-absolute" style={{ top: '8px', right: '8px', zIndex: 10 }}>
-                                Inactivo
-                              </span>
-                            )}
-                            
-                            <div className="card-img-overlay d-flex flex-column justify-content-between p-0">
-                              {/* Icono de play en el centro */}
-                              <div 
-                                className="d-flex justify-content-center align-items-center flex-grow-1"
-                                onClick={() => openLevel(level.slug, level.id)}
-                              >
-                                <i 
-                                  className="bi bi-play-circle icon_video" 
-                                  style={{ fontSize: '4rem', cursor: 'pointer', color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
-                                ></i>
-                              </div>
-                              
-                              {/* Información del nivel en la parte inferior */}
-                              <div className="position-absolute w-100" style={{ bottom: '0', background: 'linear-gradient(transparent, rgba(0,0,0,0.7))' }}>
-                                <div className="p-3">
-                                  <h5 className="card-title text-start fw-bold text-white mb-1" style={{ fontSize: '1.1rem' }}>
-                                    Level: {level.nombre}
-                                  </h5>
-                                  <p className="card-text text-start mb-1 small text-white-50">
-                                    {level.nivel.nombre}
-                                  </p>
-                                  <p className="card-text text-start mb-0 small text-white-50">
-                                    {level.raiz.nombre}
-                                  </p>
-                                </div>
-                                
-                                {/* Badge de suscripción en la esquina inferior izquierda */}
-                                {level.suscrito ? (
-                                  <span className="badge bg-primary position-absolute" style={{ bottom: '8px', left: '8px' }}>
-                                    <i className="bi bi-check-circle me-1"></i> Suscrito
-                                  </span>
-                                ) : (
-                                  <span className="badge bg-outline-light position-absolute" style={{ bottom: '8px', left: '8px', color: 'white', borderColor: 'white' }}>
-                                    <i className="bi bi-plus-circle me-1"></i> Suscribirse
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+              <div className="card-image-wrapper">
+                <img 
+                  src={level.portada} 
+                  alt={level.nombre_completo}
+                  className="level-image"
+                  onError={(e) => {
+                    e.target.src = level.tipo?.portada || level.nivel?.portada || '/static/images/default-course.jpg';
+                  }}
+                />
+                <div className="image-overlay">
+                  <div className="play-button">
+                    <i className="bi bi-play-circle-fill"></i>
                   </div>
-                ))}
+                  <div className="level-badge">
+                    Level {level.nombre}
+                  </div>
+                </div>
               </div>
               
-              {/* Controles del carrusel solo si hay más de un slide */}
-              {carouselSlides.length > 1 && (
-                <>
-                  <button 
-                    className="carousel-control-prev" 
-                    type="button"
-                    data-bs-target="#sepCarousel" 
-                    data-bs-slide="prev"
-                  >
-                    <i className="bi bi-chevron-left icon_prev"></i>
-                    <span className="visually-hidden">Previous</span>
+              <div className="card-content">
+                <div className="level-header">
+                  <h3 className="level-name">Level {level.nombre}</h3>
+                  <span className={`status-badge ${level.activo ? 'active' : 'inactive'}`}>
+                    {level.activo ? 'Activo' : 'Inactivo'}
+                  </span>
+                </div>
+                
+                <div className="level-details">
+                  <p className="level-program">{level.nivel.nombre}</p>
+                  <p className="level-section">{level.raiz.nombre}</p>
+                </div>
+                
+                <div className="card-footer">
+                  <button className={`subscribe-btn ${level.suscrito ? 'subscribed' : ''}`}>
+                    <i className={`bi ${level.suscrito ? 'bi-check-circle-fill' : 'bi-plus-circle'} me-2`}></i>
+                    {level.suscrito ? 'Suscrito' : 'Suscribirse'}
                   </button>
-                  <button 
-                    className="carousel-control-next" 
-                    type="button"
-                    data-bs-target="#sepCarousel" 
-                    data-bs-slide="next"
-                  >
-                    <i className="bi bi-chevron-right icon_prev"></i>
-                    <span className="visually-hidden">Next</span>
+                  <button className="download-btn">
+                    <i className="bi bi-download me-2"></i>
+                    Descargar
                   </button>
-                </>
-              )}
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
+
+        {/* Controles de navegación */}
+        {levels.length > 1 && (
+          <>
+            <button 
+              className="carousel-nav prev" 
+              onClick={prevSlide}
+              disabled={isTransitioning}
+            >
+              <i className="bi bi-chevron-left"></i>
+            </button>
+            <button 
+              className="carousel-nav next" 
+              onClick={nextSlide}
+              disabled={isTransitioning}
+            >
+              <i className="bi bi-chevron-right"></i>
+            </button>
+          </>
+        )}
+
+        {/* Indicadores de slide */}
+        {levels.length > 1 && (
+          <div className="carousel-indicators">
+            {levels.map((_, index) => (
+              <button
+                key={index}
+                className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => goToSlide(index)}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
