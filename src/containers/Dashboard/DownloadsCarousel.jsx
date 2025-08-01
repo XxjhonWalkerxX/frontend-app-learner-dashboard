@@ -1,5 +1,75 @@
 import React, { useState, useEffect } from 'react';
 
+// Datos mock para completar cuando hay pocos elementos
+const mockLevels = [
+  {
+    id: 'mock-1',
+    nombre: 'A1',
+    nombre_completo: 'Inglés Básico A1',
+    slug: 'ingles-a1',
+    portada: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop',
+    activo: true,
+    nivel: { nombre: 'Básico' },
+    raiz: { nombre: 'Inglés' },
+    tipo: { portada: null }
+  },
+  {
+    id: 'mock-2',
+    nombre: 'A2',
+    nombre_completo: 'Inglés Elemental A2',
+    slug: 'ingles-a2',
+    portada: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=300&fit=crop',
+    activo: true,
+    nivel: { nombre: 'Elemental' },
+    raiz: { nombre: 'Inglés' },
+    tipo: { portada: null }
+  },
+  {
+    id: 'mock-3',
+    nombre: 'B1',
+    nombre_completo: 'Inglés Intermedio B1',
+    slug: 'ingles-b1',
+    portada: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop',
+    activo: true,
+    nivel: { nombre: 'Intermedio' },
+    raiz: { nombre: 'Inglés' },
+    tipo: { portada: null }
+  },
+  {
+    id: 'mock-4',
+    nombre: 'B2',
+    nombre_completo: 'Inglés Intermedio Alto B2',
+    slug: 'ingles-b2',
+    portada: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=300&fit=crop',
+    activo: true,
+    nivel: { nombre: 'Intermedio Alto' },
+    raiz: { nombre: 'Inglés' },
+    tipo: { portada: null }
+  },
+  {
+    id: 'mock-5',
+    nombre: 'C1',
+    nombre_completo: 'Inglés Avanzado C1',
+    slug: 'ingles-c1',
+    portada: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop',
+    activo: true,
+    nivel: { nombre: 'Avanzado' },
+    raiz: { nombre: 'Inglés' },
+    tipo: { portada: null }
+  },
+  {
+    id: 'mock-6',
+    nombre: 'C2',
+    nombre_completo: 'Inglés Competencia C2',
+    slug: 'ingles-c2',
+    portada: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
+    activo: true,
+    nivel: { nombre: 'Competencia' },
+    raiz: { nombre: 'Inglés' },
+    tipo: { portada: null }
+  }
+];
+
 const DownloadsCarousel = () => {
   const [levels, setLevels] = useState([]);
   const [currentLevel, setCurrentLevel] = useState('');
@@ -28,20 +98,51 @@ const DownloadsCarousel = () => {
       // Filtrar solo los que tienen portada
       const filteredData = data.filter(item => item.portada && item.portada.trim() !== '');
       
-      if (filteredData.length === 0) {
+      let finalData = filteredData;
+      
+      // Si hay pocos elementos (menos de 7), agregar datos mock
+      if (filteredData.length < 7) {
+        const needed = 7 - filteredData.length;
+        const mockToAdd = mockLevels.slice(0, needed);
+        
+        // Asegurar que los mocks tengan el mismo slug que los reales para el selector
+        const mockWithSlug = mockToAdd.map((mock, index) => ({
+          ...mock,
+          slug: filteredData.length > 0 ? filteredData[0].slug : 'mock-level',
+          nivel: filteredData.length > 0 ? filteredData[0].nivel : mock.nivel,
+          raiz: filteredData.length > 0 ? filteredData[0].raiz : mock.raiz
+        }));
+        
+        finalData = [...filteredData, ...mockWithSlug];
+      }
+      
+      if (finalData.length === 0) {
         throw new Error('No se encontraron niveles con portada');
       }
 
-      setLevels(filteredData);
+      setLevels(finalData);
 
       // Establecer el primer nivel como actual
-      if (filteredData.length > 0) {
-        setCurrentLevel(filteredData[0].slug);
+      if (finalData.length > 0) {
+        setCurrentLevel(finalData[0].slug);
       }
 
     } catch (error) {
       console.error('Error al cargar datos:', error);
-      setError(error.message);
+      
+      // Si hay error de conexión, usar solo datos mock
+      console.log('Usando datos mock debido a error de conexión');
+      const mockData = mockLevels.map(mock => ({
+        ...mock,
+        slug: 'mock-level'
+      }));
+      
+      setLevels(mockData);
+      if (mockData.length > 0) {
+        setCurrentLevel(mockData[0].slug);
+      }
+      
+      setError(`Error de conexión: ${error.message}. Mostrando contenido de ejemplo.`);
     } finally {
       setLoading(false);
     }
@@ -67,7 +168,11 @@ const DownloadsCarousel = () => {
   };
 
   const openLevel = (level) => {
-    alert(`Abriendo nivel ${level.nombre.toUpperCase()}`);
+    if (level.id && level.id.startsWith('mock-')) {
+      alert(`📚 Contenido de ejemplo: ${level.nombre_completo}\n\n¡Pronto tendrás acceso a este nivel! 🚀`);
+    } else {
+      alert(`🎯 Abriendo nivel real: ${level.nombre.toUpperCase()}\n\n${level.nombre_completo}`);
+    }
   };
 
   // Obtener niveles únicos para el selector
@@ -291,9 +396,11 @@ const DownloadsCarousel = () => {
                                 <span 
                                   className="badge position-absolute top-0 end-0 m-2" 
                                   style={{ 
-                                    background: level.activo 
-                                      ? 'linear-gradient(135deg, #28a745, #20c997)' 
-                                      : 'linear-gradient(135deg, #6c757d, #495057)',
+                                    background: level.id && level.id.startsWith('mock-')
+                                      ? 'linear-gradient(135deg, #fd7e14, #e55d87)'  // Orange gradient para mock
+                                      : level.activo 
+                                        ? 'linear-gradient(135deg, #28a745, #20c997)' 
+                                        : 'linear-gradient(135deg, #6c757d, #495057)',
                                     color: 'white',
                                     border: '1px solid rgba(255, 255, 255, 0.3)',
                                     backdropFilter: 'blur(10px)',
@@ -303,8 +410,29 @@ const DownloadsCarousel = () => {
                                     fontWeight: '600'
                                   }}
                                 >
-                                  {level.activo ? 'Activo' : 'Inactivo'}
+                                  {level.id && level.id.startsWith('mock-') 
+                                    ? '📚 Ejemplo' 
+                                    : level.activo ? 'Activo' : 'Inactivo'}
                                 </span>
+                                
+                                {/* Badge adicional para contenido mock en la esquina superior izquierda */}
+                                {level.id && level.id.startsWith('mock-') && (
+                                  <span 
+                                    className="badge position-absolute top-0 start-0 m-2" 
+                                    style={{ 
+                                      background: 'linear-gradient(135deg, rgba(90, 18, 44, 0.9), rgba(139, 21, 56, 0.9))',
+                                      color: 'white',
+                                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                                      backdropFilter: 'blur(10px)',
+                                      borderRadius: '12px',
+                                      padding: '0.4rem 0.6rem',
+                                      fontSize: '0.7rem',
+                                      fontWeight: '600'
+                                    }}
+                                  >
+                                    🚀 Próximamente
+                                  </span>
+                                )}
                                 
                                 {/* Icono de play en el centro con efecto glassmorphism */}
                                 <div 
