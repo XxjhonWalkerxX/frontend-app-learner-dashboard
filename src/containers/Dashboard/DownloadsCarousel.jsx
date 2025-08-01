@@ -73,13 +73,22 @@ const DownloadsCarousel = () => {
   const getCurrentLevelData = () => {
     let displayLevels = levels.filter(level => level.slug === currentLevel);
     
-    // Si hay pocos elementos, duplicarlos hasta tener al menos 5
-    while (displayLevels.length < 5 && levels.length > 0) {
+    // Si hay pocos elementos, duplicarlos hasta tener al menos 8
+    while (displayLevels.length < 8 && levels.length > 0) {
       displayLevels = displayLevels.concat(levels.filter(level => level.slug === currentLevel));
     }
     
-    // Limitar a máximo 5 elementos para mantener el carrusel manejable
-    return displayLevels.slice(0, 5);
+    // Limitar a máximo 8 elementos para el carrusel
+    return displayLevels.slice(0, 8);
+  };
+
+  // Helper para dividir los elementos en grupos para el carrusel
+  const chunkArray = (arr, size) => {
+    const chunks = [];
+    for (let i = 0; i < arr.length; i += size) {
+      chunks.push(arr.slice(i, i + size));
+    }
+    return chunks;
   };
 
   if (loading) {
@@ -125,6 +134,9 @@ const DownloadsCarousel = () => {
 
   const uniqueLevels = getUniqueLevels();
   const displayLevels = getCurrentLevelData();
+  
+  // Dividir en grupos de 4 tarjetas por slide
+  const carouselSlides = chunkArray(displayLevels, 4);
 
   return (
     <div className="fondo_verde_oscuro mt-5">
@@ -166,78 +178,82 @@ const DownloadsCarousel = () => {
               data-bs-wrap="false"
             >
               <div className="carousel-inner" role="listbox">
-                {displayLevels.map((level, index) => (
+                {carouselSlides.map((slideGroup, slideIndex) => (
                   <div 
-                    key={`${level.id}-${index}`}
-                    className={`carousel-item${index === 0 ? ' active' : ''}`}
+                    key={slideIndex}
+                    className={`carousel-item${slideIndex === 0 ? ' active' : ''}`}
                   >
-                    <div className="col-md-12">
-                      <div 
-                        className="card bg-dark text-white" 
-                        data-level-id={`${level.id}-${index}`}
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <img 
-                          className="card-img" 
-                          src={level.portada || level.tipo?.portada || level.nivel?.portada} 
-                          alt={level.nombre_completo}
-                          onError={(e) => {
-                            e.target.src = '/static/images/default-course.jpg';
-                          }}
-                          loading="lazy"
-                          style={{ objectFit: 'cover', height: '400px' }}
-                        />
-                        <div className="card-img-overlay">
-                          <div>
-                            <i 
-                              className="bi bi-play-circle icon_video" 
-                              style={{ fontSize: '4rem', cursor: 'pointer' }}
-                              onClick={() => openLevel(level.slug, level.id)}
-                            ></i>
+                    <div className="row gy-4 justify-content-center">
+                      {slideGroup.map((level, index) => (
+                        <div key={`${level.id}-${slideIndex}-${index}`} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                          <div 
+                            className="card bg-dark text-white h-100" 
+                            data-level-id={`${level.id}-${slideIndex}-${index}`}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <img 
+                              className="card-img" 
+                              src={level.portada || level.tipo?.portada || level.nivel?.portada} 
+                              alt={level.nombre_completo}
+                              onError={(e) => {
+                                e.target.src = '/static/images/default-course.jpg';
+                              }}
+                              loading="lazy"
+                              style={{ objectFit: 'cover', height: '400px' }}
+                            />
+                            <div className="card-img-overlay">
+                              <div>
+                                <i 
+                                  className="bi bi-play-circle icon_video" 
+                                  style={{ fontSize: '4rem', cursor: 'pointer' }}
+                                  onClick={() => openLevel(level.slug, level.id)}
+                                ></i>
+                              </div>
+                              <div>
+                                <h5 className="card-title text-start fw-bold text-white montserrat">
+                                  {level.tipo.nombre}: {level.nombre}
+                                </h5>
+                                <p className="card-text text-start mb-0 montserrat">
+                                  {level.nivel.nombre}
+                                </p>
+                                <p className="card-text text-start montserrat">
+                                  {level.raiz.nombre}
+                                </p>
+                                <p className="card-text text-start montserrat">
+                                  LEVEL {level.nombre.toUpperCase()}
+                                </p>
+                              </div>
+                              {/* Badge de estado */}
+                              {level.activo ? (
+                                <span className="badge bg-success position-absolute top-0 end-0 m-2">
+                                  Activo
+                                </span>
+                              ) : (
+                                <span className="badge bg-secondary position-absolute top-0 end-0 m-2">
+                                  Inactivo
+                                </span>
+                              )}
+                              {/* Badge de suscripción */}
+                              {level.suscrito ? (
+                                <span className="badge bg-primary position-absolute bottom-0 start-0 m-2">
+                                  <i className="bi bi-check-circle"></i> Suscrito
+                                </span>
+                              ) : (
+                                <span className="badge bg-outline-light position-absolute bottom-0 start-0 m-2">
+                                  <i className="bi bi-plus-circle"></i> Suscribirse
+                                </span>
+                              )}
+                            </div>
                           </div>
-                          <div>
-                            <h5 className="card-title text-start fw-bold text-white montserrat">
-                              {level.tipo.nombre}: {level.nombre}
-                            </h5>
-                            <p className="card-text text-start mb-0 montserrat">
-                              {level.nivel.nombre}
-                            </p>
-                            <p className="card-text text-start montserrat">
-                              {level.raiz.nombre}
-                            </p>
-                            <p className="card-text text-start montserrat">
-                              LEVEL {level.nombre.toUpperCase()}
-                            </p>
-                          </div>
-                          {/* Badge de estado */}
-                          {level.activo ? (
-                            <span className="badge bg-success position-absolute top-0 end-0 m-2">
-                              Activo
-                            </span>
-                          ) : (
-                            <span className="badge bg-secondary position-absolute top-0 end-0 m-2">
-                              Inactivo
-                            </span>
-                          )}
-                          {/* Badge de suscripción */}
-                          {level.suscrito ? (
-                            <span className="badge bg-primary position-absolute bottom-0 start-0 m-2">
-                              <i className="bi bi-check-circle"></i> Suscrito
-                            </span>
-                          ) : (
-                            <span className="badge bg-outline-light position-absolute bottom-0 start-0 m-2">
-                              <i className="bi bi-plus-circle"></i> Suscribirse
-                            </span>
-                          )}
                         </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 ))}
               </div>
               
-              {/* Controles del carrusel solo si hay más de un elemento */}
-              {displayLevels.length > 1 && (
+              {/* Controles del carrusel solo si hay más de un slide */}
+              {carouselSlides.length > 1 && (
                 <>
                   <a 
                     className="carousel-control-prev bg-transparent w-aut" 
