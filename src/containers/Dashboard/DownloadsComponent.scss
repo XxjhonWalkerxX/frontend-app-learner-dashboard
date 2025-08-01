@@ -1,0 +1,138 @@
+.downloads-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  
+  h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    
+    .tab-button {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+      
+      &:hover {
+        color: #555;
+      }
+      
+      &.active {
+        font-weight: bold;
+        color: #333;
+      }
+    }
+  }
+  
+  .level-card {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    
+    .level-thumbnail {
+      width: 300px;
+      height: 200px;
+      overflow: hidden;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+    
+    .level-info {
+      flex: 1;
+      padding: 20px;
+      
+      h3 {
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 20px;
+      }
+      
+      .level-details {
+        margin-bottom: 20px;
+        
+        div {
+          margin-bottom: 8px;
+          font-size: 14px;
+          
+          span:first-child {
+            font-weight: bold;
+            color: #555;
+          }
+        }
+      }
+      
+      .download-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+      
+      .requirements {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #666;
+      }
+    }
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .error {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #d32f2f;
+  }
+}
+
+@media (max-width: 768px) {
+  .downloads-container {
+    .level-card {
+      flex-direction: column;
+      
+      .level-thumbnail {
+        width: 100%;
+        height: 180px;
+      }
+    }
+  }
+}
