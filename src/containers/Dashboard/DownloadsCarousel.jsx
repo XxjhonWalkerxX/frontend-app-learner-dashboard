@@ -42,27 +42,6 @@ const DownloadsCarousel = () => {
     }
   };
 
-  const nextSlide = () => {
-    if (isTransitioning || levels.length === 0) return;
-    setIsTransitioning(true);
-    setCurrentSlide((prev) => Math.min(prev + 1, maxSlide));
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
-
-  const prevSlide = () => {
-    if (isTransitioning || levels.length === 0) return;
-    setIsTransitioning(true);
-    setCurrentSlide((prev) => Math.max(prev - 1, 0));
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
-
-  const goToSlide = (index) => {
-    if (isTransitioning || index === currentSlide) return;
-    setIsTransitioning(true);
-    setCurrentSlide(Math.min(index, maxSlide));
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
-
   const openLevel = (level) => {
     window.open(`https://nemd.aprende.gob.mx/nivel/${level.slug}/`, '_blank');
   };
@@ -146,8 +125,8 @@ const DownloadsCarousel = () => {
     }
   };
 
-  const [slideWidth, setSlideWidth] = useState(getSlideWidth());
-  const [visibleSlides, setVisibleSlides] = useState(getVisibleSlides());
+  const [slideWidth, setSlideWidth] = useState(33.333);
+  const [visibleSlides, setVisibleSlides] = useState(3);
 
   useEffect(() => {
     const handleResize = () => {
@@ -156,11 +135,38 @@ const DownloadsCarousel = () => {
       setCurrentSlide(0); // Reset slide position on resize
     };
 
+    // Inicializar valores al cargar
+    if (typeof window !== 'undefined') {
+      setSlideWidth(getSlideWidth());
+      setVisibleSlides(getVisibleSlides());
+    }
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [levels.length]);
 
   const maxSlide = Math.max(0, levels.length - visibleSlides);
+
+  const nextSlide = () => {
+    if (isTransitioning || levels.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => Math.min(prev + 1, maxSlide));
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  const prevSlide = () => {
+    if (isTransitioning || levels.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentSlide((prev) => Math.max(prev - 1, 0));
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
+
+  const goToSlide = (index) => {
+    if (isTransitioning || index === currentSlide) return;
+    setIsTransitioning(true);
+    setCurrentSlide(Math.min(index, maxSlide));
+    setTimeout(() => setIsTransitioning(false), 500);
+  };
 
   return (
     <div className="downloads-container">
