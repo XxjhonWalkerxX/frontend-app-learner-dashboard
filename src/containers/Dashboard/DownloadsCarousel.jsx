@@ -15,7 +15,7 @@ const mockLevels = [
   },
   {
     id: 'mock-2',
-    nombre: 'A2',
+    nombre: 'A1',
     nombre_completo: 'Inglés Elemental A2',
     slug: 'ingles-a2',
     portada: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=300&fit=crop',
@@ -37,7 +37,7 @@ const mockLevels = [
   },
   {
     id: 'mock-4',
-    nombre: 'B2',
+    nombre: 'B1',
     nombre_completo: 'Inglés Intermedio Alto B2',
     slug: 'ingles-b2',
     portada: 'https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&h=300&fit=crop',
@@ -59,7 +59,7 @@ const mockLevels = [
   },
   {
     id: 'mock-6',
-    nombre: 'C2',
+    nombre: 'C1',
     nombre_completo: 'Inglés Competencia C2',
     slug: 'ingles-c2',
     portada: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
@@ -75,7 +75,6 @@ const DownloadsCarousel = () => {
   const [currentLevel, setCurrentLevel] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   const API_URL = 'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
 
@@ -148,23 +147,8 @@ const DownloadsCarousel = () => {
     }
   };
 
-  const nextSlide = () => {
-    const carouselSlides = getCarouselSlides();
-    if (carouselSlides.length <= 1) return;
-    
-    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-  };
-
-  const prevSlide = () => {
-    const carouselSlides = getCarouselSlides();
-    if (carouselSlides.length <= 1) return;
-    
-    setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
-  };
-
   const handleLevelChange = (e) => {
     setCurrentLevel(e.target.value);
-    setCurrentSlide(0); // Reset slide cuando cambie el nivel
   };
 
   const openLevel = (level) => {
@@ -193,16 +177,6 @@ const DownloadsCarousel = () => {
   // Filtrar niveles según el nivel actual seleccionado
   const getCurrentLevelData = () => {
     return levels.filter(level => level.slug === currentLevel);
-  };
-
-  // Helper para dividir los elementos en grupos de 4 para el carrusel
-  const getCarouselSlides = () => {
-    const displayLevels = getCurrentLevelData();
-    const slides = [];
-    for (let i = 0; i < displayLevels.length; i += 4) {
-      slides.push(displayLevels.slice(i, i + 4));
-    }
-    return slides;
   };
 
   if (loading) {
@@ -247,7 +221,6 @@ const DownloadsCarousel = () => {
   }
 
   const uniqueLevels = getUniqueLevels();
-  const carouselSlides = getCarouselSlides();
 
   return (
     <div className="fondo_verde_oscuro mt-5">
@@ -312,59 +285,64 @@ const DownloadsCarousel = () => {
         </div>
       </div>
 
-      {/* Carrusel de Videos */}
+      {/* Scroll Horizontal de Videos */}
       <div className="container-fluid text-center my-3 mb-5">
         <div className="row">
           <div className="col-12">
-            <div className="carousel-wrapper position-relative">
+            <div className="downloads-scroll-wrapper">
               
-              {/* Contenedor del carrusel */}
+              {/* Contenedor con scroll horizontal */}
               <div 
-                className="carousel-container-custom overflow-hidden position-relative"
+                className="downloads-scroll-container"
                 style={{ 
+                  overflowX: 'auto',
+                  overflowY: 'hidden',
                   width: '100%',
-                  height: 'auto'
+                  paddingBottom: '1rem',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: 'rgba(90, 18, 44, 0.6) rgba(255, 255, 255, 0.1)'
                 }}
               >
                 <div 
                   className="d-flex"
                   style={{ 
-                    transform: `translateX(-${currentSlide * 100}%)`,
-                    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-                    width: `${carouselSlides.length * 100}%`
+                    gap: '1rem',
+                    paddingLeft: '1rem',
+                    paddingRight: '1rem',
+                    minWidth: 'fit-content'
                   }}
                 >
-                  {carouselSlides.map((slideGroup, slideIndex) => (
+                  {getCurrentLevelData().map((level, index) => (
                     <div 
-                      key={slideIndex}
-                      className="w-100 flex-shrink-0"
-                      style={{ width: `${100 / carouselSlides.length}%` }}
+                      key={`${level.id}-${index}`} 
+                      className="flex-shrink-0"
+                      style={{ 
+                        width: '280px',
+                        minWidth: '280px'
+                      }}
                     >
-                      <div className="row gy-4 justify-content-center mx-2">
-                        {slideGroup.map((level, index) => (
-                          <div key={`${level.id}-${slideIndex}-${index}`} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                            <div 
-                              className="card h-100 position-relative downloads-card glass-morphism" 
-                              style={{ 
-                                cursor: 'pointer', 
-                                borderRadius: '16px', 
-                                overflow: 'hidden',
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                backdropFilter: 'blur(15px)',
-                                border: '1px solid rgba(255, 255, 255, 0.2)',
-                                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                              }}
-                              onClick={() => openLevel(level)}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-                                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
-                              }}
-                            >
+                      <div 
+                        className="card h-100 position-relative downloads-card glass-morphism" 
+                        style={{ 
+                          cursor: 'pointer', 
+                          borderRadius: '16px', 
+                          overflow: 'hidden',
+                          background: 'rgba(255, 255, 255, 0.1)',
+                          backdropFilter: 'blur(15px)',
+                          border: '1px solid rgba(255, 255, 255, 0.2)',
+                          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                        }}
+                        onClick={() => openLevel(level)}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                          e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                          e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1)';
+                        }}
+                      >
                               <div className="position-relative">
                                 <img 
                                   className="card-img-top" 
@@ -491,108 +469,33 @@ const DownloadsCarousel = () => {
                                 >
                                   {level.raiz.nombre}
                                 </p>
-                              </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
                     </div>
                   ))}
                 </div>
               </div>
               
-              {/* Controles del carrusel solo si hay más de un slide */}
-              {carouselSlides.length > 1 && (
-                <>
-                  <button 
-                    className="position-absolute top-50 start-0 translate-middle-y"
-                    style={{
-                      left: '-2rem',
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '50%',
-                      width: '60px',
-                      height: '60px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      zIndex: 10
-                    }}
-                    onClick={prevSlide}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(255, 255, 255, 0.3)';
-                      e.target.style.transform = 'translateY(-50%) scale(1.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-                      e.target.style.transform = 'translateY(-50%) scale(1)';
-                    }}
-                  >
-                    <i className="bi bi-chevron-left text-white" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}></i>
-                  </button>
-                  <button 
-                    className="position-absolute top-50 end-0 translate-middle-y"
-                    style={{
-                      right: '-2rem',
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255, 255, 255, 0.3)',
-                      borderRadius: '50%',
-                      width: '60px',
-                      height: '60px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      zIndex: 10
-                    }}
-                    onClick={nextSlide}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = 'rgba(255, 255, 255, 0.3)';
-                      e.target.style.transform = 'translateY(-50%) scale(1.1)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'rgba(255, 255, 255, 0.2)';
-                      e.target.style.transform = 'translateY(-50%) scale(1)';
-                    }}
-                  >
-                    <i className="bi bi-chevron-right text-white" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}></i>
-                  </button>
-                </>
-              )}
-              
-              {/* Indicadores de slide */}
-              {carouselSlides.length > 1 && (
-                <div 
-                  className="position-absolute bottom-0 start-50 translate-middle-x mb-3"
-                  style={{ zIndex: 10 }}
-                >
-                  <div className="d-flex gap-2">
-                    {carouselSlides.map((_, index) => (
-                      <button
-                        key={index}
-                        className="border-0"
-                        style={{
-                          width: '12px',
-                          height: '12px',
-                          borderRadius: '50%',
-                          background: index === currentSlide 
-                            ? 'rgba(90, 18, 44, 0.9)' 
-                            : 'rgba(255, 255, 255, 0.4)',
-                          backdropFilter: 'blur(10px)',
-                          cursor: 'pointer',
-                          transition: 'all 0.3s ease'
-                        }}
-                        onClick={() => setCurrentSlide(index)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Scroll personalizado con estilo glassmorphism */}
+              <style jsx>{`
+                .downloads-scroll-container::-webkit-scrollbar {
+                  height: 8px;
+                }
+                .downloads-scroll-container::-webkit-scrollbar-track {
+                  background: rgba(255, 255, 255, 0.1);
+                  backdrop-filter: blur(10px);
+                  border-radius: 10px;
+                  margin: 0 1rem;
+                }
+                .downloads-scroll-container::-webkit-scrollbar-thumb {
+                  background: linear-gradient(135deg, rgba(90, 18, 44, 0.8), rgba(139, 21, 56, 0.8));
+                  border-radius: 10px;
+                  border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+                .downloads-scroll-container::-webkit-scrollbar-thumb:hover {
+                  background: linear-gradient(135deg, rgba(90, 18, 44, 1), rgba(139, 21, 56, 1));
+                }
+              `}</style>
             </div>
           </div>
         </div>
