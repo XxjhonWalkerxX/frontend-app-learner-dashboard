@@ -347,6 +347,21 @@ $gutter: map-get($spacers, 4);
   // Asegurar que las tarjetas mantengan altura uniforme
   .card {
     min-height: 350px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+  }
+
+  // Forzar que todas las tarjetas en el mismo slide tengan la misma altura
+  .carousel-item .row > div {
+    display: flex;
+    
+    .card {
+      width: 100%;
+    }
   }
 }
 
@@ -387,6 +402,12 @@ $gutter: map-get($spacers, 4);
     .card {
       min-height: 300px;
     }
+    
+    // En tablets, mostrar 2 columnas
+    .carousel-item .row > div {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
   }
 }
 
@@ -398,14 +419,21 @@ $gutter: map-get($spacers, 4);
 
   // En móviles muy pequeños, forzar una columna
   #certCarousel {
-    .row > div {
-      flex: 0 0 100% !important;
-      max-width: 100% !important;
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 2rem;
+      height: 2rem;
     }
     
     .card {
       min-height: 280px;
       margin-bottom: 1rem;
+    }
+    
+    // En móviles, mostrar 1 columna por slide
+    .carousel-item .row > div {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
     }
   }
 }
