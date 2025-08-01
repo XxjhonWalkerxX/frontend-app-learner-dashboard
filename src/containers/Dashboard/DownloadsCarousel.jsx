@@ -170,7 +170,7 @@ const DownloadsCarousel = () => {
               style={{
                 background: 'rgba(255, 255, 255, 0.9)',
                 backdropFilter: 'blur(15px)',
-                border: '2px solid rgba(177, 122, 42, 0.6)',
+                border: '2px solid rgba(90, 18, 44, 0.6)',
                 borderRadius: '12px',
                 color: '#5a122c',
                 padding: '0.75rem 1rem',
@@ -180,12 +180,12 @@ const DownloadsCarousel = () => {
                 transition: 'all 0.3s ease'
               }}
               onFocus={(e) => {
-                e.target.style.borderColor = 'rgba(177, 122, 42, 1)';
-                e.target.style.boxShadow = '0 0 0 0.2rem rgba(177, 122, 42, 0.25)';
+                e.target.style.borderColor = 'rgba(90, 18, 44, 1)';
+                e.target.style.boxShadow = '0 0 0 0.2rem rgba(90, 18, 44, 0.25)';
                 e.target.style.background = 'rgba(255, 255, 255, 1)';
               }}
               onBlur={(e) => {
-                e.target.style.borderColor = 'rgba(177, 122, 42, 0.6)';
+                e.target.style.borderColor = 'rgba(90, 18, 44, 0.6)';
                 e.target.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
                 e.target.style.background = 'rgba(255, 255, 255, 0.9)';
               }}
@@ -283,7 +283,7 @@ const DownloadsCarousel = () => {
                                     left: 0,
                                     right: 0,
                                     bottom: 0,
-                                    background: 'linear-gradient(135deg, rgba(177, 122, 42, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(177, 122, 42, 0.05) 100%)'
+                                    background: 'linear-gradient(135deg, rgba(90, 18, 44, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(90, 18, 44, 0.05) 100%)'
                                   }}
                                 />
                                 
@@ -453,7 +453,7 @@ const DownloadsCarousel = () => {
                           height: '12px',
                           borderRadius: '50%',
                           background: index === currentSlide 
-                            ? 'rgba(177, 122, 42, 0.9)' 
+                            ? 'rgba(90, 18, 44, 0.9)' 
                             : 'rgba(255, 255, 255, 0.4)',
                           backdropFilter: 'blur(10px)',
                           cursor: 'pointer',
