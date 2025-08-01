@@ -2,15 +2,25 @@
 import React, { useEffect, useState } from 'react';
 import './index.scss';
 
-const API_URL = 'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
+const API_URL =
+  'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
+
+// Helper: divide un array en “chunks” de tamaño N
+const chunkArray = (arr, size) => {
+  const chunks = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chunks.push(arr.slice(i, i + size));
+  }
+  return chunks;
+};
 
 const DownloadsCarousel = () => {
-  const [levelsData, setLevelsData] = useState([]);
-  const [currentLevel, setCurrentLevel] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [levelsData, setLevelsData]       = useState([]);
+  const [currentLevel, setCurrentLevel]   = useState('');
+  const [loading, setLoading]             = useState(false);
+  const [error, setError]                 = useState(null);
 
-  // 1. Carga inicial de datos
+  // 1) Carga inicial
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -18,10 +28,8 @@ const DownloadsCarousel = () => {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error(`Error ${res.status}`);
         const data = await res.json();
-
         const filtered = data.filter(item => item.portada?.trim());
         if (!filtered.length) throw new Error('No se encontraron niveles con portada');
-
         setLevelsData(filtered);
         setCurrentLevel(filtered[0].slug);
       } catch (e) {
@@ -33,7 +41,7 @@ const DownloadsCarousel = () => {
     loadData();
   }, []);
 
-  // 2. Filtrar y duplicar items para el carrusel
+  // 2) Construye array de items duplicados hasta al menos 5
   const getDisplayLevels = () => {
     let items = levelsData.filter(l => l.slug === currentLevel);
     while (items.length < 5 && levelsData.length) {
@@ -42,44 +50,48 @@ const DownloadsCarousel = () => {
     return items.slice(0, 5);
   };
 
-  const openLevel = (slug, id) => alert(`Abriendo nivel ${slug.toUpperCase()}`);
+  const openLevel = (slug) => alert(`Abriendo nivel ${slug.toUpperCase()}`);
 
   if (loading) {
     return (
-      <div className="text-center text-white py-5">
-        <div className="spinner-border text-light" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <p className="mt-2">Loading levels from SEP...</p>
+      <div className="fondo_verde_oscuro text-center py-5 text-white">
+        <div className="spinner-border text-light" role="status" />
+        <p className="mt-2">Cargando niveles...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="alert alert-warning text-dark" role="alert">
-        <h4><i className="bi bi-exclamation-triangle"></i> Error loading content</h4>
+      <div className="alert alert-warning text-dark m-4">
+        <h4><i className="bi bi-exclamation-triangle" /> Error</h4>
         <p>{error}</p>
-        <button className="btn btn-outline-primary btn-sm" onClick={() => window.location.reload()}>
-          <i className="bi bi-arrow-clockwise"></i> Try again
+        <button className="btn btn-outline-primary" onClick={() => window.location.reload()}>
+          <i className="bi bi-arrow-clockwise" /> Reintentar
         </button>
       </div>
     );
   }
 
+  if (!levelsData.length) {
+    return null;
+  }
+
   const uniqueLevels = Array.from(new Map(levelsData.map(l => [l.slug, l])).values());
   const displayLevels = getDisplayLevels();
 
+  // Partir en slides de 4 tarjetas
+  const slides = chunkArray(displayLevels, 4);
+
   return (
-    <div className="row">
-      <div className="col-md-2">
+    <div className="row mb-4">
+      <div className="col-12 col-md-2 mb-3 mb-md-0">
         <select
-          id="levelSelector"
           className="form-select select_nivel"
           value={currentLevel}
           onChange={e => setCurrentLevel(e.target.value)}
         >
-          {uniqueLevels.map((lvl, i) => (
+          {uniqueLevels.map(lvl => (
             <option key={lvl.slug} value={lvl.slug}>
               Level {lvl.nombre}
             </option>
@@ -87,54 +99,74 @@ const DownloadsCarousel = () => {
         </select>
       </div>
 
-      <div className="col-md-12 fondo_verde_oscuro mt-4">
-        <div id="sepCarousel" className="carousel carousel-dark slide" data-bs-touch="false" data-bs-interval="false">
+      <div className="col-12">
+        <div
+          id="sepCarousel"
+          className="carousel carousel-dark slide position-relative"
+          data-bs-interval="false"
+        >
           <div className="carousel-inner">
-            {displayLevels.map((lvl, i) => {
-              const isActive = i === 0 ? 'active' : '';
-              const imgSrc = lvl.portada || lvl.tipo?.portada || lvl.nivel?.portada;
-              const fallback = '/static/images/default-course.jpg';
-              return (
-                <div className={`carousel-item ${isActive}`} key={i}>
-                  <div className="card bg-dark text-white position-relative" onClick={() => openLevel(lvl.slug, lvl.id)}>
-                    <img
-                      src={imgSrc}
-                      alt={lvl.nombre_completo}
-                      className="card-img"
-                      onError={e => e.currentTarget.src = fallback}
-                      loading="lazy"
-                    />
-                    <div className="card-img-overlay">
-                      <i className="bi bi-play-circle icon_video"></i>
-                      <h5 className="fw-bold">{lvl.tipo.nombre}: {lvl.nombre}</h5>
-                      <p>{lvl.nivel.nombre}</p>
-                      <p>{lvl.raiz.nombre}</p>
-                      <p>LEVEL {lvl.nombre.toUpperCase()}</p>
-                      {lvl.activo
-                        ? <span className="badge bg-success position-absolute top-0 end-0 m-2">Active</span>
-                        : <span className="badge bg-secondary position-absolute top-0 end-0 m-2">Inactivo</span>
-                      }
-                      {lvl.suscrito
-                        ? <span className="badge bg-primary position-absolute bottom-0 start-0 m-2">
-                            <i className="bi bi-check-circle"></i> Suscrito
-                          </span>
-                        : <span className="badge bg-outline-light position-absolute bottom-0 start-0 m-2">
-                            <i className="bi bi-plus-circle"></i> Suscribirse
-                          </span>
-                      }
-                    </div>
-                  </div>
+            {slides.map((group, idx) => (
+              <div key={idx} className={`carousel-item${idx === 0 ? ' active' : ''}`}>
+                <div className="row gy-4 justify-content-center">
+                  {group.map((lvl, i) => {
+                    const imgSrc = lvl.portada || '/static/images/default-course.jpg';
+                    return (
+                      <div key={i} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div
+                          className="card bg-dark text-white h-100 position-relative"
+                          onClick={() => openLevel(lvl.slug)}
+                        >
+                          <img
+                            src={imgSrc}
+                            alt={lvl.nombre_completo}
+                            className="card-img"
+                            onError={e => e.currentTarget.src = '/static/images/default-course.jpg'}
+                            loading="lazy"
+                          />
+                          <div className="card-img-overlay d-flex flex-column justify-content-end">
+                            <h5 className="fw-bold">{lvl.tipo.nombre}: {lvl.nombre}</h5>
+                            <p className="mb-1">{lvl.nivel.nombre}</p>
+                            <p className="mb-1">{lvl.raiz.nombre}</p>
+                            <div className="mt-2 text-end">
+                              {lvl.activo
+                                ? <span className="badge bg-success me-1">Activo</span>
+                                : <span className="badge bg-secondary me-1">Inactivo</span>
+                              }
+                              {lvl.suscrito
+                                ? <span className="badge bg-primary"><i className="bi bi-check-circle me-1" />Suscrito</span>
+                                : <span className="badge bg-outline-light"><i className="bi bi-plus-circle me-1" />Suscribirse</span>
+                              }
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
-          {displayLevels.length > 1 && (
+
+          {slides.length > 1 && (
             <>
-              <button className="carousel-control-prev" data-bs-target="#sepCarousel" data-bs-slide="prev">
-                <i className="bi bi-chevron-left icon_prev"></i>
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#sepCarousel"
+                data-bs-slide="prev"
+              >
+                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                <span className="visually-hidden">Anterior</span>
               </button>
-              <button className="carousel-control-next" data-bs-target="#sepCarousel" data-bs-slide="next">
-                <i className="bi bi-chevron-right icon_prev"></i>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#sepCarousel"
+                data-bs-slide="next"
+              >
+                <span className="carousel-control-next-icon" aria-hidden="true" />
+                <span className="visually-hidden">Siguiente</span>
               </button>
             </>
           )}

@@ -7,6 +7,17 @@ $verde-oscuro: #2a5934;
 $color-dorado: #B17A2A;
 
 // -----------------------------------
+// Global utilities
+// -----------------------------------
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+// -----------------------------------
 // Banner con glassmorphism & gradiente
 // -----------------------------------
 .dashboard-banner-bg {
@@ -16,7 +27,6 @@ $color-dorado: #B17A2A;
     rgba(0, 0, 0, 0.1) 50%,
     rgba(0, 0, 0, 0.4)
   );
-
   position: relative;
   width: 100%;
   aspect-ratio: 16/5;
@@ -37,7 +47,6 @@ $color-dorado: #B17A2A;
     transform: scale(1.1);
     z-index: 1;
   }
-
   &::after {
     content: "";
     position: absolute;
@@ -48,7 +57,7 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// Logo EMI centrado
+// Logo EMI
 // -----------------------------------
 .dashboard-logo {
   position: absolute;
@@ -58,7 +67,6 @@ $color-dorado: #B17A2A;
   width: 140px;
   max-width: 25%;
   z-index: 3;
-  pointer-events: none;
   opacity: 0.9;
   transition: transform 0.3s ease, opacity 0.3s ease;
 
@@ -69,7 +77,7 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// Tarjeta de usuario (glassmorphism)
+// Usuario (glassmorphism)
 // -----------------------------------
 .user-info-banner {
   position: absolute;
@@ -77,7 +85,6 @@ $color-dorado: #B17A2A;
   left: 1.5rem;
   z-index: 4;
 }
-
 .user-info-content {
   display: flex;
   align-items: center;
@@ -89,7 +96,6 @@ $color-dorado: #B17A2A;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   max-width: 300px;
 }
-
 .user-avatar {
   flex-shrink: 0;
   width: 64px;
@@ -100,11 +106,9 @@ $color-dorado: #B17A2A;
   background-color: #eee;
   margin-right: 1rem;
 }
-
 .user-text {
   color: #fff;
   line-height: 1.2;
-
   .user-name {
     font-size: 1.125rem;
     font-weight: 600;
@@ -116,7 +120,7 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// Contenido principal
+// Contenedor principal
 // -----------------------------------
 .dashboard-content-container {
   margin-top: 0;
@@ -125,14 +129,14 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// Cursos (My Courses, Downloads…)
+// Columnas de contenido
 // -----------------------------------
 .course-list-column {
   padding: 0 map-get($spacers, 4);
 }
 
 // -----------------------------------
-// NAV DE TABS
+// Navegación de tabs
 // -----------------------------------
 .dashboard-tabs {
   display: flex;
@@ -140,7 +144,6 @@ $color-dorado: #B17A2A;
   margin: 2rem 0 1.5rem;
   flex-wrap: wrap;
 }
-
 .dashboard-tab {
   background: transparent;
   border: 2px solid $color-dorado;
@@ -155,7 +158,6 @@ $color-dorado: #B17A2A;
   &:hover {
     background: rgba($color-dorado, 0.1);
   }
-
   &.active {
     background: $color-dorado;
     color: #fff;
@@ -163,7 +165,7 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// PLACEHOLDER (Proximidad)
+// Placeholder
 // -----------------------------------
 .dashboard-placeholder {
   padding: 3rem 1rem;
@@ -176,53 +178,77 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// Utilidades generales
+// Tarjetas genéricas
 // -----------------------------------
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.spin { 
-  animation: spin 1s linear infinite; 
-}
-
-.badge {
-  font-size: 0.7rem;
-}
-
 .card[data-level-id]:hover {
   transform: scale(1.02);
   transition: transform 0.3s ease;
 }
-
 .card[data-level-id] .icon_video:hover {
   transform: scale(1.1);
   color: #ffc107;
   transition: all 0.3s ease;
 }
 
-.card-img {
-  object-fit: cover;
-  height: 400px;
-}
-
+// -----------------------------------
+// Spinner
+// -----------------------------------
 .spinner-border {
   width: 3rem;
   height: 3rem;
 }
 
-// Fondo oscuro reutilizable
+// -----------------------------------
+// Fondo y iconos
+// -----------------------------------
 .fondo_verde_oscuro {
   background-color: $verde-oscuro;
 }
-
 .icon_download {
   font-size: 1.2rem;
 }
 
 // -----------------------------------
-// Carrusel de Certificates
+// Imágenes de tarjeta
+// -----------------------------------
+.card-img {
+  object-fit: cover;
+  height: 250px;
+}
+
+// -----------------------------------
+// Carrusel de Downloads (#sepCarousel)
+// -----------------------------------
+#sepCarousel {
+  position: relative;
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+  }
+  .carousel-control-prev {
+    left: -1rem;
+  }
+  .carousel-control-next {
+    right: -1rem;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-size: 1.25rem 1.25rem;
+  }
+}
+
+// -----------------------------------
+// Carrusel de Certificates (#certCarousel)
 // -----------------------------------
 #certCarousel {
   position: relative;
@@ -233,7 +259,7 @@ $color-dorado: #B17A2A;
     height: 2.5rem;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(255,255,255,0.15);
+    background-color: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -253,7 +279,7 @@ $color-dorado: #B17A2A;
 }
 
 // -----------------------------------
-// Responsive genérico
+// Responsive
 // -----------------------------------
 @include media-breakpoint-down(md) {
   .dashboard-banner-bg {
@@ -284,6 +310,9 @@ $color-dorado: #B17A2A;
   }
   .course-list-column {
     padding: 0 map-get($spacers, 3);
+  }
+  .card-img {
+    height: 180px;
   }
 }
 
