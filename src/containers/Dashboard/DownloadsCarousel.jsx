@@ -168,7 +168,7 @@ const DownloadsCarousel = () => {
   };
 
   const openLevel = (level) => {
-    if (level.id && level.id.startsWith('mock-')) {
+    if (level.id && typeof level.id === 'string' && level.id.startsWith('mock-')) {
       alert(`📚 Contenido de ejemplo: ${level.nombre_completo}\n\n¡Pronto tendrás acceso a este nivel! 🚀`);
     } else {
       alert(`🎯 Abriendo nivel real: ${level.nombre.toUpperCase()}\n\n${level.nombre_completo}`);
@@ -396,7 +396,7 @@ const DownloadsCarousel = () => {
                                 <span 
                                   className="badge position-absolute top-0 end-0 m-2" 
                                   style={{ 
-                                    background: level.id && level.id.startsWith('mock-')
+                                    background: level.id && typeof level.id === 'string' && level.id.startsWith('mock-')
                                       ? 'linear-gradient(135deg, #fd7e14, #e55d87)'  // Orange gradient para mock
                                       : level.activo 
                                         ? 'linear-gradient(135deg, #28a745, #20c997)' 
@@ -410,13 +410,13 @@ const DownloadsCarousel = () => {
                                     fontWeight: '600'
                                   }}
                                 >
-                                  {level.id && level.id.startsWith('mock-') 
+                                  {level.id && typeof level.id === 'string' && level.id.startsWith('mock-') 
                                     ? '📚 Ejemplo' 
                                     : level.activo ? 'Activo' : 'Inactivo'}
                                 </span>
                                 
                                 {/* Badge adicional para contenido mock en la esquina superior izquierda */}
-                                {level.id && level.id.startsWith('mock-') && (
+                                {level.id && typeof level.id === 'string' && level.id.startsWith('mock-') && (
                                   <span 
                                     className="badge position-absolute top-0 start-0 m-2" 
                                     style={{ 
