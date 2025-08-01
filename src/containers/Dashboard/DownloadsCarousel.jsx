@@ -45,21 +45,21 @@ const DownloadsCarousel = () => {
   const nextSlide = () => {
     if (isTransitioning || levels.length === 0) return;
     setIsTransitioning(true);
-    setCurrentSlide((prev) => (prev + 1) % levels.length);
+    setCurrentSlide((prev) => Math.min(prev + 1, maxSlide));
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const prevSlide = () => {
     if (isTransitioning || levels.length === 0) return;
     setIsTransitioning(true);
-    setCurrentSlide((prev) => (prev - 1 + levels.length) % levels.length);
+    setCurrentSlide((prev) => Math.max(prev - 1, 0));
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
   const goToSlide = (index) => {
     if (isTransitioning || index === currentSlide) return;
     setIsTransitioning(true);
-    setCurrentSlide(index);
+    setCurrentSlide(Math.min(index, maxSlide));
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
@@ -111,6 +111,57 @@ const DownloadsCarousel = () => {
     );
   }
 
+  // Calcular el ancho de cada slide basado en el número de elementos y el tamaño de pantalla
+  const getSlideWidth = () => {
+    if (typeof window === 'undefined') return 33.333;
+    
+    const width = window.innerWidth;
+    
+    if (width <= 768) {
+      // Móvil: 1 elemento
+      return 100;
+    } else if (width <= 992) {
+      // Tablet: 2 elementos
+      if (levels.length === 1) return 100;
+      return 50;
+    } else {
+      // Desktop: 3 elementos
+      if (levels.length === 1) return 100;
+      if (levels.length === 2) return 50;
+      return 33.333;
+    }
+  };
+
+  const getVisibleSlides = () => {
+    if (typeof window === 'undefined') return 3;
+    
+    const width = window.innerWidth;
+    
+    if (width <= 768) {
+      return 1; // Móvil
+    } else if (width <= 992) {
+      return Math.min(2, levels.length); // Tablet
+    } else {
+      return Math.min(3, levels.length); // Desktop
+    }
+  };
+
+  const [slideWidth, setSlideWidth] = useState(getSlideWidth());
+  const [visibleSlides, setVisibleSlides] = useState(getVisibleSlides());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSlideWidth(getSlideWidth());
+      setVisibleSlides(getVisibleSlides());
+      setCurrentSlide(0); // Reset slide position on resize
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [levels.length]);
+
+  const maxSlide = Math.max(0, levels.length - visibleSlides);
+
   return (
     <div className="downloads-container">
       {/* Header con título y descripción */}
@@ -130,11 +181,12 @@ const DownloadsCarousel = () => {
 
       {/* Carrusel moderno */}
       <div className="downloads-carousel-wrapper">
-        <div className="carousel-container" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+        <div className="carousel-container" style={{ transform: `translateX(-${currentSlide * slideWidth}%)` }}>
           {levels.map((level, index) => (
             <div 
               key={level.id} 
-              className={`level-card ${index === currentSlide ? 'active' : ''}`}
+              className={`level-card`}
+              style={{ flex: `0 0 ${slideWidth}%` }}
               onClick={() => openLevel(level)}
             >
               <div className="card-image-wrapper">
@@ -185,19 +237,19 @@ const DownloadsCarousel = () => {
         </div>
 
         {/* Controles de navegación */}
-        {levels.length > 1 && (
+        {maxSlide > 0 && (
           <>
             <button 
               className="carousel-nav prev" 
               onClick={prevSlide}
-              disabled={isTransitioning}
+              disabled={isTransitioning || currentSlide === 0}
             >
               <i className="bi bi-chevron-left"></i>
             </button>
             <button 
               className="carousel-nav next" 
               onClick={nextSlide}
-              disabled={isTransitioning}
+              disabled={isTransitioning || currentSlide === maxSlide}
             >
               <i className="bi bi-chevron-right"></i>
             </button>
@@ -205,9 +257,9 @@ const DownloadsCarousel = () => {
         )}
 
         {/* Indicadores de slide */}
-        {levels.length > 1 && (
+        {maxSlide > 0 && (
           <div className="carousel-indicators">
-            {levels.map((_, index) => (
+            {Array.from({ length: maxSlide + 1 }, (_, index) => (
               <button
                 key={index}
                 className={`indicator ${index === currentSlide ? 'active' : ''}`}
