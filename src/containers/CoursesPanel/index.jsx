@@ -29,7 +29,7 @@ export const CoursesPanel = () => {
       <div 
         className="course-list-heading-container"
         style={{
-          background: 'rgba(255, 255, 255, 0.1)',
+          background: 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(15px)',
           border: '1px solid rgba(255, 255, 255, 0.2)',
           borderRadius: '16px',
@@ -41,19 +41,19 @@ export const CoursesPanel = () => {
         <h2 
           className="course-list-title"
           style={{
-            color: 'white',
-            textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+            color: '#2a5934',
+            textShadow: '0 2px 4px rgba(255, 255, 255, 0.8)',
             margin: '0',
             fontSize: '2rem',
             fontWeight: '700'
           }}
         >
-          📚 {formatMessage(messages.myCourses)}
+          {formatMessage(messages.myCourses)}
         </h2>
         <div 
           className="course-filter-controls-container"
           style={{
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'rgba(255, 255, 255, 0.9)',
             backdropFilter: 'blur(10px)',
             border: '1px solid rgba(255, 255, 255, 0.2)',
             borderRadius: '12px',

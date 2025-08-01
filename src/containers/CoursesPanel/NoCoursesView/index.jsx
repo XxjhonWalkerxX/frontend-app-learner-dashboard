@@ -1,6 +1,11 @@
 import React from 'react';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Button, Image } from '@openedx/paragon';
+im        onMouseLeave={(e) => {
+          e.target.style.transform = 'scale(1)';
+          e.target.style.boxShadow = '0 4px 15px rgba(177, 122, 42, 0.4)';
+        }}
+      >
+        {formatMessage(messages.exploreCoursesButton)} Button, Image } from '@openedx/paragon';
 import { Search } from '@openedx/paragon/icons';
 import { baseAppUrl } from 'data/services/lms/urls';
 
@@ -39,23 +44,23 @@ export const NoCoursesView = () => {
       />
       <h1
         style={{
-          color: 'white',
-          textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+          color: '#2a5934',
+          textShadow: '0 2px 4px rgba(255, 255, 255, 0.8)',
           textAlign: 'center',
           marginBottom: '1.5rem',
           fontSize: '2.5rem',
           fontWeight: '700'
         }}
       >
-        🎯 {formatMessage(messages.lookingForChallengePrompt)}
+        {formatMessage(messages.lookingForChallengePrompt)}
       </h1>
       <p
         style={{
-          color: 'rgba(255, 255, 255, 0.9)',
+          color: '#4a7c59',
           textAlign: 'center',
           fontSize: '1.2rem',
           marginBottom: '2rem',
-          textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+          textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)',
           maxWidth: '500px'
         }}
       >

@@ -107,7 +107,7 @@ const Certificates = () => {
   if (error) return (
     <div className="certificates-container">
       <div className="certificates-error glass-morphism">
-        <div className="error-icon">⚠️</div>
+        <div className="error-icon">⚠</div>
         <p className="error-message">{error}</p>
       </div>
     </div>
@@ -116,7 +116,7 @@ const Certificates = () => {
   if (!certs.length) return (
     <div className="certificates-container">
       <div className="certificates-empty glass-morphism">
-        <div className="empty-icon">📜</div>
+        <div className="empty-icon">�</div>
         <p>No hay certificados disponibles</p>
       </div>
     </div>
@@ -129,7 +129,7 @@ const Certificates = () => {
     <div className="certificates-container">
       <div className="certificates-header glass-morphism mb-4">
         <h2 className="certificates-title">
-          <span className="title-icon">🏆</span>
+          <span className="title-icon">�</span>
           Mis Certificados
         </h2>
         <p className="certificates-subtitle">
@@ -164,7 +164,7 @@ const Certificates = () => {
                       className="certificate-card glass-morphism"
                     >
                       <div className="certificate-header">
-                        <div className="certificate-icon">📜</div>
+                        <div className="certificate-icon">�</div>
                         <div className="certificate-grade">
                           <span className="grade-number">{cert.grade}</span>
                           <span className="grade-symbol">%</span>
@@ -176,12 +176,10 @@ const Certificates = () => {
                         
                         <div className="certificate-details">
                           <div className="detail-item">
-                            <span className="detail-icon">🏛️</span>
                             <span className="detail-text">{cert.course_organization}</span>
                           </div>
                           
                           <div className="detail-item">
-                            <span className="detail-icon">📅</span>
                             <span className="detail-text">{fecha}</span>
                           </div>
                         </div>
@@ -195,7 +193,6 @@ const Certificates = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <span className="btn-icon">⬇️</span>
                             <span className="btn-text">Descargar</span>
                           </a>
                         ) : (

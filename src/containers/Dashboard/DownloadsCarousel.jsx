@@ -152,10 +152,14 @@ const DownloadsCarousel = () => {
           <div className="mb-3">
             <label 
               htmlFor="levelSelector" 
-              className="form-label text-white fw-bold mb-2"
-              style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)' }}
+              className="form-label fw-bold mb-2"
+              style={{ 
+                color: '#2a5934',
+                textShadow: '0 2px 4px rgba(255, 255, 255, 0.8)',
+                fontSize: '1.1rem'
+              }}
             >
-              📚 Selecciona un Nivel
+              Selecciona un Nivel
             </label>
             <select 
               id="levelSelector" 
@@ -164,11 +168,11 @@ const DownloadsCarousel = () => {
               onChange={handleLevelChange}
               aria-label="Selector de nivel"
               style={{
-                background: 'rgba(255, 255, 255, 0.1)',
+                background: 'rgba(255, 255, 255, 0.9)',
                 backdropFilter: 'blur(15px)',
                 border: '2px solid rgba(177, 122, 42, 0.6)',
                 borderRadius: '12px',
-                color: 'white',
+                color: '#2a5934',
                 padding: '0.75rem 1rem',
                 fontSize: '1rem',
                 fontWeight: '600',
@@ -178,12 +182,12 @@ const DownloadsCarousel = () => {
               onFocus={(e) => {
                 e.target.style.borderColor = 'rgba(177, 122, 42, 1)';
                 e.target.style.boxShadow = '0 0 0 0.2rem rgba(177, 122, 42, 0.25)';
-                e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                e.target.style.background = 'rgba(255, 255, 255, 1)';
               }}
               onBlur={(e) => {
                 e.target.style.borderColor = 'rgba(177, 122, 42, 0.6)';
                 e.target.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
-                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.target.style.background = 'rgba(255, 255, 255, 0.9)';
               }}
             >
               {uniqueLevels.map((level, index) => (
@@ -195,7 +199,7 @@ const DownloadsCarousel = () => {
                     color: 'white'
                   }}
                 >
-                  📖 Level {level.nombre}
+                  Level {level.nombre}
                 </option>
               ))}
             </select>
@@ -267,8 +271,7 @@ const DownloadsCarousel = () => {
                                   loading="lazy"
                                   style={{ 
                                     objectFit: 'cover', 
-                                    height: '200px',
-                                    filter: 'brightness(0.9) saturate(1.1)'
+                                    height: '200px'
                                   }}
                                 />
                                 
@@ -280,8 +283,7 @@ const DownloadsCarousel = () => {
                                     left: 0,
                                     right: 0,
                                     bottom: 0,
-                                    background: 'linear-gradient(135deg, rgba(177, 122, 42, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(177, 122, 42, 0.1) 100%)',
-                                    backdropFilter: 'blur(2px)'
+                                    background: 'linear-gradient(135deg, rgba(177, 122, 42, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(177, 122, 42, 0.05) 100%)'
                                   }}
                                 />
                                 
@@ -301,7 +303,7 @@ const DownloadsCarousel = () => {
                                     fontWeight: '600'
                                   }}
                                 >
-                                  {level.activo ? '✓ Activo' : '⏸ Inactivo'}
+                                  {level.activo ? 'Activo' : 'Inactivo'}
                                 </span>
                                 
                                 {/* Icono de play en el centro con efecto glassmorphism */}
@@ -330,37 +332,36 @@ const DownloadsCarousel = () => {
                               <div 
                                 className="card-body p-3"
                                 style={{
-                                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                                  color: 'white'
+                                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%)',
+                                  color: '#2a5934'
                                 }}
                               >
                                 <h5 
                                   className="card-title fw-bold mb-2" 
                                   style={{ 
                                     fontSize: '1.1rem', 
-                                    color: 'white',
-                                    textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                                    color: '#2a5934'
                                   }}
                                 >
-                                  📚 Level: {level.nombre}
+                                  Level: {level.nombre}
                                 </h5>
                                 <p 
                                   className="card-text mb-1 small"
                                   style={{ 
-                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    color: '#4a7c59',
                                     fontSize: '0.85rem'
                                   }}
                                 >
-                                  🎓 {level.nivel.nombre}
+                                  {level.nivel.nombre}
                                 </p>
                                 <p 
                                   className="card-text mb-0 small"
                                   style={{ 
-                                    color: 'rgba(255, 255, 255, 0.8)',
+                                    color: '#4a7c59',
                                     fontSize: '0.85rem'
                                   }}
                                 >
-                                  🏫 {level.raiz.nombre}
+                                  {level.raiz.nombre}
                                 </p>
                               </div>
                             </div>
