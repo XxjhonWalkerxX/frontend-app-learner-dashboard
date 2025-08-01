@@ -199,7 +199,7 @@ const DownloadsCarousel = () => {
                               loading="lazy"
                               style={{ objectFit: 'cover', height: '400px' }}
                             />
-                            <div className="card-img-overlay d-flex flex-column justify-content-between">
+                            <div className="card-img-overlay d-flex flex-column justify-content-between p-0">
                               <div 
                                 className="d-flex justify-content-center align-items-center flex-grow-1"
                                 onClick={() => openLevel(level.slug, level.id)}
@@ -214,10 +214,10 @@ const DownloadsCarousel = () => {
                                   Level: {level.nombre}
                                 </h5>
                                 <p className="card-text text-start mb-0 montserrat">
-                                  {level.nivel?.nombre || 'Nivel no especificado'}
+                                  {level.nivel.nombre}
                                 </p>
                                 <p className="card-text text-start montserrat">
-                                  {level.raiz?.nombre || 'Raíz no especificada'}
+                                  {level.raiz.nombre}
                                 </p>
                               </div>
                               {/* Badge de estado */}
