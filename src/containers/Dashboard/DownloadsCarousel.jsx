@@ -20,7 +20,6 @@ const DownloadsCarousel = () => {
   const [loading, setLoading]           = useState(false);
   const [error, setError]               = useState(null);
 
-  // 1) Carga inicial
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
@@ -41,13 +40,12 @@ const DownloadsCarousel = () => {
     loadData();
   }, []);
 
-  // 2) Duplicar hasta tener al menos 5 items
   const getDisplayLevels = () => {
     let items = levelsData.filter(l => l.slug === currentLevel);
-    while (items.length < 5 && levelsData.length) {
+    while (items.length < 4 && levelsData.length) {
       items = items.concat(levelsData.filter(l => l.slug === currentLevel));
     }
-    return items.slice(0, 5);
+    return items.slice(0, 4);
   };
 
   const openLevel = slug => alert(`Abriendo nivel ${slug.toUpperCase()}`);
@@ -60,7 +58,6 @@ const DownloadsCarousel = () => {
       </div>
     );
   }
-
   if (error) {
     return (
       <div className="alert alert-warning text-dark m-4">
@@ -72,45 +69,43 @@ const DownloadsCarousel = () => {
       </div>
     );
   }
-
   if (!levelsData.length) return null;
 
-  const uniqueLevels  = Array.from(new Map(levelsData.map(l => [l.slug, l])).values());
+  const uniqueLevels  = Array.from(new Map(levelsData.map(l => [l.slug,l])).values());
   const displayLevels = getDisplayLevels();
 
-  // Partir en slides de 5 tarjetas (porque el CSS calcula 5)
-  const slides = chunkArray(displayLevels, 5);
-
   return (
-    <div className="row mb-4">
-      <div className="col-12 col-md-2 mb-3 mb-md-0">
-        <select
-          className="form-select select_nivel"
-          value={currentLevel}
-          onChange={e => setCurrentLevel(e.target.value)}
-        >
-          {uniqueLevels.map(lvl => (
-            <option key={lvl.slug} value={lvl.slug}>
-              Level {lvl.nombre}
-            </option>
-          ))}
-        </select>
+    <>
+      <div className="row">
+        <div className="col-md-2 mb-3">
+          <select
+            className="form-select select_nivel"
+            value={currentLevel}
+            onChange={e => setCurrentLevel(e.target.value)}
+          >
+            {uniqueLevels.map(lvl => (
+              <option key={lvl.slug} value={lvl.slug}>
+                Level {lvl.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <div className="col-12">
-        <div
-          id="sepCarousel"
-          className="carousel carousel-dark slide"
-          data-bs-interval="false"
-        >
-          <div className="carousel-inner">
-            {slides.map((group, idx) => (
-              <div key={idx} className={`carousel-item${idx === 0 ? ' active' : ''}`}>
+      <div className="row">
+        <div className="col-md-12 fondo_verde_oscuro mt-5">
+          <div
+            id="sepCarousel"
+            className="carousel carousel-dark slide"
+            data-bs-interval="false"
+          >
+            <div className="carousel-inner">
+              <div className="carousel-item active">
                 <div className="d-flex">
-                  {group.map((lvl, i) => {
+                  {displayLevels.map((lvl,i) => {
                     const imgSrc = lvl.portada || '/static/images/default-course.jpg';
                     return (
-                      <div key={i} className="flex-shrink-0">
+                      <div key={i} className="flex-shrink-0 me-3">
                         <div
                           className="card bg-dark text-white h-100 position-relative"
                           onClick={() => openLevel(lvl.slug)}
@@ -141,34 +136,30 @@ const DownloadsCarousel = () => {
                   })}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
 
-          {slides.length > 1 && (
-            <>
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#sepCarousel"
-                data-bs-slide="prev"
-              >
-                <i className="bi bi-chevron-left" />
-                <span className="visually-hidden">Anterior</span>
-              </button>
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#sepCarousel"
-                data-bs-slide="next"
-              >
-                <i className="bi bi-chevron-right" />
-                <span className="visually-hidden">Siguiente</span>
-              </button>
-            </>
-          )}
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#sepCarousel"
+              data-bs-slide="prev"
+            >
+              <i className="bi bi-chevron-left"></i>
+              <span className="visually-hidden">Anterior</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#sepCarousel"
+              data-bs-slide="next"
+            >
+              <i className="bi bi-chevron-right"></i>
+              <span className="visually-hidden">Siguiente</span>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

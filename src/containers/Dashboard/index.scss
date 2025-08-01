@@ -208,6 +208,57 @@ $gutter: map-get($spacers, 4);
 }
 
 // -----------------------------------
+// Variables
+// -----------------------------------
+$verde-oscuro: #2a5934;
+$color-dorado: #B17A2A;
+$gutter: map-get($spacers, 4);
+
+// -----------------------------------
+// Global utilities
+// -----------------------------------
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.spin { animation: spin 1s linear infinite; }
+
+// -----------------------------------
+// Selector de nivel
+// -----------------------------------
+.select_nivel {
+  width: 100%;
+  border: 2px solid $color-dorado;
+  border-radius: 0.5rem;
+}
+
+// -----------------------------------
+// Fondo del carrusel (Downloads)
+// -----------------------------------
+.fondo_verde_oscuro {
+  background-color: $verde-oscuro;
+  padding: 2rem 1rem;
+}
+
+// -----------------------------------
+// Tarjetas
+// -----------------------------------
+.card {
+  border: none;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.card-img {
+  object-fit: cover;
+  height: 200px;
+}
+.card-img-overlay {
+  background: rgba(0,0,0,0.4);
+  padding: 1rem;
+}
+
+// -----------------------------------
 // Carrusel de Downloads (#sepCarousel)
 // -----------------------------------
 #sepCarousel {
@@ -219,23 +270,7 @@ $gutter: map-get($spacers, 4);
   }
 
   .carousel-item {
-    flex: 0 0 calc((100% - (#{$gutter} * 4)) / 5);
-  }
-
-  .card {
-    border: none;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-
-  .card-img {
-    height: 200px;
-  }
-
-  .card-img-overlay {
-    background: rgba(0,0,0,0.4);
-    padding: 1rem;
+    flex: 0 0 calc((100% - (#{$gutter} * 3)) / 4);
   }
 
   .carousel-control-prev,
