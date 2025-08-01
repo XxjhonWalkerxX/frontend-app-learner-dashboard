@@ -279,6 +279,16 @@ $gutter: map-get($spacers, 4);
     object-fit: cover;
     height: 400px;
   }
+  
+  // Overlay oscuro para mejorar contraste del texto
+  .card-img-overlay {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.6) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 
   .badge {
     font-size: 0.7rem;
