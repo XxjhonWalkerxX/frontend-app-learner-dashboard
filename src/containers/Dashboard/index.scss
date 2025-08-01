@@ -269,6 +269,12 @@ $gutter: map-get($spacers, 4);
     transition: transform 0.3s ease;
   }
 
+  .card[data-level-id] .icon_video:hover {
+    transform: scale(1.1);
+    color: #ffc107;
+    transition: all 0.3s ease;
+  }
+
   .card-img {
     object-fit: cover;
     height: 400px;
@@ -277,6 +283,11 @@ $gutter: map-get($spacers, 4);
   .badge {
     font-size: 0.7rem;
   }
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
 }
 
 // -----------------------------------
@@ -291,7 +302,9 @@ $gutter: map-get($spacers, 4);
   .user-email { font-size: 0.8rem; }
   .course-list-column { padding: 0 map-get($spacers,3); }
   
-  // Responsive fixes para sepCarousel
+  // FORZAR QUE EL CARRUSEL MUESTRE SOLO UN ELEMENTO EN MÓVIL
+  
+  // Carrusel dinámico de niveles
   #sepCarousel .carousel-inner .carousel-item {
     display: flex !important;
     justify-content: center !important;
@@ -304,19 +317,44 @@ $gutter: map-get($spacers, 4);
     margin: 0 auto;
   }
   
-  #sepCarousel .card-img {
-    height: 300px !important;
+  // Carrusel estático de fun facts
+  #recipeCarousel .carousel-inner .carousel-item {
+    display: flex !important;
+    justify-content: center !important;
+    padding: 0 10px;
+  }
+  
+  #recipeCarousel .carousel-inner .carousel-item .col-md-12 {
+    flex: 0 0 90% !important;
+    max-width: 90% !important;
+    margin: 0 auto;
+  }
+  
+  // Grids de cards - forzar una sola columna
+  .row-cols-md-3 > .col,
+  .row-cols-md-6 > .col {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  
+  // Ajustar el tamaño de las imágenes en móvil
+  .card-img,
+  .card-img-top {
+    height: 300px !important; // Aumentado para compensar el padding adicional
     object-fit: cover;
   }
   
+  // Ajustar el overlay para que todo el texto sea visible
   #sepCarousel .card-img-overlay {
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
-    padding: 0.75rem 0.75rem 3rem 0.75rem !important;
+    padding: 0.75rem 0.75rem 3rem 0.75rem !important; // Más padding inferior para badges
     position: relative !important;
   }
   
+  // Asegurar que el contenido del overlay no se corte
   #sepCarousel .card-img-overlay > div:first-child {
     display: flex !important;
     justify-content: center !important;
@@ -324,12 +362,14 @@ $gutter: map-get($spacers, 4);
     flex: 1 !important;
   }
   
+  // Grupo de texto en la parte inferior
   #sepCarousel .card-img-overlay h5,
   #sepCarousel .card-img-overlay p {
     margin-bottom: 0.25rem !important;
     line-height: 1.2 !important;
   }
   
+  // Texto más pequeño en móvil para que quepa
   #sepCarousel .card-title {
     font-size: 0.9rem !important;
   }
@@ -338,8 +378,9 @@ $gutter: map-get($spacers, 4);
     font-size: 0.75rem !important;
   }
   
+  // Ajustar posición de badges para que sean visibles
   #sepCarousel .badge.position-absolute.bottom-0 {
-    bottom: 0.5rem !important;
+    bottom: 0.5rem !important; // Separar del borde inferior
     left: 0.5rem !important;
     right: auto !important;
     max-width: calc(100% - 1rem) !important;
@@ -353,6 +394,7 @@ $gutter: map-get($spacers, 4);
     right: 0.5rem !important;
   }
   
+  // Selector de nivel - layout vertical
   .row.mt-5.mlef .col-md-2 {
     flex: 0 0 100% !important;
     max-width: 100% !important;
@@ -366,15 +408,53 @@ $gutter: map-get($spacers, 4);
     text-align: center;
   }
   
-  #sepCarousel .carousel-control-prev,
-  #sepCarousel .carousel-control-next {
+  // Centrar contenedores del carrusel
+  #dynamicCarousel .row,
+  .carousel .row {
+    justify-content: center !important;
+  }
+  
+  // Ajustar texto en móvil
+  .card-title {
+    font-size: 1rem !important;
+  }
+  
+  .card-text {
+    font-size: 0.85rem !important;
+  }
+  
+  // Badges más pequeños
+  .badge {
+    font-size: 0.6rem !important;
+    padding: 0.25rem 0.4rem !important;
+  }
+  
+  // Controles de carrusel más visibles
+  .carousel-control-prev,
+  .carousel-control-next {
     width: 15% !important;
     opacity: 0.8 !important;
   }
   
-  #sepCarousel .carousel-control-prev:hover,
-  #sepCarousel .carousel-control-next:hover {
+  .carousel-control-prev:hover,
+  .carousel-control-next:hover {
     opacity: 1 !important;
+  }
+  
+  // Iconos de video más grandes
+  .icon_video {
+    font-size: 3rem !important;
+  }
+  
+  // Forzar que todos los carousel-item tengan el mismo ancho
+  .carousel-inner .carousel-item {
+    width: 100% !important;
+  }
+  
+  // Asegurar que las cards no se vean múltiples
+  .carousel-inner .carousel-item > div[class*="col"] {
+    width: 100% !important;
+    padding: 0 15px !important;
   }
 }
 
