@@ -1,11 +1,6 @@
 import React from 'react';
 import { useIntl } from '@edx/frontend-platform/i18n';
-im        onMouseLeave={(e) => {
-          e.target.style.transform = 'scale(1)';
-          e.target.style.boxShadow = '0 4px 15px rgba(177, 122, 42, 0.4)';
-        }}
-      >
-        {formatMessage(messages.exploreCoursesButton)} Button, Image } from '@openedx/paragon';
+import { Button, Image } from '@openedx/paragon';
 import { Search } from '@openedx/paragon/icons';
 import { baseAppUrl } from 'data/services/lms/urls';
 
@@ -94,7 +89,7 @@ export const NoCoursesView = () => {
           e.target.style.boxShadow = '0 4px 15px rgba(177, 122, 42, 0.4)';
         }}
       >
-        🚀 {formatMessage(messages.exploreCoursesButton)}
+        {formatMessage(messages.exploreCoursesButton)}
       </Button>
     </div>
   );
