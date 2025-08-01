@@ -201,8 +201,8 @@ const DownloadsCarousel = () => {
                               loading="lazy"
                               style={{ objectFit: 'cover', height: '400px' }}
                             />
-                            <div className="card-img-overlay">
-                              <div>
+                            <div className="card-img-overlay d-flex flex-column justify-content-between">
+                              <div className="d-flex justify-content-center align-items-center flex-grow-1">
                                 <i 
                                   className="bi bi-play-circle icon_video" 
                                   style={{ fontSize: '4rem', cursor: 'pointer' }}
@@ -255,22 +255,24 @@ const DownloadsCarousel = () => {
               {/* Controles del carrusel solo si hay más de un slide */}
               {carouselSlides.length > 1 && (
                 <>
-                  <a 
-                    className="carousel-control-prev bg-transparent w-aut" 
-                    href="#sepCarousel" 
-                    role="button"
+                  <button 
+                    className="carousel-control-prev" 
+                    type="button"
+                    data-bs-target="#sepCarousel" 
                     data-bs-slide="prev"
                   >
                     <i className="bi bi-chevron-left icon_prev"></i>
-                  </a>
-                  <a 
-                    className="carousel-control-next bg-transparent w-aut" 
-                    href="#sepCarousel" 
-                    role="button"
+                    <span className="visually-hidden">Previous</span>
+                  </button>
+                  <button 
+                    className="carousel-control-next" 
+                    type="button"
+                    data-bs-target="#sepCarousel" 
                     data-bs-slide="next"
                   >
                     <i className="bi bi-chevron-right icon_prev"></i>
-                  </a>
+                    <span className="visually-hidden">Next</span>
+                  </button>
                 </>
               )}
             </div>
