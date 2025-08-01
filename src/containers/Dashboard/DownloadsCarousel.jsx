@@ -1,0 +1,268 @@
+import React, { useState, useEffect } from 'react';
+
+const DownloadsCarousel = () => {
+  const [levels, setLevels] = useState([]);
+  const [currentLevel, setCurrentLevel] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const API_URL = 'https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi';
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Filtrar solo los que tienen portada
+      const filteredData = data.filter(item => item.portada && item.portada.trim() !== '');
+      
+      if (filteredData.length === 0) {
+        throw new Error('No se encontraron niveles con portada');
+      }
+
+      setLevels(filteredData);
+      
+      // Seleccionar el primer nivel por defecto
+      if (filteredData.length > 0) {
+        setCurrentLevel(filteredData[0].slug);
+      }
+
+    } catch (error) {
+      console.error('Error al cargar datos:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLevelChange = (e) => {
+    setCurrentLevel(e.target.value);
+  };
+
+  const openLevel = (slug, id) => {
+    alert(`Abriendo nivel ${slug.toUpperCase()}`);
+  };
+
+  // Obtener niveles únicos para el selector
+  const getUniqueLevels = () => {
+    const uniqueLevels = [];
+    const seenSlugs = new Set();
+    
+    for (let i = 0; i < levels.length; i++) {
+      const level = levels[i];
+      if (!seenSlugs.has(level.slug)) {
+        seenSlugs.add(level.slug);
+        uniqueLevels.push(level);
+      }
+    }
+    return uniqueLevels;
+  };
+
+  // Filtrar niveles según el nivel actual seleccionado
+  const getCurrentLevelData = () => {
+    let displayLevels = levels.filter(level => level.slug === currentLevel);
+    
+    // Si hay pocos elementos, duplicarlos hasta tener al menos 5
+    while (displayLevels.length < 5 && levels.length > 0) {
+      displayLevels = displayLevels.concat(levels.filter(level => level.slug === currentLevel));
+    }
+    
+    // Limitar a máximo 5 elementos para mantener el carrusel manejable
+    return displayLevels.slice(0, 5);
+  };
+
+  if (loading) {
+    return (
+      <div className="fondo_verde_oscuro mt-5">
+        <div className="row mt-5 mlef">
+          <div className="col-md-12 text-center">
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Cargando...</span>
+            </div>
+            <p className="mt-2 text-white">Cargando niveles desde SEP...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="fondo_verde_oscuro mt-5">
+        <div className="row mt-5">
+          <div className="col-md-12">
+            <div className="alert alert-warning text-dark" role="alert">
+              <h4 className="alert-heading">
+                <i className="bi bi-exclamation-triangle"></i> Error al cargar contenido
+              </h4>
+              <p className="mb-0">{error}</p>
+              <hr />
+              <p className="mb-0">
+                <button 
+                  className="btn btn-outline-primary btn-sm" 
+                  onClick={loadData}
+                >
+                  <i className="bi bi-arrow-clockwise"></i> Intentar nuevamente
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const uniqueLevels = getUniqueLevels();
+  const displayLevels = getCurrentLevelData();
+
+  return (
+    <div className="fondo_verde_oscuro mt-5">
+      {/* Select de nivel */}
+      <div className="row mt-5 mlef">
+        <div className="col-md-2">
+          <select 
+            id="levelSelector" 
+            className="form-select select_nivel" 
+            value={currentLevel}
+            onChange={handleLevelChange}
+            aria-label="Selector de nivel"
+          >
+            {uniqueLevels.map((level, index) => (
+              <option key={level.slug} value={level.slug}>
+                Level {level.nombre}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-md-10">
+          {loading && (
+            <div className="text-end text-white">
+              <i className="bi bi-arrow-clockwise spin me-2"></i>Cargando contenido...
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Carrusel de Videos */}
+      <div className="container-fluid text-center my-3 mb-5">
+        <div className="row">
+          <div className="row mx-auto my-auto justify-content-center">
+            <div 
+              id="sepCarousel" 
+              className="carousel carousel-dark slide" 
+              data-bs-touch="false"
+              data-bs-interval="false" 
+              data-bs-wrap="false"
+            >
+              <div className="carousel-inner" role="listbox">
+                {displayLevels.map((level, index) => (
+                  <div 
+                    key={`${level.id}-${index}`}
+                    className={`carousel-item${index === 0 ? ' active' : ''}`}
+                  >
+                    <div className="col-md-12">
+                      <div 
+                        className="card bg-dark text-white" 
+                        data-level-id={`${level.id}-${index}`}
+                        style={{ cursor: 'pointer' }}
+                      >
+                        <img 
+                          className="card-img" 
+                          src={level.portada || level.tipo?.portada || level.nivel?.portada} 
+                          alt={level.nombre_completo}
+                          onError={(e) => {
+                            e.target.src = '/static/images/default-course.jpg';
+                          }}
+                          loading="lazy"
+                          style={{ objectFit: 'cover', height: '400px' }}
+                        />
+                        <div className="card-img-overlay">
+                          <div>
+                            <i 
+                              className="bi bi-play-circle icon_video" 
+                              style={{ fontSize: '4rem', cursor: 'pointer' }}
+                              onClick={() => openLevel(level.slug, level.id)}
+                            ></i>
+                          </div>
+                          <div>
+                            <h5 className="card-title text-start fw-bold text-white montserrat">
+                              {level.tipo.nombre}: {level.nombre}
+                            </h5>
+                            <p className="card-text text-start mb-0 montserrat">
+                              {level.nivel.nombre}
+                            </p>
+                            <p className="card-text text-start montserrat">
+                              {level.raiz.nombre}
+                            </p>
+                            <p className="card-text text-start montserrat">
+                              LEVEL {level.nombre.toUpperCase()}
+                            </p>
+                          </div>
+                          {/* Badge de estado */}
+                          {level.activo ? (
+                            <span className="badge bg-success position-absolute top-0 end-0 m-2">
+                              Activo
+                            </span>
+                          ) : (
+                            <span className="badge bg-secondary position-absolute top-0 end-0 m-2">
+                              Inactivo
+                            </span>
+                          )}
+                          {/* Badge de suscripción */}
+                          {level.suscrito ? (
+                            <span className="badge bg-primary position-absolute bottom-0 start-0 m-2">
+                              <i className="bi bi-check-circle"></i> Suscrito
+                            </span>
+                          ) : (
+                            <span className="badge bg-outline-light position-absolute bottom-0 start-0 m-2">
+                              <i className="bi bi-plus-circle"></i> Suscribirse
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Controles del carrusel solo si hay más de un elemento */}
+              {displayLevels.length > 1 && (
+                <>
+                  <a 
+                    className="carousel-control-prev bg-transparent w-aut" 
+                    href="#sepCarousel" 
+                    role="button"
+                    data-bs-slide="prev"
+                  >
+                    <i className="bi bi-chevron-left icon_prev"></i>
+                  </a>
+                  <a 
+                    className="carousel-control-next bg-transparent w-aut" 
+                    href="#sepCarousel" 
+                    role="button"
+                    data-bs-slide="next"
+                  >
+                    <i className="bi bi-chevron-right icon_prev"></i>
+                  </a>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DownloadsCarousel;
