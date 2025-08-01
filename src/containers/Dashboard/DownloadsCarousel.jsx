@@ -134,6 +134,9 @@ const DownloadsCarousel = () => {
 
   const uniqueLevels = getUniqueLevels();
   const displayLevels = getCurrentLevelData();
+  
+  // Dividir los niveles en grupos de 4 para el carrusel
+  const carouselSlides = chunkArray(displayLevels, 4);
 
   return (
     <div className="fondo_verde_oscuro mt-5">
@@ -184,9 +187,9 @@ const DownloadsCarousel = () => {
                       {slideGroup.map((level, index) => (
                         <div key={`${level.id}-${slideIndex}-${index}`} className="col-12 col-sm-6 col-md-4 col-lg-3">
                           <div 
-                            className="card bg-dark text-white h-100" 
+                            className="card bg-dark text-white h-100 position-relative" 
                             data-level-id={`${level.id}-${slideIndex}-${index}`}
-                            style={{ cursor: 'pointer' }}
+                            style={{ cursor: 'pointer', borderRadius: '12px', overflow: 'hidden' }}
                           >
                             <img 
                               className="card-img" 
@@ -198,47 +201,55 @@ const DownloadsCarousel = () => {
                               loading="lazy"
                               style={{ objectFit: 'cover', height: '400px' }}
                             />
+                            
+                            {/* Badge de estado en la esquina superior derecha */}
+                            {level.activo ? (
+                              <span className="badge bg-success position-absolute" style={{ top: '8px', right: '8px', zIndex: 10 }}>
+                                Activo
+                              </span>
+                            ) : (
+                              <span className="badge bg-secondary position-absolute" style={{ top: '8px', right: '8px', zIndex: 10 }}>
+                                Inactivo
+                              </span>
+                            )}
+                            
                             <div className="card-img-overlay d-flex flex-column justify-content-between p-0">
+                              {/* Icono de play en el centro */}
                               <div 
                                 className="d-flex justify-content-center align-items-center flex-grow-1"
                                 onClick={() => openLevel(level.slug, level.id)}
                               >
                                 <i 
                                   className="bi bi-play-circle icon_video" 
-                                  style={{ fontSize: '4rem', cursor: 'pointer' }}
+                                  style={{ fontSize: '4rem', cursor: 'pointer', color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}
                                 ></i>
                               </div>
-                              <div className="card-footer-custom">
-                                <h5 className="card-title text-start fw-bold text-white montserrat">
-                                  Level: {level.nombre}
-                                </h5>
-                                <p className="card-text text-start mb-0 montserrat">
-                                  {level.nivel.nombre}
-                                </p>
-                                <p className="card-text text-start montserrat">
-                                  {level.raiz.nombre}
-                                </p>
+                              
+                              {/* Información del nivel en la parte inferior */}
+                              <div className="position-absolute w-100" style={{ bottom: '0', background: 'linear-gradient(transparent, rgba(0,0,0,0.7))' }}>
+                                <div className="p-3">
+                                  <h5 className="card-title text-start fw-bold text-white mb-1" style={{ fontSize: '1.1rem' }}>
+                                    Level: {level.nombre}
+                                  </h5>
+                                  <p className="card-text text-start mb-1 small text-white-50">
+                                    {level.nivel.nombre}
+                                  </p>
+                                  <p className="card-text text-start mb-0 small text-white-50">
+                                    {level.raiz.nombre}
+                                  </p>
+                                </div>
+                                
+                                {/* Badge de suscripción en la esquina inferior izquierda */}
+                                {level.suscrito ? (
+                                  <span className="badge bg-primary position-absolute" style={{ bottom: '8px', left: '8px' }}>
+                                    <i className="bi bi-check-circle me-1"></i> Suscrito
+                                  </span>
+                                ) : (
+                                  <span className="badge bg-outline-light position-absolute" style={{ bottom: '8px', left: '8px', color: 'white', borderColor: 'white' }}>
+                                    <i className="bi bi-plus-circle me-1"></i> Suscribirse
+                                  </span>
+                                )}
                               </div>
-                              {/* Badge de estado */}
-                              {level.activo ? (
-                                <span className="badge bg-success position-absolute top-0 end-0 m-2">
-                                  Activo
-                                </span>
-                              ) : (
-                                <span className="badge bg-secondary position-absolute top-0 end-0 m-2">
-                                  Inactivo
-                                </span>
-                              )}
-                              {/* Badge de suscripción */}
-                              {level.suscrito ? (
-                                <span className="badge bg-primary position-absolute bottom-0 start-0 m-2">
-                                  <i className="bi bi-check-circle"></i> Suscrito
-                                </span>
-                              ) : (
-                                <span className="badge bg-outline-light position-absolute bottom-0 start-0 m-2">
-                                  <i className="bi bi-plus-circle"></i> Suscribirse
-                                </span>
-                              )}
                             </div>
                           </div>
                         </div>
