@@ -116,14 +116,15 @@ const Certificates = () => {
     </div>
   );
 
-  // Divide en grupos de 4
+  // Divide en grupos de 4 para desktop, 1 para móvil
   const slides = chunkArray(certs, 4);
 
   return (
     <div className="fondo_verde_oscuro mt-5 p-4">
       <div
         id="certCarousel"
-        className="carousel carousel-dark slide position-relative"
+        className="carousel slide"
+        data-bs-ride="false"
         data-bs-interval="false"
       >
         <div className="carousel-inner">
@@ -140,7 +141,7 @@ const Certificates = () => {
                   return (
                     <div
                       key={cert.course_id + i}
-                      className="col-12 col-sm-6 col-md-4 col-lg-3"
+                      className="col-12 col-sm-6 col-md-6 col-lg-3"
                     >
                       <div className="card bg-dark text-white h-100">
                         <div className="card-body d-flex flex-column">
@@ -155,7 +156,7 @@ const Certificates = () => {
                             <strong>Date:</strong> {fecha}
                           </p>
                           <p className="card-text mb-3">
-                            <strong>Grade:</strong> {cert.grade}
+                            <strong>Grade:</strong> {cert.grade}%
                           </p>
                           <div className="mt-auto text-center">
                             {cert.status === 'downloadable' ? (
@@ -188,16 +189,20 @@ const Certificates = () => {
               type="button"
               data-bs-target="#certCarousel"
               data-bs-slide="prev"
+              aria-label="Previous"
             >
-              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <i className="bi bi-chevron-left" style={{ fontSize: '1.5rem', color: '#fff' }}></i>
+              <span className="visually-hidden">Previous</span>
             </button>
             <button
               className="carousel-control-next"
               type="button"
               data-bs-target="#certCarousel"
               data-bs-slide="next"
+              aria-label="Next"
             >
-              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <i className="bi bi-chevron-right" style={{ fontSize: '1.5rem', color: '#fff' }}></i>
+              <span className="visually-hidden">Next</span>
             </button>
           </>
         )}

@@ -307,22 +307,46 @@ $gutter: map-get($spacers, 4);
 
   .carousel-control-prev,
   .carousel-control-next {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 3rem;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(255,255,255,0.15);
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 10;
+    border: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+    }
   }
-  .carousel-control-prev { left: -1rem; }
-  .carousel-control-next { right: -1rem; }
+
+  .carousel-control-prev { 
+    left: -1.5rem; 
+  }
+  
+  .carousel-control-next { 
+    right: -1.5rem; 
+  }
+
   .carousel-control-prev-icon,
   .carousel-control-next-icon {
-    background-size: 1.25rem 1.25rem;
+    display: none; // Usamos iconos personalizados
+  }
+
+  // Asegurar que las tarjetas mantengan altura uniforme
+  .card {
+    min-height: 350px;
   }
 }
 
@@ -339,11 +363,30 @@ $gutter: map-get($spacers, 4);
   .user-email { font-size: 0.8rem; }
   .course-list-column { padding: 0 map-get($spacers,3); }
   .card-img { height: 180px; }
+  
+  // Responsive para carrusel de Downloads
   #sepCarousel {
     .carousel-inner { overflow-x: auto; justify-content: center; }
     .carousel-item { flex: 0 0 90% !important; }
     .carousel-control-prev,
     .carousel-control-next { display: none; }
+  }
+
+  // Responsive para carrusel de Certificates
+  #certCarousel {
+    .carousel-control-prev,
+    .carousel-control-next {
+      left: 0.5rem;
+      right: 0.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    .carousel-control-prev { left: 0.5rem; }
+    .carousel-control-next { right: 0.5rem; }
+    
+    .card {
+      min-height: 300px;
+    }
   }
 }
 
@@ -352,4 +395,17 @@ $gutter: map-get($spacers, 4);
   .dashboard-logo { width: 100px; }
   .user-info-content { padding: 0.5rem 1rem; max-width: 220px; }
   .course-list-column { padding: 0 map-get($spacers,2); }
+
+  // En móviles muy pequeños, forzar una columna
+  #certCarousel {
+    .row > div {
+      flex: 0 0 100% !important;
+      max-width: 100% !important;
+    }
+    
+    .card {
+      min-height: 280px;
+      margin-bottom: 1rem;
+    }
+  }
 }
