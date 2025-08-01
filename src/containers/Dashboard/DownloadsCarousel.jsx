@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './index.scss';
 
 const DownloadsCarousel = () => {
   const [levels, setLevels] = useState([]);
@@ -134,9 +135,6 @@ const DownloadsCarousel = () => {
 
   const uniqueLevels = getUniqueLevels();
   const displayLevels = getCurrentLevelData();
-  
-  // Dividir en grupos de 4 tarjetas por slide
-  const carouselSlides = chunkArray(displayLevels, 4);
 
   return (
     <div className="fondo_verde_oscuro mt-5">
@@ -202,25 +200,24 @@ const DownloadsCarousel = () => {
                               style={{ objectFit: 'cover', height: '400px' }}
                             />
                             <div className="card-img-overlay d-flex flex-column justify-content-between">
-                              <div className="d-flex justify-content-center align-items-center flex-grow-1">
+                              <div 
+                                className="d-flex justify-content-center align-items-center flex-grow-1"
+                                onClick={() => openLevel(level.slug, level.id)}
+                              >
                                 <i 
                                   className="bi bi-play-circle icon_video" 
                                   style={{ fontSize: '4rem', cursor: 'pointer' }}
-                                  onClick={() => openLevel(level.slug, level.id)}
                                 ></i>
                               </div>
-                              <div>
+                              <div className="card-footer-custom">
                                 <h5 className="card-title text-start fw-bold text-white montserrat">
-                                  {level.tipo.nombre}: {level.nombre}
+                                  Level: {level.nombre}
                                 </h5>
                                 <p className="card-text text-start mb-0 montserrat">
-                                  {level.nivel.nombre}
+                                  {level.nivel?.nombre || 'Nivel no especificado'}
                                 </p>
                                 <p className="card-text text-start montserrat">
-                                  {level.raiz.nombre}
-                                </p>
-                                <p className="card-text text-start montserrat">
-                                  LEVEL {level.nombre.toUpperCase()}
+                                  {level.raiz?.nombre || 'Raíz no especificada'}
                                 </p>
                               </div>
                               {/* Badge de estado */}
