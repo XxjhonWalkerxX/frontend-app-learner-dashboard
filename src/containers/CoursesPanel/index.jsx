@@ -41,7 +41,7 @@ export const CoursesPanel = () => {
         <h2 
           className="course-list-title"
           style={{
-            color: '#2a5934',
+            color: '#5a122c',
             textShadow: '0 2px 4px rgba(255, 255, 255, 0.8)',
             margin: '0',
             fontSize: '2rem',

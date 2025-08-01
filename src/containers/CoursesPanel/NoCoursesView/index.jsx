@@ -39,7 +39,7 @@ export const NoCoursesView = () => {
       />
       <h1
         style={{
-          color: '#2a5934',
+          color: '#5a122c',
           textShadow: '0 2px 4px rgba(255, 255, 255, 0.8)',
           textAlign: 'center',
           marginBottom: '1.5rem',
@@ -51,7 +51,7 @@ export const NoCoursesView = () => {
       </h1>
       <p
         style={{
-          color: '#4a7c59',
+          color: '#8b1538',
           textAlign: 'center',
           fontSize: '1.2rem',
           marginBottom: '2rem',
@@ -67,26 +67,26 @@ export const NoCoursesView = () => {
         href={baseAppUrl(courseSearchUrl)}
         iconBefore={Search}
         style={{
-          background: 'linear-gradient(135deg, rgba(177, 122, 42, 0.9), rgba(177, 122, 42, 1))',
-          border: '1px solid rgba(177, 122, 42, 1)',
+          background: 'linear-gradient(135deg, rgba(90, 18, 44, 0.9), rgba(90, 18, 44, 1))',
+          border: '1px solid rgba(90, 18, 44, 1)',
           color: 'white',
           borderRadius: '16px',
           padding: '1rem 2rem',
           fontSize: '1.1rem',
           fontWeight: '600',
           backdropFilter: 'blur(10px)',
-          boxShadow: '0 4px 15px rgba(177, 122, 42, 0.4)',
+          boxShadow: '0 4px 15px rgba(90, 18, 44, 0.4)',
           textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
           transition: 'all 0.3s ease',
           textDecoration: 'none'
         }}
         onMouseEnter={(e) => {
           e.target.style.transform = 'translateY(-3px) scale(1.05)';
-          e.target.style.boxShadow = '0 8px 25px rgba(177, 122, 42, 0.6)';
+          e.target.style.boxShadow = '0 8px 25px rgba(90, 18, 44, 0.6)';
         }}
         onMouseLeave={(e) => {
           e.target.style.transform = 'translateY(0) scale(1)';
-          e.target.style.boxShadow = '0 4px 15px rgba(177, 122, 42, 0.4)';
+          e.target.style.boxShadow = '0 4px 15px rgba(90, 18, 44, 0.4)';
         }}
       >
         {formatMessage(messages.exploreCoursesButton)}

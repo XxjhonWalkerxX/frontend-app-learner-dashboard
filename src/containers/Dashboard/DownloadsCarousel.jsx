@@ -154,7 +154,7 @@ const DownloadsCarousel = () => {
               htmlFor="levelSelector" 
               className="form-label fw-bold mb-2"
               style={{ 
-                color: '#2a5934',
+                color: '#5a122c',
                 textShadow: '0 2px 4px rgba(255, 255, 255, 0.8)',
                 fontSize: '1.1rem'
               }}
@@ -172,7 +172,7 @@ const DownloadsCarousel = () => {
                 backdropFilter: 'blur(15px)',
                 border: '2px solid rgba(177, 122, 42, 0.6)',
                 borderRadius: '12px',
-                color: '#2a5934',
+                color: '#5a122c',
                 padding: '0.75rem 1rem',
                 fontSize: '1rem',
                 fontWeight: '600',
@@ -195,7 +195,7 @@ const DownloadsCarousel = () => {
                   key={level.slug} 
                   value={level.slug}
                   style={{
-                    backgroundColor: '#2a5934',
+                    backgroundColor: '#5a122c',
                     color: 'white'
                   }}
                 >
@@ -333,14 +333,14 @@ const DownloadsCarousel = () => {
                                 className="card-body p-3"
                                 style={{
                                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%)',
-                                  color: '#2a5934'
+                                  color: '#5a122c'
                                 }}
                               >
                                 <h5 
                                   className="card-title fw-bold mb-2" 
                                   style={{ 
                                     fontSize: '1.1rem', 
-                                    color: '#2a5934'
+                                    color: '#5a122c'
                                   }}
                                 >
                                   Level: {level.nombre}
@@ -348,7 +348,7 @@ const DownloadsCarousel = () => {
                                 <p 
                                   className="card-text mb-1 small"
                                   style={{ 
-                                    color: '#4a7c59',
+                                    color: '#8b1538',
                                     fontSize: '0.85rem'
                                   }}
                                 >
@@ -357,7 +357,7 @@ const DownloadsCarousel = () => {
                                 <p 
                                   className="card-text mb-0 small"
                                   style={{ 
-                                    color: '#4a7c59',
+                                    color: '#8b1538',
                                     fontSize: '0.85rem'
                                   }}
                                 >
