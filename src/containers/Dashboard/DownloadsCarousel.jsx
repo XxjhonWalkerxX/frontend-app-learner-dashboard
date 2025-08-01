@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './index.scss';
 
 const DownloadsCarousel = () => {
   const [levels, setLevels] = useState([]);
