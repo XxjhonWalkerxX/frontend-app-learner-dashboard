@@ -6,46 +6,38 @@
   margin: 0 auto 2rem;
 
   .card {
-    /* Hacemos que la tarjeta ocupe todo el alto disponible */
     display: flex;
     flex-direction: column;
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Hover effect */
     &:hover {
       transform: translateY(-8px) scale(1.02);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       background: rgba(255, 255, 255, 0.15);
     }
 
-    /* Contenedor principal: imagen, body y banners */
     > .d-flex {
       display: flex;
       flex-direction: column;
-      flex: 1 1 auto;      /* ocupa todo el espacio interior */
-      min-height: 0;       /* para que el body pueda encogerse */
+      flex: 1 1 auto;
+      min-height: 0;
 
-      /* 1) Imagen con altura fija */
       .pgn__card-wrapper-image-cap.vertical {
         flex: 0 0 200px;
         height: 200px;
         position: relative;
         overflow: hidden;
         
-        /* Overlay glassmorphism en la imagen */
         &::after {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
+          inset: 0;
           background: linear-gradient(135deg, rgba(90, 18, 44, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(90, 18, 44, 0.05) 100%);
           z-index: 1;
         }
@@ -57,7 +49,6 @@
         }
       }
 
-      /* 2) Body: flex columna para empujar el footer */
       .pgn__card-body {
         display: flex;
         flex-direction: column;
@@ -66,32 +57,29 @@
         padding: 1.5rem 1.2rem;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 
-        /* Header */
         .pgn__card-header-content {
           margin-bottom: 0.5rem;
         }
+
         .pgn__card-header-title-md {
           min-height: 3rem;
           display: flex;
           align-items: flex-end;
           margin-bottom: 0.5rem;
           
-          h3 {
-            .course-card-title {
-              color: #5a122c !important;
-              text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
-              font-weight: 600;
-              text-decoration: none;
-              
-              &:hover {
-                color: rgba(177, 122, 42, 1) !important;
-                text-shadow: 0 2px 8px rgba(177, 122, 42, 0.5);
-              }
+          h3 .course-card-title {
+            color: #5a122c !important;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+            text-decoration: none;
+            
+            &:hover {
+              color: #b17a2a !important;
+              text-shadow: 0 2px 8px rgba(177, 122, 42, 0.5);
             }
           }
         }
 
-        /* Sección de detalles: ocupa todo el espacio medio */
         .pgn__card-section {
           flex: 1 1 auto;
           overflow: hidden;
@@ -105,7 +93,6 @@
           }
         }
 
-        /* Footer (botones): siempre justo encima de los banners */
         .pgn__card-footer.vertical {
           flex: 0 0 auto;
           display: flex;
@@ -118,7 +105,7 @@
             
             .btn {
               background: rgba(90, 18, 44, 0.9);
-              border: 1px solid rgba(90, 18, 44, 1);
+              border: 1px solid #5a122c;
               color: white;
               font-weight: 600;
               border-radius: 12px;
@@ -127,69 +114,60 @@
               text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
               
               &:hover {
-                background: rgba(90, 18, 44, 1);
+                background: #5a122c;
                 transform: translateY(-2px);
                 box-shadow: 0 4px 15px rgba(90, 18, 44, 0.4);
               }
               
               &.btn-outline-primary {
                 background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-color: rgba(255, 255, 255, 0.3);
                 color: white;
                 
                 &:hover {
                   background: rgba(255, 255, 255, 0.2);
                   border-color: rgba(255, 255, 255, 0.5);
-                  transform: translateY(-2px);
                 }
               }
             }
           }
         }
         
-        /* Menu dropdown glassmorphism */
-        .dropdown {
-          .btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 8px;
-            
-            &:hover {
-              background: rgba(255, 255, 255, 0.2);
-            }
+        .dropdown .btn {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: white;
+          border-radius: 8px;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
           }
         }
       }
 
-      /* 3) Banners (grade required) pegados al final */
-      .course-card-banners {
+      .course-card-banners > .alert {
         flex: 0 0 auto;
         margin-top: auto;
+        border-radius: 0 0 16px 16px;
+        background: rgba(90, 18, 44, 0.9);
+        border: 1px solid #5a122c;
+        color: white;
+        padding: 0.75rem 1.2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        font-weight: 500;
         
-        > .alert {
-          border-radius: 0 0 16px 16px;
-          background: rgba(90, 18, 44, 0.9);
-          border: 1px solid rgba(90, 18, 44, 1);
+        a {
           color: white;
-          padding: 0.75rem 1.2rem;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-          font-weight: 500;
+          text-decoration: underline;
+          font-weight: 600;
           
-          a {
-            color: white;
-            text-decoration: underline;
-            font-weight: 600;
-            
-            &:hover {
-              color: rgba(255, 255, 255, 0.8);
-            }
+          &:hover {
+            color: rgba(255, 255, 255, 0.8);
           }
         }
       }
 
-      /* Ribbons absolutos, si los tienes */
       .course-card-verify-ribbon-container {
         position: absolute;
         bottom: 0;
