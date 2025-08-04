@@ -7,9 +7,21 @@
     font-size: 18px;
   }
 }
+
+#course-filter-controls {
+  .pgn__modal-popup-overlay {
+    z-index: 9999 !important;
+  }
+  
+  .pgn__modal-popup {
+    z-index: 9999 !important;
+  }
+}
+
 #course-filter-controls-card {
   width: 512px;
   height: 288px;
+  z-index: 9999 !important;
   &.no-enrollments {
     height: 172px;
   }
