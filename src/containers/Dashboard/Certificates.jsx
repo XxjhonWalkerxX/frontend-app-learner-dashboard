@@ -12,7 +12,9 @@ const CertificatesComponent = () => {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await fetch(`https://emi.aprende.gob.mx/api/certificates/v0/certificates/${username}/`);
+        const response = await fetch(`https://emi.aprende.gob.mx/api/certificates/v0/certificates/${username}/`,
+          { credentials: 'include', headers: { Accept: 'application/json' } }
+        );
         if (!response.ok) {
           throw new Error('Error al obtener los certificados');
         }
