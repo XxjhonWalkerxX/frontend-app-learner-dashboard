@@ -55,6 +55,7 @@ const CertificatesComponent = () => {
         // Simular delay de API
         await new Promise(resolve => setTimeout(resolve, 1000));
         setCertificates(mockCertificates);
+
         /*
         // Código produccion
         const response = await fetch(`https://emi.aprende.gob.mx/api/certificates/v0/certificates/${username}/`,
@@ -76,9 +77,6 @@ const CertificatesComponent = () => {
     fetchCertificates();
   }, [username]);
 
-  if (loading) return <div className="loading">Cargando certificados...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-MX', {
@@ -92,6 +90,9 @@ const CertificatesComponent = () => {
     return `${Math.round(parseFloat(grade) * 100)}%`;
   };
 
+  if (loading) return <div className="loading">Cargando certificados...</div>;
+  if (error) return <div className="error">Error: {error}</div>;
+
   return (
     <div className="certificates-container">
       <h2>Mis Certificados</h2>
@@ -103,34 +104,31 @@ const CertificatesComponent = () => {
       ) : (
         <div className="certificates-list">
           {certificates.map((certificate, index) => (
-            <div key={index} className="certificate-card">
+            <div key={`${certificate.course_display_name}-${index}`} className="certificate-card">
               <div className="certificate-thumbnail">
                 <img 
                   src={certificateImage} 
                   alt="Certificado" 
                   className="certificate-image"
                 />
-                <div className="certificate-icon">
-                  <i className="fas fa-certificate"></i>
-                </div>
               </div>
               
               <div className="certificate-info">
                 <h3>{certificate.course_display_name}</h3>
                 
                 <div className="certificate-details">
-                  <div className="institution">
-                    <span>Institución: </span>
+                  <div className="detail-row">
+                    <span className="detail-label">Institución:</span>
                     <span>{certificate.course_organization}</span>
                   </div>
                   
-                  <div className="date">
-                    <span>Fecha de obtención: </span>
+                  <div className="detail-row">
+                    <span className="detail-label">Fecha de obtención:</span>
                     <span>{formatDate(certificate.created_date)}</span>
                   </div>
                   
-                  <div className="grade">
-                    <span>Calificación: </span>
+                  <div className="detail-row">
+                    <span className="detail-label">Calificación:</span>
                     <span>{formatGrade(certificate.grade)}</span>
                   </div>
                 </div>
