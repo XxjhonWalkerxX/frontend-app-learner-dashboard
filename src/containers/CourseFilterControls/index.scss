@@ -33,17 +33,27 @@
 
 // Estilos específicos para el modal popup
 .pgn__modal-popup__tooltip {
-  z-index: 10001 !important;
+  z-index: 99999 !important;
   position: relative !important;
   
   #course-filter-controls-card {
-    z-index: 10002 !important;
+    z-index: 100000 !important;
     position: relative !important;
   }
 }
 
 // También para el contenedor de popper
 [data-popper-placement] {
-  z-index: 10001 !important;
+  z-index: 99999 !important;
+}
+
+// Asegurar que el modal esté por encima de elementos glassmorphism
+[data-popper-reference-hidden="false"] {
+  z-index: 99999 !important;
+}
+
+// Específico para el tooltip del modal
+div[style*="z-index: 2000"] {
+  z-index: 99999 !important;
 }
 
