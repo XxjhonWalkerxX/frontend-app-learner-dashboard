@@ -2,7 +2,7 @@
   max-width: 75% !important;
   width: 75% !important;
   position: relative !important;
-  z-index: 99999 !important;
+  z-index: 10000 !important;
 
   .filter-form-heading {
     font-weight: bold;
@@ -13,7 +13,7 @@
   width: 512px;
   height: 288px;
   position: relative;
-  z-index: 99999;
+  z-index: 10000;
   &.no-enrollments {
     height: 172px;
   }
@@ -33,24 +33,17 @@
 
 // Estilos específicos para el modal popup
 .pgn__modal-popup__tooltip {
-  z-index: 999999 !important;
+  z-index: 10001 !important;
   position: relative !important;
   
   #course-filter-controls-card {
-    z-index: 999999 !important;
+    z-index: 10002 !important;
     position: relative !important;
   }
 }
 
 // También para el contenedor de popper
 [data-popper-placement] {
-  z-index: 999999 !important;
-  position: relative !important;
-}
-
-// Asegurar que el modal esté por encima de elementos con backdrop-filter
-[data-popper-placement] > div {
-  z-index: 999999 !important;
-  position: relative !important;
+  z-index: 10001 !important;
 }
 
