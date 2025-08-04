@@ -15,7 +15,7 @@ const DownloadsComponent = () => {
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Introducción al Inglés',
       portada: 'assets/certificado.png',
-      color: '#4CAF50',
+      color: '#5a122ce6',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
     },
@@ -24,7 +24,7 @@ const DownloadsComponent = () => {
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Gramática Fundamental',
       portada: 'assets/certificado.png',
-      color: '#4CAF50',
+      color: '#5a122ce6',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
     },
@@ -33,7 +33,7 @@ const DownloadsComponent = () => {
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Vocabulario Esencial',
       portada: 'assets/certificado.png',
-      color: '#4CAF50',
+      color: '#5a122ce6',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
     },
@@ -42,7 +42,7 @@ const DownloadsComponent = () => {
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Conversación Inicial',
       portada: 'assets/certificado.png',
-      color: '#4CAF50',
+      color: '#5a122ce6',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
     },
@@ -51,7 +51,7 @@ const DownloadsComponent = () => {
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Pronunciación Básica',
       portada: 'assets/certificado.png',
-      color: '#4CAF50',
+      color: '#5a122ce6',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
     },
