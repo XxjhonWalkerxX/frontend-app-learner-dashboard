@@ -7,167 +7,70 @@ const DownloadsComponent = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('A1');
 
-  // Ejemplos estáticos para cada nivel
   const exampleLevels = [
-    // Ejemplos A1
-    {
-      id: 'a1-1',
+    // Nivel A1
+    ...Array(5).fill().map((_, i) => ({
+      id: `a1-${i+1}`,
       nombre: 'A1',
-      nombre_completo: 'Nivel Básico A1 - Introducción al Inglés',
+      nombre_completo: `Nivel Básico A1 - ${[
+        'Introducción al Inglés', 
+        'Gramática Fundamental', 
+        'Vocabulario Esencial',
+        'Conversación Inicial',
+        'Pronunciación Básica'
+      ][i]}`,
       portada: 'assets/certificado.png',
       color: '#5a122ce6',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'a1-2',
-      nombre: 'A1',
-      nombre_completo: 'Nivel Básico A1 - Gramática Fundamental',
-      portada: 'assets/certificado.png',
-      color: '#5a122ce6',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'a1-3',
-      nombre: 'A1',
-      nombre_completo: 'Nivel Básico A1 - Vocabulario Esencial',
-      portada: 'assets/certificado.png',
-      color: '#5a122ce6',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'a1-4',
-      nombre: 'A1',
-      nombre_completo: 'Nivel Básico A1 - Conversación Inicial',
-      portada: 'assets/certificado.png',
-      color: '#5a122ce6',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'a1-5',
-      nombre: 'A1',
-      nombre_completo: 'Nivel Básico A1 - Pronunciación Básica',
-      portada: 'assets/certificado.png',
-      color: '#5a122ce6',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    // Ejemplos B1
-    {
-      id: 'b1-1',
+    })),
+    // Nivel B1
+    ...Array(5).fill().map((_, i) => ({
+      id: `b1-${i+1}`,
       nombre: 'B1',
-      nombre_completo: 'Nivel Intermedio B1 - Comunicación Efectiva',
+      nombre_completo: `Nivel Intermedio B1 - ${[
+        'Comunicación Efectiva',
+        'Gramática Avanzada',
+        'Comprensión de Lectura',
+        'Escritura Formal',
+        'Listening Comprehension'
+      ][i]}`,
       portada: 'assets/certificado.png',
       color: '#FF9800',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'b1-2',
-      nombre: 'B1',
-      nombre_completo: 'Nivel Intermedio B1 - Gramática Avanzada',
-      portada: 'assets/certificado.png',
-      color: '#FF9800',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'b1-3',
-      nombre: 'B1',
-      nombre_completo: 'Nivel Intermedio B1 - Comprensión de Lectura',
-      portada: 'assets/certificado.png',
-      color: '#FF9800',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'b1-4',
-      nombre: 'B1',
-      nombre_completo: 'Nivel Intermedio B1 - Escritura Formal',
-      portada: 'assets/certificado.png',
-      color: '#FF9800',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'b1-5',
-      nombre: 'B1',
-      nombre_completo: 'Nivel Intermedio B1 - Listening Comprehension',
-      portada: 'assets/certificado.png',
-      color: '#FF9800',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    // Ejemplos C1
-    {
-      id: 'c1-1',
+    })),
+    // Nivel C1
+    ...Array(5).fill().map((_, i) => ({
+      id: `c1-${i+1}`,
       nombre: 'C1',
-      nombre_completo: 'Nivel Avanzado C1 - Fluidez y Precisión',
+      nombre_completo: `Nivel Avanzado C1 - ${[
+        'Fluidez y Precisión',
+        'Inglés Académico',
+        'Business English',
+        'Cultura y Literatura',
+        'Preparación IELTS'
+      ][i]}`,
       portada: 'assets/certificado.png',
       color: '#9C27B0',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'c1-2',
-      nombre: 'C1',
-      nombre_completo: 'Nivel Avanzado C1 - Inglés Académico',
-      portada: 'assets/certificado.png',
-      color: '#9C27B0',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'c1-3',
-      nombre: 'C1',
-      nombre_completo: 'Nivel Avanzado C1 - Business English',
-      portada: 'assets/certificado.png',
-      color: '#9C27B0',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'c1-4',
-      nombre: 'C1',
-      nombre_completo: 'Nivel Avanzado C1 - Cultura y Literatura',
-      portada: 'assets/certificado.png',
-      color: '#9C27B0',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    },
-    {
-      id: 'c1-5',
-      nombre: 'C1',
-      nombre_completo: 'Nivel Avanzado C1 - Preparación IELTS',
-      portada: 'assets/certificado.png',
-      color: '#9C27B0',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    }
+    }))
   ];
 
   useEffect(() => {
     const fetchLevels = async () => {
       try {
         const response = await fetch('https://nemd.aprende.gob.mx/api/estructura/alineador/?format=json&nivel=bachillerato-general&raiz=emi');
-        if (!response.ok) {
-          throw new Error('Error al obtener los datos');
-        }
-        const data = await response.json();
+        if (!response.ok) throw new Error('Error al obtener los datos');
         
-        // Filtrar niveles con portada y solo A1, B1, C1
+        const data = await response.json();
         const filteredLevels = data.filter(level => 
           level.portada && ['A1', 'B1', 'C1'].includes(level.nombre)
         );
         
-        // Combinar con ejemplos estáticos
-        const combinedLevels = [...filteredLevels, ...exampleLevels];
-        setLevels(combinedLevels);
+        setLevels([...filteredLevels, ...exampleLevels]);
       } catch (err) {
-        // Si hay error, usar solo los ejemplos estáticos
         setLevels(exampleLevels);
         setError(err.message);
       } finally {
@@ -189,23 +92,20 @@ const DownloadsComponent = () => {
       <h2>Niveles EMI</h2>
       
       <div className="tabs">
-        {uniqueTabs.map(levelName => {
-          const level = levels.find(l => l.nombre === levelName);
-          return (
-            <button
-              key={levelName}
-              className={`tab-button ${activeTab === levelName ? 'active' : ''}`}
-              onClick={() => setActiveTab(levelName)}
-            >
-              {levelName}
-            </button>
-          );
-        })}
+        {uniqueTabs.map(levelName => (
+          <button
+            key={levelName}
+            className={`tab-button ${activeTab === levelName ? 'active' : ''}`}
+            onClick={() => setActiveTab(levelName)}
+          >
+            {levelName}
+          </button>
+        ))}
       </div>
       
       <div className="levels-grid">
-        {activeLevels.map((level, index) => (
-          <div key={`${level.id}-${index}`} className="level-card">
+        {activeLevels.map((level) => (
+          <div key={level.id} className="level-card">
             <div className="level-thumbnail">
               <img src={level.portada} alt={`Portada ${level.nombre}`} />
             </div>
@@ -228,7 +128,6 @@ const DownloadsComponent = () => {
               <button className="download-button">
                 Descargar Material
               </button>
-              
             </div>
           </div>
         ))}
