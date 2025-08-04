@@ -196,7 +196,6 @@ const DownloadsComponent = () => {
               key={levelName}
               className={`tab-button ${activeTab === levelName ? 'active' : ''}`}
               onClick={() => setActiveTab(levelName)}
-              style={{ borderBottomColor: level?.color }}
             >
               {levelName}
             </button>
