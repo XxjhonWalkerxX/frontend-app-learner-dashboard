@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '@edx/frontend-platform/react';
 import './CertificatesComponent.scss';
+import certificateImage from 'assets/certificado.png';
 
 const CertificatesComponent = () => {
   const { authenticatedUser } = useContext(AppContext) || {};
@@ -12,8 +13,8 @@ const CertificatesComponent = () => {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        // Datos mock para demostración - reemplazar con API real cuando esté disponible
-        const mockCertificates = [
+        // Datos mock para demostración
+        /*const mockCertificates = [
           {
             course_display_name: "Matemáticas Básicas",
             course_organization: "EMI - Educación Media Superior",
@@ -54,9 +55,8 @@ const CertificatesComponent = () => {
         // Simular delay de API
         await new Promise(resolve => setTimeout(resolve, 1000));
         setCertificates(mockCertificates);
-
+*/
         // Código original comentado para uso futuro:
-        /*
         const response = await fetch(`https://emi.aprende.gob.mx/api/certificates/v0/certificates/${username}/`,
           { credentials: 'include', headers: { Accept: 'application/json' } }
         );
@@ -65,7 +65,7 @@ const CertificatesComponent = () => {
         }
         const data = await response.json();
         setCertificates(data);
-        */
+        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -105,6 +105,11 @@ const CertificatesComponent = () => {
           {certificates.map((certificate, index) => (
             <div key={index} className="certificate-card">
               <div className="certificate-thumbnail">
+                <img 
+                  src={certificateImage} 
+                  alt="Certificado" 
+                  className="certificate-image"
+                />
                 <div className="certificate-icon">
                   <i className="fas fa-certificate"></i>
                 </div>
