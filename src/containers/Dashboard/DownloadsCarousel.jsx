@@ -14,7 +14,7 @@ const DownloadsComponent = () => {
       id: 'a1-1',
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Introducción al Inglés',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#4CAF50',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -23,7 +23,7 @@ const DownloadsComponent = () => {
       id: 'a1-2',
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Gramática Fundamental',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#4CAF50',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -32,7 +32,7 @@ const DownloadsComponent = () => {
       id: 'a1-3',
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Vocabulario Esencial',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#4CAF50',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -41,7 +41,7 @@ const DownloadsComponent = () => {
       id: 'a1-4',
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Conversación Inicial',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#4CAF50',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -50,7 +50,7 @@ const DownloadsComponent = () => {
       id: 'a1-5',
       nombre: 'A1',
       nombre_completo: 'Nivel Básico A1 - Pronunciación Básica',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#4CAF50',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -60,7 +60,7 @@ const DownloadsComponent = () => {
       id: 'b1-1',
       nombre: 'B1',
       nombre_completo: 'Nivel Intermedio B1 - Comunicación Efectiva',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#FF9800',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -69,7 +69,7 @@ const DownloadsComponent = () => {
       id: 'b1-2',
       nombre: 'B1',
       nombre_completo: 'Nivel Intermedio B1 - Gramática Avanzada',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#FF9800',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -78,7 +78,7 @@ const DownloadsComponent = () => {
       id: 'b1-3',
       nombre: 'B1',
       nombre_completo: 'Nivel Intermedio B1 - Comprensión de Lectura',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#FF9800',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -87,7 +87,7 @@ const DownloadsComponent = () => {
       id: 'b1-4',
       nombre: 'B1',
       nombre_completo: 'Nivel Intermedio B1 - Escritura Formal',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#FF9800',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -96,7 +96,7 @@ const DownloadsComponent = () => {
       id: 'b1-5',
       nombre: 'B1',
       nombre_completo: 'Nivel Intermedio B1 - Listening Comprehension',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#FF9800',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -106,7 +106,7 @@ const DownloadsComponent = () => {
       id: 'c1-1',
       nombre: 'C1',
       nombre_completo: 'Nivel Avanzado C1 - Fluidez y Precisión',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#9C27B0',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -115,7 +115,7 @@ const DownloadsComponent = () => {
       id: 'c1-2',
       nombre: 'C1',
       nombre_completo: 'Nivel Avanzado C1 - Inglés Académico',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#9C27B0',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -124,7 +124,7 @@ const DownloadsComponent = () => {
       id: 'c1-3',
       nombre: 'C1',
       nombre_completo: 'Nivel Avanzado C1 - Business English',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#9C27B0',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -133,7 +133,7 @@ const DownloadsComponent = () => {
       id: 'c1-4',
       nombre: 'C1',
       nombre_completo: 'Nivel Avanzado C1 - Cultura y Literatura',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#9C27B0',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
@@ -142,7 +142,7 @@ const DownloadsComponent = () => {
       id: 'c1-5',
       nombre: 'C1',
       nombre_completo: 'Nivel Avanzado C1 - Preparación IELTS',
-      portada: '/src/assets/certificado.png',
+      portada: 'assets/certificado.png',
       color: '#9C27B0',
       activo: true,
       raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
