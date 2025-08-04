@@ -48,10 +48,9 @@
     .certificate-info {
       flex: 1;
       padding: 20px;
-      color: #333;
       
       h3 {
-        color: #333;
+        color: #333 !important;
         margin-top: 0;
         margin-bottom: 15px;
         font-size: 20px;

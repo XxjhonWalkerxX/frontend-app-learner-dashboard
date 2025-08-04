@@ -56,7 +56,7 @@ const CertificatesComponent = () => {
         await new Promise(resolve => setTimeout(resolve, 1000));
         setCertificates(mockCertificates);
 */
-        // Código original comentado para uso futuro:
+        // Código produccion
         const response = await fetch(`https://emi.aprende.gob.mx/api/certificates/v0/certificates/${username}/`,
           { credentials: 'include', headers: { Accept: 'application/json' } }
         );
