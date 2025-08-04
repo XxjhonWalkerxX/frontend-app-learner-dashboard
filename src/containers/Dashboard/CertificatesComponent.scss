@@ -5,7 +5,7 @@
   font-family: 'Arial', sans-serif;
   
   h2 {
-    color: #333;
+    color: var(--bs-body-color, #333);
     margin-bottom: 30px;
     font-size: 24px;
   }
@@ -14,9 +14,21 @@
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #666;
-    background: #f9f9f9;
+    color: var(--bs-secondary, #666);
+    background: var(--bs-gray-100, #f9f9f9);
     border-radius: 8px;
+  }
+  
+  // Soporte para modo oscuro
+  @media (prefers-color-scheme: dark) {
+    h2 {
+      color: #fff;
+    }
+    
+    .no-certificates {
+      color: #ccc;
+      background: #2d3748;
+    }
   }
   
   .certificates-list {
@@ -26,22 +38,33 @@
   
   .certificate-card {
     display: flex;
-    color: #000;
-    background: #fff;
+    color: var(--bs-body-color, #000);
+    background: var(--bs-body-bg, #fff);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    border: 1px solid var(--bs-border-color, transparent);
     
     .certificate-thumbnail {
       width: 200px;
       position: relative;
       overflow: hidden;
+      background: var(--bs-gray-200, #e9ecef);
       
       .certificate-image {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
+      }
+      
+      .certificate-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 3rem;
+        color: var(--bs-primary, #007bff);
       }
     }
 
@@ -50,7 +73,7 @@
       padding: 20px;
       
       h3 {
-        color: #333 !important;
+        color: var(--bs-body-color, #333) !important;
         margin-top: 0;
         margin-bottom: 15px;
         font-size: 20px;
@@ -65,7 +88,11 @@
           
           span:first-child {
             font-weight: bold;
-            color: #555;
+            color: var(--bs-secondary, #555);
+          }
+          
+          span:last-child {
+            color: var(--bs-body-color, #333);
           }
         }
       }
@@ -84,6 +111,40 @@
         
         &:hover {
           background-color: #45a049;
+          color: white;
+        }
+      }
+    }
+    
+    // Modo oscuro específico para las tarjetas
+    @media (prefers-color-scheme: dark) {
+      background: #1a202c;
+      border-color: #2d3748;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      
+      .certificate-thumbnail {
+        background: #2d3748;
+        
+        .certificate-icon {
+          color: #63b3ed;
+        }
+      }
+      
+      .certificate-info {
+        h3 {
+          color: #fff !important;
+        }
+        
+        .certificate-details {
+          div {
+            span:first-child {
+              color: #a0aec0;
+            }
+            
+            span:last-child {
+              color: #e2e8f0;
+            }
+          }
         }
       }
     }
@@ -93,7 +154,7 @@
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #666;
+    color: var(--bs-secondary, #666);
   }
   
   .error {
@@ -101,6 +162,17 @@
     padding: 40px;
     font-size: 18px;
     color: #d32f2f;
+  }
+  
+  // Modo oscuro para estados de carga y error
+  @media (prefers-color-scheme: dark) {
+    .loading {
+      color: #a0aec0;
+    }
+    
+    .error {
+      color: #fc8181;
+    }
   }
 }
 
