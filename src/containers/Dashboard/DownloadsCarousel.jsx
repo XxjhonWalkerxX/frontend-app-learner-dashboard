@@ -79,9 +79,6 @@ const DownloadsComponent = () => {
               Descargar Material
             </button>
             
-            <div className="requirements">
-              <span>Requisitos para aprobar: 80%</span>
-            </div>
           </div>
         </div>
       )}
