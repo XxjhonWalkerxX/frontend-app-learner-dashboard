@@ -21,13 +21,10 @@
   
   // Soporte para modo oscuro
   @media (prefers-color-scheme: dark) {
-    h2 {
-      color: #fff;
-    }
     
     .no-certificates {
       color: #ccc;
-      background: #2d3748;
+      background: #5a122ce6;
     }
   }
   
@@ -119,11 +116,11 @@
     // Modo oscuro específico para las tarjetas
     @media (prefers-color-scheme: dark) {
       background: #1a202c;
-      border-color: #2d3748;
+      border-color: #5a122ce6;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       
       .certificate-thumbnail {
-        background: #2d3748;
+        background: #5a122ce6;
         
         .certificate-icon {
           color: #63b3ed;
@@ -132,7 +129,7 @@
       
       .certificate-info {
         h3 {
-          color: #fff !important;
+          color: #000 !important;
         }
         
         .certificate-details {
