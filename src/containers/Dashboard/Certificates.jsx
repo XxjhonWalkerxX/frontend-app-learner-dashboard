@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { AppContext } from '@edx/frontend-platform/react';
 import './CertificatesComponent.scss';
 
-const CertificatesComponent = ({ username }) => {
+const CertificatesComponent = () => {
+  const { authenticatedUser } = useContext(AppContext) || {};
+  const username = authenticatedUser?.username;
   const [certificates, setCertificates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
