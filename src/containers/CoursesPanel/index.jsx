@@ -60,7 +60,7 @@ export const CoursesPanel = () => {
             padding: '1rem'
           }}
         >
-          <CourseFilterControls {...courseListData.filterOptions} />
+          {/*<CourseFilterControls {...courseListData.filterOptions} />*/}
         </div>
       </div>
       {hasCourses ? <CourseListSlot courseListData={courseListData} /> : <NoCoursesViewSlot />}
