@@ -117,8 +117,8 @@
       }
       
       .download-button {
-        background-color: #4CAF50;
-        color: white;
+        background-color: #fff;
+        color: #000;
         border: none;
         padding: 10px 20px;
         border-radius: 4px;
@@ -140,7 +140,7 @@
     
     // Modo oscuro para las tarjetas
     @media (prefers-color-scheme: dark) {
-      background: #1a202c;
+      background: #5a122ce6;
       border-color: #2d3748;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       
