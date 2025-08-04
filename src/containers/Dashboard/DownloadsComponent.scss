@@ -60,6 +60,13 @@
     }
   }
   
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
   .level-card {
     display: flex;
     background: var(--bs-body-bg, #fff);
@@ -200,6 +207,11 @@
 
 @media (max-width: 768px) {
   .downloads-container {
+    .levels-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
     .level-card {
       flex-direction: column;
       
