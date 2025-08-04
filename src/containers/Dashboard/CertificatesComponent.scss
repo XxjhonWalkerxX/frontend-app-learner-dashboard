@@ -1,0 +1,117 @@
+.certificates-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  
+  h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  
+  .no-certificates {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .certificates-list {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .certificate-card {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    
+    .certificate-thumbnail {
+      width: 200px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .certificate-icon {
+        color: #4CAF50;
+        font-size: 80px;
+      }
+    }
+    
+    .certificate-info {
+      flex: 1;
+      padding: 20px;
+      
+      h3 {
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 20px;
+      }
+      
+      .certificate-details {
+        margin-bottom: 20px;
+        
+        div {
+          margin-bottom: 8px;
+          font-size: 14px;
+          
+          span:first-child {
+            font-weight: bold;
+            color: #555;
+          }
+        }
+      }
+      
+      .download-button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .error {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #d32f2f;
+  }
+}
+
+@media (max-width: 768px) {
+  .certificates-container {
+    .certificate-card {
+      flex-direction: column;
+      
+      .certificate-thumbnail {
+        width: 100%;
+        padding: 20px 0;
+      }
+    }
+  }
+}
