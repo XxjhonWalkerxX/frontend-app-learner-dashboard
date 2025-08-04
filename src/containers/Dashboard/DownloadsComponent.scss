@@ -5,34 +5,41 @@
   font-family: 'Arial', sans-serif;
   
   h2 {
-    color: var(--bs-body-color, #333);
+    color: #5a122c;
     margin-bottom: 30px;
-    font-size: 24px;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+    text-align: center;
   }
   
   .tabs {
     display: flex;
     margin-bottom: 20px;
-    border-bottom: 1px solid var(--bs-border-color, #ddd);
+    border-bottom: 2px solid #8b1538;
     
     .tab-button {
-      padding: 10px 20px;
+      padding: 12px 24px;
       background: none;
       border: none;
       border-bottom: 3px solid transparent;
       font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
       margin-right: 10px;
-      color: var(--bs-body-color, #333);
+      color: #5a122c;
       
       &:hover {
-        color: var(--bs-primary, #555);
+        color: #8b1538;
+        background: rgba(90, 18, 44, 0.1);
       }
       
       &.active {
         font-weight: bold;
-        color: var(--bs-primary, #333);
+        color: #5a122c;
+        border-bottom-color: #5a122c;
+        background: rgba(90, 18, 44, 0.05);
       }
     }
   }
@@ -40,21 +47,25 @@
   // Modo oscuro
   @media (prefers-color-scheme: dark) {
     h2 {
-      color: #fff;
+      color: #d946ef;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
     }
     
     .tabs {
-      border-bottom-color: #4a5568;
+      border-bottom-color: #f472b6;
       
       .tab-button {
-        color: #a0aec0;
+        color: #d946ef;
         
         &:hover {
-          color: #63b3ed;
+          color: #f472b6;
+          background: rgba(217, 70, 239, 0.1);
         }
         
         &.active {
-          color: #63b3ed;
+          color: #d946ef;
+          border-bottom-color: #d946ef;
+          background: rgba(217, 70, 239, 0.1);
         }
       }
     }
@@ -62,12 +73,19 @@
   
   .level-card {
     display: flex;
-    background: var(--bs-body-bg, #fff);
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-bottom: 20px;
-    border: 1px solid var(--bs-border-color, transparent);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
     
     .level-thumbnail {
       width: 300px;
@@ -89,13 +107,15 @@
     
     .level-info {
       flex: 1;
-      padding: 20px;
+      padding: 1.5rem;
       
       h3 {
-        color: var(--bs-body-color, #333);
+        color: #5a122c;
         margin-top: 0;
         margin-bottom: 15px;
-        font-size: 20px;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
       }
       
       .level-details {
@@ -107,66 +127,80 @@
           
           span:first-child {
             font-weight: bold;
-            color: var(--bs-secondary, #555);
+            color: #8b1538;
           }
           
           span:last-child {
-            color: var(--bs-body-color, #333);
+            color: #5a122c;
+            font-weight: 500;
           }
         }
       }
       
       .download-button {
-        background-color: #4CAF50;
+        background: linear-gradient(135deg, #5a122c, #8b1538);
         color: white;
         border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
+        padding: 12px 24px;
+        border-radius: 12px;
         cursor: pointer;
         font-size: 16px;
-        transition: background-color 0.3s;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(90, 18, 44, 0.3);
         
         &:hover {
-          background-color: #45a049;
+          background: linear-gradient(135deg, #4a0f23, #5a122c);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(90, 18, 44, 0.4);
         }
       }
       
       .requirements {
         margin-top: 15px;
         font-size: 14px;
-        color: var(--bs-secondary, #666);
+        color: #8b1538;
+        font-weight: 500;
       }
     }
     
     // Modo oscuro para las tarjetas
     @media (prefers-color-scheme: dark) {
-      background: #1a202c;
-      border-color: #2d3748;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      background: rgba(26, 32, 44, 0.9);
+      border: 1px solid rgba(217, 70, 239, 0.3);
       
       .level-thumbnail {
-        background: #2d3748;
+        background: rgba(45, 55, 72, 0.8);
       }
       
       .level-info {
         h3 {
-          color: #fff;
+          color: #d946ef;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
         
         .level-details {
           div {
             span:first-child {
-              color: #a0aec0;
+              color: #f472b6;
             }
             
             span:last-child {
-              color: #e2e8f0;
+              color: #fbbf24;
             }
           }
         }
         
+        .download-button {
+          background: linear-gradient(135deg, #d946ef, #f472b6);
+          
+          &:hover {
+            background: linear-gradient(135deg, #c026d3, #d946ef);
+          }
+        }
+        
         .requirements {
-          color: #a0aec0;
+          color: #f472b6;
         }
       }
     }
@@ -176,20 +210,22 @@
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: var(--bs-secondary, #666);
+    color: #8b1538;
+    font-weight: 500;
   }
   
   .error {
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #d32f2f;
+    color: #dc3545;
+    font-weight: 500;
   }
   
   // Modo oscuro para estados
   @media (prefers-color-scheme: dark) {
     .loading {
-      color: #a0aec0;
+      color: #f472b6;
     }
     
     .error {
