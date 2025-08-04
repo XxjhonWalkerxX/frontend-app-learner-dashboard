@@ -5,37 +5,29 @@
   font-family: 'Arial', sans-serif;
   
   h2 {
-    color: #5a122c;
+    color: var(--bs-body-color, #333);
     margin-bottom: 30px;
-    font-size: 2rem;
-    font-weight: 700;
-    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
-    text-align: center;
+    font-size: 24px;
   }
   
   .no-certificates {
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #8b1538;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    color: var(--bs-secondary, #666);
+    background: var(--bs-gray-100, #f9f9f9);
+    border-radius: 8px;
   }
   
   // Soporte para modo oscuro
   @media (prefers-color-scheme: dark) {
     h2 {
-      color: #d946ef;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      color: #fff;
     }
     
     .no-certificates {
-      color: #f472b6;
-      background: rgba(217, 70, 239, 0.1);
-      border-color: rgba(217, 70, 239, 0.3);
+      color: #ccc;
+      background: #2d3748;
     }
   }
   
@@ -81,12 +73,10 @@
       padding: 20px;
       
       h3 {
-        color: #5a122c !important;
+        color: var(--bs-body-color, #333) !important;
         margin-top: 0;
         margin-bottom: 15px;
         font-size: 20px;
-        font-weight: 600;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
       }
       
       .certificate-details {
@@ -98,77 +88,62 @@
           
           span:first-child {
             font-weight: bold;
-            color: #8b1538;
+            color: var(--bs-secondary, #555);
           }
           
           span:last-child {
-            color: #5a122c;
-            font-weight: 500;
+            color: var(--bs-body-color, #333);
           }
         }
       }
       
       .download-button {
         display: inline-block;
-        background: linear-gradient(135deg, #5a122c, #8b1538);
+        background-color: #4CAF50;
         color: white;
         border: none;
-        padding: 12px 24px;
-        border-radius: 12px;
+        padding: 10px 20px;
+        border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
-        font-weight: 600;
         text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(90, 18, 44, 0.3);
+        transition: background-color 0.3s;
         
         &:hover {
-          background: linear-gradient(135deg, #4a0f23, #5a122c);
+          background-color: #45a049;
           color: white;
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(90, 18, 44, 0.4);
         }
       }
     }
     
     // Modo oscuro específico para las tarjetas
     @media (prefers-color-scheme: dark) {
-      background: rgba(26, 32, 44, 0.9);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(217, 70, 239, 0.3);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      background: #1a202c;
+      border-color: #2d3748;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       
       .certificate-thumbnail {
-        background: rgba(45, 55, 72, 0.8);
+        background: #2d3748;
         
         .certificate-icon {
-          color: #d946ef;
+          color: #63b3ed;
         }
       }
       
       .certificate-info {
         h3 {
-          color: #d946ef !important;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+          color: #fff !important;
         }
         
         .certificate-details {
           div {
             span:first-child {
-              color: #f472b6;
+              color: #a0aec0;
             }
             
             span:last-child {
-              color: #fbbf24;
+              color: #e2e8f0;
             }
-          }
-        }
-        
-        .download-button {
-          background: linear-gradient(135deg, #d946ef, #f472b6);
-          
-          &:hover {
-            background: linear-gradient(135deg, #c026d3, #d946ef);
           }
         }
       }
@@ -179,22 +154,20 @@
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #8b1538;
-    font-weight: 500;
+    color: var(--bs-secondary, #666);
   }
   
   .error {
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #dc3545;
-    font-weight: 500;
+    color: #d32f2f;
   }
   
   // Modo oscuro para estados de carga y error
   @media (prefers-color-scheme: dark) {
     .loading {
-      color: #f472b6;
+      color: #a0aec0;
     }
     
     .error {
