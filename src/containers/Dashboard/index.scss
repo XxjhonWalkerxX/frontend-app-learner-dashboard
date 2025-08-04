@@ -3,22 +3,8 @@
 // -----------------------------------
 // Variables
 // -----------------------------------
-$color-guinda: #5a122c;
-$color-guinda-claro: #8b1538;
 $color-dorado: #B17A2A;
 $gutter: map-get($spacers, 4);
-
-// -----------------------------------
-// Animaciones
-// -----------------------------------
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.spin { 
-  animation: spin 1s linear infinite; 
-}
 
 // -----------------------------------
 // Banner con glassmorphism & gradiente
@@ -168,198 +154,6 @@ $gutter: map-get($spacers, 4);
   background: #fafafa;
   border: 1px dashed #ddd;
   border-radius: 8px;
-}
-
-// -----------------------------------
-// Downloads Carousel Styles
-// -----------------------------------
-
-// Selector de nivel
-.select_nivel {
-  background-color: rgba(255,255,255,0.1);
-  border: 2px solid $color-dorado;
-  color: white;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  
-  option {
-    background-color: $color-guinda;
-    color: white;
-  }
-  
-  &:focus {
-    box-shadow: 0 0 0 0.2rem rgba($color-dorado, 0.25);
-    border-color: $color-dorado;
-    background-color: rgba(255,255,255,0.15);
-  }
-}
-
-.mlef {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-// Wrapper del carrusel personalizado
-.carousel-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 4rem;
-}
-
-.carousel-container-custom {
-  border-radius: 15px;
-  overflow: hidden;
-}
-
-.carousel-slides-wrapper {
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.carousel-slide-custom {
-  min-width: 100%;
-}
-
-// Estilos para las tarjetas de downloads
-.downloads-card {
-  transition: all 0.3s ease;
-  border: none;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  }
-  
-  .card-img-top {
-    transition: transform 0.3s ease;
-  }
-  
-  &:hover .card-img-top {
-    transform: scale(1.05);
-  }
-  
-  .card-body {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  }
-  
-  .card-title {
-    color: #2c3e50 !important;
-    font-weight: 700;
-  }
-}
-
-// Controles del carrusel personalizado
-.carousel-control-custom {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,0,0,0.3);
-  border: none;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 3;
-  
-  &:hover {
-    background-color: rgba(0,0,0,0.6);
-    transform: translateY(-50%) scale(1.1);
-  }
-  
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    
-    &:hover {
-      background-color: rgba(0,0,0,0.3);
-      transform: translateY(-50%);
-    }
-  }
-}
-
-.carousel-control-prev-custom {
-  left: 0;
-}
-
-.carousel-control-next-custom {
-  right: 0;
-}
-
-// -----------------------------------
-// Fondo guinda y estilos generales
-// -----------------------------------
-.fondo_verde_oscuro {
-  background: linear-gradient(135deg, 
-    rgba(90, 18, 44, 0.95) 0%, 
-    rgba(139, 21, 56, 0.9) 50%, 
-    rgba(90, 18, 44, 0.95) 100%
-  );
-  padding: 2rem 1rem;
-  min-height: 70vh;
-}
-
-// -----------------------------------
-// Responsive
-// -----------------------------------
-@include media-breakpoint-down(md) {
-  .dashboard-banner-bg { aspect-ratio: auto; height: 300px; }
-  .dashboard-logo { width: 120px; top: 1rem; }
-  .user-info-banner { bottom: 1rem; left: 1rem; }
-  .user-avatar { width: 56px; height: 56px; }
-  .user-name { font-size: 1rem; }
-  .user-email { font-size: 0.8rem; }
-  .course-list-column { padding: 0 map-get($spacers,3); }
-  
-  // Downloads Carousel responsive
-  .carousel-wrapper {
-    padding: 0 3rem;
-  }
-  
-  .downloads-card {
-    .card-img-top {
-      height: 160px;
-    }
-    
-    .card-title {
-      font-size: 1rem;
-    }
-  }
-  
-  .carousel-control-custom {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .mlef {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-}
-
-@include media-breakpoint-down(sm) {
-  .dashboard-banner-bg { height: 200px; }
-  .dashboard-logo { width: 100px; }
-  .course-list-column { padding: 0 map-get($spacers,2); }
-  
-  .carousel-wrapper {
-    padding: 0 2rem;
-  }
-  
-  .downloads-card {
-    .card-img-top {
-      height: 140px;
-    }
-  }
-  
-  .carousel-control-custom {
-    width: 40px;
-    height: 40px;
-  }
 }
 
 // -----------------------------------
@@ -523,12 +317,6 @@ $gutter: map-get($spacers, 4);
     align-items: center;
     gap: 0.8rem;
     
-    .detail-icon {
-      font-size: 1.2rem;
-      opacity: 0.8;
-      min-width: 1.5rem;
-    }
-    
     .detail-text {
       font-size: 0.95rem;
       line-height: 1.4;
@@ -559,13 +347,8 @@ $gutter: map-get($spacers, 4);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     }
     
-    .btn-icon {
-      font-size: 1.2rem;
+    .btn-text {
       transition: transform 0.3s ease;
-    }
-    
-    &:hover .btn-icon {
-      transform: translateY(2px);
     }
   }
   
@@ -664,25 +447,18 @@ $gutter: map-get($spacers, 4);
   }
 }
 
-// Responsive para certificados
-@include media-breakpoint-down(lg) {
-  .certificates-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .carousel-control {
-    &-prev {
-      left: -2rem;
-    }
-    
-    &-next {
-      right: -2rem;
-    }
-  }
-}
-
+// -----------------------------------
+// Responsive
+// -----------------------------------
 @include media-breakpoint-down(md) {
+  .dashboard-banner-bg { aspect-ratio: auto; height: 300px; }
+  .dashboard-logo { width: 120px; top: 1rem; }
+  .user-info-banner { bottom: 1rem; left: 1rem; }
+  .user-avatar { width: 56px; height: 56px; }
+  .user-name { font-size: 1rem; }
+  .user-email { font-size: 0.8rem; }
+  .course-list-column { padding: 0 map-get($spacers,3); }
+  
   .certificates-container {
     padding: 1rem;
     margin: 0.5rem;
@@ -717,6 +493,10 @@ $gutter: map-get($spacers, 4);
 }
 
 @include media-breakpoint-down(sm) {
+  .dashboard-banner-bg { height: 200px; }
+  .dashboard-logo { width: 100px; }
+  .course-list-column { padding: 0 map-get($spacers,2); }
+  
   .certificates-container {
     padding: 0.5rem;
     margin: 0;
