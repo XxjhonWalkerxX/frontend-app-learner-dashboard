@@ -14,7 +14,7 @@ const CertificatesComponent = () => {
     const fetchCertificates = async () => {
       try {
         // Datos mock para demostración
-        /*const mockCertificates = [
+        const mockCertificates = [
           {
             course_display_name: "Matemáticas Básicas",
             course_organization: "EMI - Educación Media Superior",
@@ -55,7 +55,7 @@ const CertificatesComponent = () => {
         // Simular delay de API
         await new Promise(resolve => setTimeout(resolve, 1000));
         setCertificates(mockCertificates);
-*/
+        /*
         // Código produccion
         const response = await fetch(`https://emi.aprende.gob.mx/api/certificates/v0/certificates/${username}/`,
           { credentials: 'include', headers: { Accept: 'application/json' } }
@@ -65,7 +65,7 @@ const CertificatesComponent = () => {
         }
         const data = await response.json();
         setCertificates(data);
-        
+        */
       } catch (err) {
         setError(err.message);
       } finally {
