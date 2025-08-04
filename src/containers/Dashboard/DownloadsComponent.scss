@@ -5,7 +5,7 @@
   font-family: 'Arial', sans-serif;
   
   h2 {
-    color: #333;
+    color: var(--bs-body-color, #333);
     margin-bottom: 30px;
     font-size: 24px;
   }
@@ -13,7 +13,7 @@
   .tabs {
     display: flex;
     margin-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--bs-border-color, #ddd);
     
     .tab-button {
       padding: 10px 20px;
@@ -24,30 +24,56 @@
       cursor: pointer;
       transition: all 0.3s ease;
       margin-right: 10px;
+      color: var(--bs-body-color, #333);
       
       &:hover {
-        color: #555;
+        color: var(--bs-primary, #555);
       }
       
       &.active {
         font-weight: bold;
-        color: #333;
+        color: var(--bs-primary, #333);
+      }
+    }
+  }
+  
+  // Modo oscuro
+  @media (prefers-color-scheme: dark) {
+    h2 {
+      color: #fff;
+    }
+    
+    .tabs {
+      border-bottom-color: #4a5568;
+      
+      .tab-button {
+        color: #a0aec0;
+        
+        &:hover {
+          color: #63b3ed;
+        }
+        
+        &.active {
+          color: #63b3ed;
+        }
       }
     }
   }
   
   .level-card {
     display: flex;
-    background: #fff;
+    background: var(--bs-body-bg, #fff);
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-bottom: 20px;
+    border: 1px solid var(--bs-border-color, transparent);
     
     .level-thumbnail {
       width: 300px;
       height: 200px;
       overflow: hidden;
+      background: var(--bs-gray-200, #e9ecef);
       
       img {
         width: 100%;
@@ -66,7 +92,7 @@
       padding: 20px;
       
       h3 {
-        color: #333;
+        color: var(--bs-body-color, #333);
         margin-top: 0;
         margin-bottom: 15px;
         font-size: 20px;
@@ -81,7 +107,11 @@
           
           span:first-child {
             font-weight: bold;
-            color: #555;
+            color: var(--bs-secondary, #555);
+          }
+          
+          span:last-child {
+            color: var(--bs-body-color, #333);
           }
         }
       }
@@ -104,7 +134,40 @@
       .requirements {
         margin-top: 15px;
         font-size: 14px;
-        color: #666;
+        color: var(--bs-secondary, #666);
+      }
+    }
+    
+    // Modo oscuro para las tarjetas
+    @media (prefers-color-scheme: dark) {
+      background: #1a202c;
+      border-color: #2d3748;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      
+      .level-thumbnail {
+        background: #2d3748;
+      }
+      
+      .level-info {
+        h3 {
+          color: #fff;
+        }
+        
+        .level-details {
+          div {
+            span:first-child {
+              color: #a0aec0;
+            }
+            
+            span:last-child {
+              color: #e2e8f0;
+            }
+          }
+        }
+        
+        .requirements {
+          color: #a0aec0;
+        }
       }
     }
   }
@@ -113,7 +176,7 @@
     text-align: center;
     padding: 40px;
     font-size: 18px;
-    color: #666;
+    color: var(--bs-secondary, #666);
   }
   
   .error {
@@ -121,6 +184,17 @@
     padding: 40px;
     font-size: 18px;
     color: #d32f2f;
+  }
+  
+  // Modo oscuro para estados
+  @media (prefers-color-scheme: dark) {
+    .loading {
+      color: #a0aec0;
+    }
+    
+    .error {
+      color: #fc8181;
+    }
   }
 }
 
