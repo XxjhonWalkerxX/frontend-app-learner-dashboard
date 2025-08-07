@@ -22,7 +22,6 @@ export const DashboardLayout = ({ children }) => {
   const tabs = [
     { id: 'my-courses', label: 'My Courses' },
     { id: 'downloads',   label: 'Downloads' },
-    { id: 'projects',    label: 'Projects' },
     { id: 'certificates',label: 'Certificates' },
   ];
 
@@ -78,12 +77,6 @@ export const DashboardLayout = ({ children }) => {
           <Col {...columnConfig.courseList} className="course-list-column">
             <Certificates />
           </Col>
-        )}
-
-        {activeTab !== 'my-courses' && activeTab !== 'downloads' && activeTab !== 'certificates' && (
-          <div className="dashboard-placeholder">
-            <p>Esta sección («{tabs.find(t => t.id === activeTab).label}») estará disponible pronto.</p>
-          </div>
         )}
       </Container>
     </div>
