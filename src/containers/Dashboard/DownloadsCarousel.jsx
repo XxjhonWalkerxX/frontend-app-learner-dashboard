@@ -7,57 +7,6 @@ const DownloadsComponent = () => {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('A1');
 
-  const exampleLevels = [
-    // Nivel A1
-    ...Array(5).fill().map((_, i) => ({
-      id: `a1-${i+1}`,
-      nombre: 'A1',
-      nombre_completo: `Nivel Básico A1 - ${[
-        'Introducción al Inglés', 
-        'Gramática Fundamental', 
-        'Vocabulario Esencial',
-        'Conversación Inicial',
-        'Pronunciación Básica'
-      ][i]}`,
-      portada: 'assets/certificado.png',
-      color: '#5a122ce6',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    })),
-    // Nivel B1
-    ...Array(5).fill().map((_, i) => ({
-      id: `b1-${i+1}`,
-      nombre: 'B1',
-      nombre_completo: `Nivel Intermedio B1 - ${[
-        'Comunicación Efectiva',
-        'Gramática Avanzada',
-        'Comprensión de Lectura',
-        'Escritura Formal',
-        'Listening Comprehension'
-      ][i]}`,
-      portada: 'assets/certificado.png',
-      color: '#FF9800',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    })),
-    // Nivel C1
-    ...Array(5).fill().map((_, i) => ({
-      id: `c1-${i+1}`,
-      nombre: 'C1',
-      nombre_completo: `Nivel Avanzado C1 - ${[
-        'Fluidez y Precisión',
-        'Inglés Académico',
-        'Business English',
-        'Cultura y Literatura',
-        'Preparación IELTS'
-      ][i]}`,
-      portada: 'assets/certificado.png',
-      color: '#9C27B0',
-      activo: true,
-      raiz: { nombre_completo: 'Escuela Mexicana de Inglés » EMI' }
-    }))
-  ];
-
   useEffect(() => {
     const fetchLevels = async () => {
       try {
@@ -69,9 +18,8 @@ const DownloadsComponent = () => {
           level.portada && ['A1', 'B1', 'C1'].includes(level.nombre)
         );
         
-        setLevels([...filteredLevels, ...exampleLevels]);
+        setLevels(filteredLevels);
       } catch (err) {
-        setLevels(exampleLevels);
         setError(err.message);
       } finally {
         setLoading(false);
