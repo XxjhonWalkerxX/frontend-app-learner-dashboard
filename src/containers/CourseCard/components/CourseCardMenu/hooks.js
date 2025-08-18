@@ -4,18 +4,8 @@ import track from 'tracking';
 import { reduxHooks } from 'hooks';
 
 export const stateKeys = StrictDict({
-  isUnenrollConfirmVisible: 'isUnenrollConfirmVisible',
   isEmailSettingsVisible: 'isEmailSettingsVisible',
 });
-
-export const useUnenrollData = () => {
-  const [isVisible, setIsVisible] = useKeyedState(stateKeys.isUnenrollConfirmVisible, false);
-  return {
-    show: () => setIsVisible(true),
-    hide: () => setIsVisible(false),
-    isVisible,
-  };
-};
 
 export const useEmailSettings = () => {
   const [isVisible, setIsVisible] = useKeyedState(stateKeys.isEmailSettingsVisible, false);
@@ -37,20 +27,16 @@ export const useHandleToggleDropdown = (cardId) => {
 };
 
 export const useOptionVisibility = (cardId) => {
-  const { isEnrolled, isEmailEnabled } = reduxHooks.useCardEnrollmentData(cardId);
+  const { isEmailEnabled } = reduxHooks.useCardEnrollmentData(cardId);
   const { twitter, facebook } = reduxHooks.useCardSocialSettingsData(cardId);
-  const { isEarned } = reduxHooks.useCardCertificateData(cardId);
 
-  const shouldShowUnenrollItem = isEnrolled && !isEarned;
   const shouldShowDropdown = (
-    shouldShowUnenrollItem
-    || isEmailEnabled
+    isEmailEnabled
     || facebook.isEnabled
     || twitter.isEnabled
   );
 
   return {
-    shouldShowUnenrollItem,
     shouldShowDropdown,
   };
 };
