@@ -71,48 +71,67 @@
 }
 
 // Estilos muy específicos para sobrescribir frontend-component-header
-#root header.site-header-mobile .menu button.hamburger-menu,
-#root .site-header.site-header-mobile .menu button.hamburger-menu,
-.site-header-mobile .menu button.hamburger-menu,
-header.site-header-mobile .menu button.hamburger-menu {
+// Basados en la estructura exacta del DOM que vemos en las herramientas de desarrollador
+
+// Mover hamburguesa al lado derecho - usando clases exactas del DOM
+.site-header-mobile .menu button.menu-trigger,
+header.site-header-mobile .menu button.menu-trigger,
+.site-header-mobile .nav .menu button.menu-trigger {
   order: 2 !important;
   margin-left: auto !important;
   margin-right: 0 !important;
+  background-color: transparent !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
 }
 
-// Mover el logo/brand al inicio
-#root header.site-header-mobile .logo-holder,
-#root .site-header.site-header-mobile .logo-holder,
+// Mover el logo al inicio
 .site-header-mobile .logo-holder,
-header.site-header-mobile .logo-holder {
+header.site-header-mobile .logo-holder,
+.site-header-mobile .nav .logo-holder {
   order: 1 !important;
   margin-right: auto !important;
 }
 
-// Estilos para el menú hamburguesa expandido
-#root header.site-header-mobile .mobile-menu,
-#root .site-header.site-header-mobile .mobile-menu,
-.site-header-mobile .mobile-menu,
-header.site-header-mobile .mobile-menu {
+// Contenedor principal del header móvil 
+.site-header-mobile .nav,
+header.site-header-mobile .nav {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+// Estilos para el menú expandido (cuando se abre la hamburguesa)
+.site-header-mobile .menu-content,
+header.site-header-mobile .menu-content,
+.menu-content {
   background-color: #5a122c !important;
+  width: 100% !important;
   
-  .nav .nav-link,
-  .nav .nav-link:visited,
-  .nav .nav-link:active,
-  .nav .nav-link:focus {
+  // Links del menú
+  .nav-link,
+  .nav-link:visited,
+  .nav-link:active,
+  .nav-link:focus,
+  a {
     color: #ffffff !important;
     background-color: transparent !important;
+    padding: 0.75rem 1rem !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     text-decoration: none !important;
+    display: block !important;
+    
+    &:hover {
+      background-color: #7a1a3c !important;
+      color: #ffffff !important;
+    }
   }
   
-  .nav .nav-link:hover {
-    background-color: #7a1a3c !important;
-    color: #ffffff !important;
-  }
-  
+  // Elementos de menú secundario
   .dropdown-menu {
     background-color: #5a122c !important;
+    border: none !important;
     
     .dropdown-item,
     .dropdown-item:visited,
@@ -129,65 +148,9 @@ header.site-header-mobile .mobile-menu {
   }
 }
 
-// Usar flexbox para reordenar elementos en mobile
-#root header.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable,
-#root .site-header.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable,
-.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable,
-header.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-}
-
-// Estilos adicionales para asegurar que funcione
-.site-header-mobile {
-  .w-100 {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
-  
-  .logo-holder {
-    order: 1 !important;
-    flex: 0 0 auto !important;
-  }
-  
-  .menu {
-    order: 2 !important;
-    margin-left: auto !important;
-    
-    button.hamburger-menu {
-      background-color: transparent !important;
-      border: 1px solid #ffffff !important;
-      color: #ffffff !important;
-      
-      &:focus,
-      &:hover {
-        background-color: rgba(255, 255, 255, 0.1) !important;
-        border-color: #ffffff !important;
-      }
-    }
-  }
-}
-
-// Forzar estilos para el menú móvil abierto
-.mobile-menu {
-  background-color: #5a122c !important;
-  
-  * {
-    color: #ffffff !important;
-  }
-  
-  a, .nav-link, .dropdown-item {
-    color: #ffffff !important;
-    text-decoration: none !important;
-    
-    &:hover,
-    &:focus,
-    &:active,
-    &:visited {
-      color: #ffffff !important;
-      background-color: #7a1a3c !important;
-    }
-  }
+// Estilo para el botón de la hamburguesa cuando está abierto
+.site-header-mobile .menu button.menu-trigger[aria-expanded="true"],
+header.site-header-mobile .menu button.menu-trigger[aria-expanded="true"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: #ffffff !important;
 }
