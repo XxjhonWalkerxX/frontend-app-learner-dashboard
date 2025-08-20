@@ -21,34 +21,13 @@
 .nav-small-menu {
   > * {
     justify-content: flex-start !important;
+
     border-radius: 0 !important;
-    border-top: 1px solid #ffffff !important;
-    background-color: #5a122c !important;
-    color: #ffffff !important;
+    border-top: 1px solid #ffff !important;
 
     &::after {
       content: '\00BB';
       padding-left: 10px;
-      color: #ffffff !important;
-    }
-  }
-  
-  .dropdown-item {
-    color: #ffffff !important;
-    background-color: #5a122c !important;
-    
-    &:hover, &:focus {
-      background-color: #7a1a3c !important;
-      color: #ffffff !important;
-    }
-  }
-  
-  a {
-    color: #ffffff !important;
-    text-decoration: none !important;
-    
-    &:hover, &:focus {
-      color: #ffffff !important;
     }
   }
 }
@@ -91,143 +70,49 @@
   display: none !important;
 }
 
-// Estilos para el menú desplegable móvil
-.dropdown-menu {
-  background-color: #5a122c !important;
-  border: none !important;
-  
-  .dropdown-item {
-    color: #ffffff !important;
-    
-    &:hover, &:focus {
-      background-color: #7a1a3c !important;
-      color: #ffffff !important;
-    }
-  }
+// Estilos muy específicos para sobrescribir frontend-component-header
+#root header.site-header-mobile .menu button.hamburger-menu,
+#root .site-header.site-header-mobile .menu button.hamburger-menu,
+.site-header-mobile .menu button.hamburger-menu,
+header.site-header-mobile .menu button.hamburger-menu {
+  order: 2 !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
 }
 
-// Mover hamburguesa al lado derecho y arreglar estilos
-.navbar {
-  .navbar-nav {
-    margin-left: auto !important;
-  }
-  
-  .navbar-toggler {
-    border-color: #ffffff !important;
-    margin-left: auto !important;
-    order: 2 !important;
-    
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-    }
-  }
-  
-  .navbar-brand {
-    order: 1 !important;
-  }
+// Mover el logo/brand al inicio
+#root header.site-header-mobile .logo-holder,
+#root .site-header.site-header-mobile .logo-holder,
+.site-header-mobile .logo-holder,
+header.site-header-mobile .logo-holder {
+  order: 1 !important;
+  margin-right: auto !important;
 }
 
-// Mejorar el menú colapsado en móvil
-.navbar-collapse {
+// Estilos para el menú hamburguesa expandido
+#root header.site-header-mobile .mobile-menu,
+#root .site-header.site-header-mobile .mobile-menu,
+.site-header-mobile .mobile-menu,
+header.site-header-mobile .mobile-menu {
   background-color: #5a122c !important;
-  width: 100% !important;
-  order: 3 !important;
   
-  .nav-link {
+  .nav .nav-link,
+  .nav .nav-link:visited,
+  .nav .nav-link:active,
+  .nav .nav-link:focus {
     color: #ffffff !important;
-    padding: 0.75rem 1rem !important;
+    background-color: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    
-    &:hover, &:focus {
-      background-color: #7a1a3c !important;
-      color: #ffffff !important;
-    }
+    text-decoration: none !important;
   }
   
-  .nav-item {
-    .nav-link {
-      color: #ffffff !important;
-      
-      &:hover, &:focus {
-        color: #ffffff !important;
-        background-color: #7a1a3c !important;
-      }
-    }
-  }
-}
-
-// Arreglar los elementos del menú móvil específicamente
-.navbar-nav {
-  .nav-item {
-    .nav-link {
-      color: #ffffff !important;
-      text-decoration: none !important;
-      
-      &:hover, &:focus, &:active, &:visited {
-        color: #ffffff !important;
-        background-color: #7a1a3c !important;
-      }
-    }
-  }
-}
-
-// Estilos más específicos para el header de frontend-component-header
-.site-header .navbar,
-.site-header.site-header-desktop .navbar,
-.site-header.site-header-mobile .navbar {
-  .navbar-toggler {
-    border-color: #ffffff !important;
-    margin-left: auto !important;
-    order: 2 !important;
-    
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-    }
+  .nav .nav-link:hover {
+    background-color: #7a1a3c !important;
+    color: #ffffff !important;
   }
   
-  .navbar-brand {
-    order: 1 !important;
-  }
-  
-  .navbar-nav {
-    margin-left: auto !important;
-  }
-}
-
-// Estilos específicos para el menú colapsado del header
-.site-header .navbar-collapse,
-.site-header.site-header-desktop .navbar-collapse,
-.site-header.site-header-mobile .navbar-collapse {
-  background-color: #5a122c !important;
-  width: 100% !important;
-  order: 3 !important;
-  
-  .navbar-nav {
-    .nav-item {
-      .nav-link,
-      .nav-link:visited,
-      .nav-link:active,
-      .nav-link:focus,
-      .nav-link:hover {
-        color: #ffffff !important;
-        background-color: transparent !important;
-        padding: 0.75rem 1rem !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        text-decoration: none !important;
-      }
-      
-      .nav-link:hover,
-      .nav-link:focus {
-        background-color: #7a1a3c !important;
-        color: #ffffff !important;
-      }
-    }
-  }
-  
-  // Para elementos de menú secundario
   .dropdown-menu {
     background-color: #5a122c !important;
-    border: none !important;
     
     .dropdown-item,
     .dropdown-item:visited,
@@ -235,7 +120,8 @@
       color: #ffffff !important;
       background-color: transparent !important;
       
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         background-color: #7a1a3c !important;
         color: #ffffff !important;
       }
@@ -243,16 +129,65 @@
   }
 }
 
-// Estilos para asegurar que todos los links del menú se vean bien
-.site-header a,
-.site-header .nav-link,
-.site-header .dropdown-item {
-  color: #ffffff !important;
+// Usar flexbox para reordenar elementos en mobile
+#root header.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable,
+#root .site-header.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable,
+.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable,
+header.site-header-mobile .w-100.d-flex.justify-content-start.sr-only.sr-only-focusable {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+// Estilos adicionales para asegurar que funcione
+.site-header-mobile {
+  .w-100 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
   
-  &:hover,
-  &:focus,
-  &:active,
-  &:visited {
+  .logo-holder {
+    order: 1 !important;
+    flex: 0 0 auto !important;
+  }
+  
+  .menu {
+    order: 2 !important;
+    margin-left: auto !important;
+    
+    button.hamburger-menu {
+      background-color: transparent !important;
+      border: 1px solid #ffffff !important;
+      color: #ffffff !important;
+      
+      &:focus,
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: #ffffff !important;
+      }
+    }
+  }
+}
+
+// Forzar estilos para el menú móvil abierto
+.mobile-menu {
+  background-color: #5a122c !important;
+  
+  * {
     color: #ffffff !important;
+  }
+  
+  a, .nav-link, .dropdown-item {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited {
+      color: #ffffff !important;
+      background-color: #7a1a3c !important;
+    }
   }
 }
