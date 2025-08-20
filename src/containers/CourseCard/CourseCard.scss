@@ -29,8 +29,9 @@
       min-height: 0;
 
       .pgn__card-wrapper-image-cap.vertical {
-        flex: 0 0 200px;
-        height: 200px;
+        flex: 0 0 320px;
+        height: 320px;
+        max-height: 320px;
         position: relative;
         overflow: hidden;
         
