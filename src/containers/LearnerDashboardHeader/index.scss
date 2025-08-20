@@ -69,3 +69,92 @@
 .mr-3:has(.theme-toggle-button) {
   display: none !important;
 }
+
+// Estilos específicos para el menú móvil solamente
+// Mover hamburguesa al lado derecho
+.site-header-mobile .menu button.menu-trigger,
+header.site-header-mobile .menu button.menu-trigger {
+  order: 2 !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  background-color: transparent !important;
+  border: 1px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+// Mover el logo al inicio
+.site-header-mobile .logo-holder,
+header.site-header-mobile .logo-holder {
+  order: 1 !important;
+  margin-right: auto !important;
+}
+
+// Contenedor principal del header móvil 
+.site-header-mobile .nav,
+header.site-header-mobile .nav {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+// Estilos para el menú expandido (cuando se abre la hamburguesa) - SOLO MÓVIL
+.site-header-mobile .menu-content,
+header.site-header-mobile .menu-content {
+  background-color: #000000 !important; // Negro como pediste
+  width: 100% !important;
+  
+  // Links del menú - SOLO dentro del menu-content móvil
+  .nav-link,
+  .nav-link:visited,
+  .nav-link:active,
+  .nav-link:focus,
+  a {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    text-decoration: none !important;
+    display: block !important;
+    
+    &:hover {
+      background-color: #333333 !important; // Gris oscuro para hover
+      color: #ffffff !important;
+    }
+  }
+  
+  // Elementos de menú secundario
+  .dropdown-menu {
+    background-color: #000000 !important;
+    border: none !important;
+    
+    .dropdown-item,
+    .dropdown-item:visited,
+    .dropdown-item:active {
+      color: #ffffff !important;
+      background-color: transparent !important;
+      
+      &:hover,
+      &:focus {
+        background-color: #333333 !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+  
+  // Lista de navegación dentro del menú móvil
+  .nav-item {
+    .nav-link,
+    .nav-link:visited,
+    .nav-link:active,
+    .nav-link:focus {
+      color: #ffffff !important;
+      background-color: transparent !important;
+      
+      &:hover {
+        background-color: #333333 !important;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
