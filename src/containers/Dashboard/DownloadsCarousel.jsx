@@ -128,7 +128,7 @@ const DownloadsComponent = () => {
                     openResource(item.id, item.nombre || 'Recurso');
                   }}
                 >
-                  Acceder Recurso
+                  Acceder a recurso
                 </button>
               </div>
             </div>
