@@ -49,7 +49,7 @@ const CertificatesComponent = () => {
 
   return (
     <div className="certificates-container">
-      <h2>Mis Certificados</h2>
+      <h2>Mis certificados</h2>
       
       {certificates.length === 0 ? (
         <div className="no-certificates">
