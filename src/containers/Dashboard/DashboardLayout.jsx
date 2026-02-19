@@ -21,7 +21,7 @@ export const DashboardLayout = ({ children }) => {
 
   const tabs = [
     { id: 'my-courses', label: 'My Courses' },
-    { id: 'downloads',   label: 'Downloads' },
+    { id: 'resource',   label: 'Resources' },
     { id: 'certificates',label: 'Certificates' },
   ];
 
